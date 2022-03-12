@@ -519,22 +519,18 @@ class validacion {
     }
 
     /**
-     * PHPUNIT/AMBITO
+     * PROBADO
      * Funcion para validar la estructura de los parametros de un input basico
      *
-     * @param string $tabla Tabla - estructura modelo sistema
      * @param array $columnas Columnas a mostrar en select
      *
+     * @param string $tabla Tabla - estructura modelo sistema
+     * @return array|bool con las columnas y las tablas enviadas
      * @example
      *      $valida = $this->validacion->valida_estructura_input_base($columnas,$tabla);
      *
-     * @return array con las columnas y las tablas enviadas
-     * @throws errores tabla = vacio
-     * @throws errores tabla no existe en db
-     * @throws errores tabla no existe en modelos
-     * @throws errores columnas arreglo vacio
      */
-    public function valida_estructura_input_base(array $columnas, string $tabla):array{
+    public function valida_estructura_input_base(array $columnas, string $tabla):array|bool{
         $namespace = 'models\\';
         $tabla = str_replace($namespace,'',$tabla);
         $clase = $namespace.$tabla;
@@ -547,7 +543,7 @@ class validacion {
         if(!class_exists($clase)){
             return $this->error->error('Error modelo no existe',$clase);
         }
-        return array($columnas,$tabla);
+        return true;
     }
 
     /**

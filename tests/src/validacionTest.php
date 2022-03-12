@@ -15,6 +15,46 @@ class validacionTest extends test {
         $this->errores = new errores();
     }
 
+    public function test_valida_estructura_input_base(){
+        errores::$error = false;
+        $val = new validacion();
+        $columnas = array();
+        $tabla = '';
+        $resultado = $val->valida_estructura_input_base($columnas, $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error deben existir columnas', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $columnas = array();
+        $tabla = '';
+        $columnas[] = 'a';
+        $resultado = $val->valida_estructura_input_base($columnas, $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error la tabla no puede venir vacia', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $columnas = array();
+        $tabla = 'a';
+        $columnas[] = 'a';
+        $resultado = $val->valida_estructura_input_base($columnas, $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error modelo no existe', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $columnas = array();
+        $tabla = 'prueba';
+        $columnas[] = 'a';
+        $resultado = $val->valida_estructura_input_base($columnas, $tabla);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+
+    }
+
     public function test_valida_existencia_key(): void
     {
         errores::$error = false;
