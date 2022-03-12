@@ -839,7 +839,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * PROBADO
      * funcion que revisa si una expresion regular es valida declarada con this->patterns
      *
      * @param  string $key key definido para obtener de this->patterns
@@ -851,7 +851,7 @@ class validacion {
      * @return bool true si cumple con pattern false si no cumple
      * @uses validacion
      */
-    protected function valida_pattern(string $key, string $txt):bool{ //FIN
+    protected function valida_pattern(string $key, string $txt):bool{
         if($key === ''){
             return false;
         }

@@ -3,6 +3,7 @@ namespace tests\src;
 
 use gamboamartin\errores\errores;
 use gamboamartin\validacion\validacion;
+use tests\liberator;
 use tests\test;
 
 
@@ -45,6 +46,36 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
+
+    }
+
+    public function test_valida_pattern(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $val = new liberator($val);
+        $key = '';
+        $txt = '';
+        $resultado = $val->valida_pattern($key, $txt);
+
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $key = 'id';
+        $txt = '';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        $key = 'id';
+        $txt = '10';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
 
     }
 
