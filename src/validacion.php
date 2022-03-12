@@ -19,7 +19,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT LOCAL
+     *
      * @param array $data_boton
      * @return bool|array
      */
@@ -594,24 +594,22 @@ class validacion {
     }
 
     /**
-     * PHPUNIT/AMBITO
+     * PROBADO
      * Funcion para validar que exista o no sea vacia una llave dentro de un arreglo
      *
      * @param array $registro Registro a validar
      * @param array $keys Keys a validar
      *
+     * @return array|bool array con datos del registro
      * @example
      *      $keys = array('clase','sub_clase','producto','unidad');
-    $valida = $this->validacion->valida_existencia_keys($datos_formulario,$keys);
-    if(isset($valida['error'])){
-    return $this->errores->error('Error al validar $datos_formulario',$valida);
-    }
+     * $valida = $this->validacion->valida_existencia_keys($datos_formulario,$keys);
+     * if(isset($valida['error'])){
+     * return $this->errores->error('Error al validar $datos_formulario',$valida);
+     * }
      *
-     * @return array array con datos del registro
-     * @throws errores si no existe key en registro a validar
-     * @throws errores si valor es vacio o null en registro a validar determinado en keys
      */
-    public function valida_existencia_keys(array $registro, array $keys):array{ //DEBUG
+    public function valida_existencia_keys(array $registro, array $keys):array|bool{ //DEBUG
         foreach ($keys as $key){
             if($key === ''){
                 return $this->error->error('Error '.$key.' no puede venir vacio',$keys);
@@ -624,7 +622,7 @@ class validacion {
             }
         }
 
-        return $registro;
+        return true;
     }
 
     /**
