@@ -19,7 +19,7 @@ class validacion {
     }
 
     /**
-     *
+     * PARAMS ORDER
      * @param array $data_boton
      * @return bool|array
      */
@@ -41,7 +41,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT LOCAL
+     * PARAMS ORDER
      * @param array $data_boton
      * @return bool|array
      */
@@ -63,7 +63,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * PARAMS ORDER
      * @param string $tabla
      * @return string|array
      */
@@ -279,12 +279,12 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * PARAMS ORDER
      * @param string $tabla
      * @param string $class
      * @return bool|array
      */
-    private function valida_class(string $tabla, string $class): bool|array
+    private function valida_class(string $class, string $tabla): bool|array
     {
         $class = str_replace('models\\','',$class);
         $class = 'models\\'.$class;
@@ -797,7 +797,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * PARAMS ORDER
      * @param string $tabla
      * @return bool|array
      */
