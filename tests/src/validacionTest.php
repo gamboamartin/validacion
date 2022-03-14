@@ -2,9 +2,11 @@
 namespace tests\src;
 
 use gamboamartin\errores\errores;
+use gamboamartin\test\liberator;
+use gamboamartin\test\test;
 use gamboamartin\validacion\validacion;
-use tests\liberator;
-use tests\test;
+
+
 
 
 class validacionTest extends test {
