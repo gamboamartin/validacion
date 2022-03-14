@@ -14,6 +14,32 @@ class validacionTest extends test {
         parent::__construct($name, $data, $dataName);
         $this->errores = new errores();
     }
+    public function test_valida_data_modelo(): void{
+        errores::$error = false;
+        $val = new validacion();
+
+        $name_modelo = '';
+        $resultado = $val->valida_data_modelo($name_modelo);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error modelo vacio', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $name_modelo = 'z';
+        $resultado = $val->valida_data_modelo($name_modelo);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error modelo', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $name_modelo = 'prueba';
+        $resultado = $val->valida_data_modelo($name_modelo);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+
+    }
+
 
     public function test_valida_estructura_input_base(){
         errores::$error = false;

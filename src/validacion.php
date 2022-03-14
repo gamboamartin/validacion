@@ -371,8 +371,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT/AMBITO
-     * PRUEBAS FINALIZADAS/ERROR/PARAMETROS
+     * PROBADO
      * Funcion que valida la existencia y forma de un modelo enviando un txt con el nombre del modelo a validar
      *
      * @param string $name_modelo txt con el nombre del modelo a validar
@@ -386,7 +385,7 @@ class validacion {
      * @uses modelo_basico->asigna_registros_hijo
      * @uses modelo_basico->genera_modelo
      */
-    public function valida_data_modelo(string $name_modelo):array|string{
+    public function valida_data_modelo(string $name_modelo):array|bool{
         $name_modelo = trim($name_modelo);
         $name_modelo = str_replace('models\\','',$name_modelo);
         $class = 'models\\'.$name_modelo;
@@ -400,7 +399,7 @@ class validacion {
             return $this->error->error("Error modelo",$class);
         }
 
-        return $name_modelo;
+        return true;
 
     }
 
