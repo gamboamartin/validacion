@@ -16,6 +16,24 @@ class validacionTest extends test {
         parent::__construct($name, $data, $dataName);
         $this->errores = new errores();
     }
+
+    public function test_letra_numero_espacio(): void{
+        errores::$error = false;
+        $val = new validacion();
+
+        $txt = '';
+        $resultado = $val->letra_numero_espacio($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        $txt = 'a';
+        $resultado = $val->letra_numero_espacio($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
     public function test_valida_data_modelo(): void{
         errores::$error = false;
         $val = new validacion();
