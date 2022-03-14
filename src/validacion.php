@@ -518,7 +518,7 @@ class validacion {
     }
 
     /**
-     * PROBADO
+     * PROBADO-PARAMS ORDER
      * Funcion para validar la estructura de los parametros de un input basico
      *
      * @param array $columnas Columnas a mostrar en select
