@@ -692,7 +692,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * PROBADO
      * @return bool|array
      */
     public function valida_filtros(): bool|array

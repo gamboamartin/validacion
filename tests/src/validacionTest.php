@@ -117,6 +117,32 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_filtros(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $_POST = array();
+        $resultado = $val->valida_filtros();
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error filtros debe existir por POST', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $_POST['filtros'] = '';
+        $resultado = $val->valida_filtros();
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error filtros debe ser un array', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $_POST['filtros'] = array();
+        $resultado = $val->valida_filtros();
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+
+    }
+
     public function test_valida_pattern(): void{
         errores::$error = false;
         $val = new validacion();
