@@ -84,7 +84,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * PARAMS-ORDER
      * @param int|string|null $correo
      * @return bool
      */
@@ -328,7 +328,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * PARAMS-ORDER
      * @param string $correo
      * @return bool|array
      */
@@ -341,12 +341,12 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * PARAMS ORDER
      * @param array $registro
      * @param array $keys
      * @return bool|array
      */
-    public function valida_correos(array $registro, array $keys): bool|array
+    public function valida_correos( array $keys, array $registro): bool|array
     {
         if(count($keys) === 0){
             return $this->error->error("Error keys vacios",$keys);
@@ -834,7 +834,7 @@ class validacion {
     }
 
     /**
-     * PROBADO
+     * PROBADO-PARAMS ORDER
      * funcion que revisa si una expresion regular es valida declarada con this->patterns
      *
      * @param  string $key key definido para obtener de this->patterns
