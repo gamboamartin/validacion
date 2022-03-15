@@ -19,7 +19,7 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER
+     * PARAMS ORDER P INT
      * @param array $data_boton
      * @return bool|array
      */
@@ -41,7 +41,7 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER
+     * PARAMS ORDER P INT
      * @param array $data_boton
      * @return bool|array
      */
@@ -63,7 +63,7 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER
+     * PARAMS ORDER P INT
      * @param string $tabla
      * @return string|array
      */
@@ -93,12 +93,12 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P ORDER P INT
      * @param string $key
      * @param array $arreglo
      * @return bool
      */
-    public function existe_key_data(string $key, array $arreglo):bool{
+    public function existe_key_data(array $arreglo, string $key ):bool{
         $r = true;
         if(!isset($arreglo[$key])){
             $r = false;
@@ -107,22 +107,22 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P ORDER P INT
      * @param array $keys
      * @param array $data
      * @return bool|array
      */
-    public function fechas_in_array(array $keys, array $data): bool|array
+    public function fechas_in_array(array $data, array $keys): bool|array
     {
         foreach($keys as $key){
             if($key === ''){
                 return $this->error->error("Error key no puede venir vacio", $key);
             }
-            $valida = $this->existe_key_data($key, $data);
+            $valida = $this->existe_key_data(arreglo: $data, key: $key);
             if(!$valida){
                 return $this->error->error("Error al validar existencia de key", $key);
             }
-            $valida = $this->valida_fecha($data[$key]);
+            $valida = $this->valida_fecha(fecha: $data[$key]);
             if(errores::$error){
                 return $this->error->error("Error al validar fecha: ".'$data['.$key.']', $valida);
             }
@@ -635,7 +635,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P ORDER P INT
      * Funcion para validar LA ESTRUCTURA DE UNA FECHA
      *
      * @param string $fecha
@@ -647,7 +647,7 @@ class validacion {
      */
     public function valida_fecha(string $fecha): array
     {
-        if(! $this->valida_pattern('fecha',$fecha)){
+        if(! $this->valida_pattern(key: 'fecha',txt: $fecha)){
             return $this->error->error('Error fecha invalida', $fecha);
         }
         return array('mensaje'=>'fecha valida');
@@ -914,7 +914,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P ORDER P INT
      * Funcion que valida que un campo de status sea valido
      * @param array $registro registro a validar campos
      * @param array $keys keys del registro a validar campos
@@ -928,8 +928,8 @@ class validacion {
      * @uses producto
      * @uses ubicacion
      */
-    public function valida_statuses(array $registro, array $keys):array{
-        $valida_existencias = $this->valida_existencia_keys($registro,$keys);
+    public function valida_statuses(array $keys, array $registro):array{
+        $valida_existencias = $this->valida_existencia_keys(keys: $keys, registro: $registro);
         if(errores::$error){
             return $this->error->error('Error status invalido',$valida_existencias);
         }
