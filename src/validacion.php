@@ -147,7 +147,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     *
      * @return string[]
      */
     private function keys_documentos(): array
@@ -156,7 +156,7 @@ class validacion {
     }
 
     /**
-     * PROBADO
+     * PROBADO-PARAMS ORDER
      * Funcion para validar letra numero espacio
      *
      * @param  string $txt valor a validar
