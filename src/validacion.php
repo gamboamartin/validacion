@@ -84,12 +84,12 @@ class validacion {
     }
 
     /**
-     * PARAMS-ORDER
+     * PARAMS-ORDER P INT
      * @param int|string|null $correo
      * @return bool
      */
     private function correo(int|string|null $correo):bool{
-        return $this->valida_pattern('correo',$correo);
+        return $this->valida_pattern(key: 'correo',txt: $correo);
     }
 
     /**
@@ -328,20 +328,20 @@ class validacion {
     }
 
     /**
-     * PARAMS-ORDER
+     * PARAMS-ORDER P INT
      * @param string $correo
      * @return bool|array
      */
     public function valida_correo(string $correo): bool|array
     {
-        if(!$this->correo($correo)){
+        if(!$this->correo(correo: $correo)){
             return $this->error->error('Error el correo es invalido', $correo);
         }
         return true;
     }
 
     /**
-     * PARAMS ORDER
+     * PARAMS ORDER P INT
      * @param array $registro
      * @param array $keys
      * @return bool|array
@@ -362,7 +362,7 @@ class validacion {
                 return  $this->error->error('Error '.$key.' vacio',$registro);
             }
             $value = (string)$registro[$key];
-            $correo_valido = $this->valida_correo($value);
+            $correo_valido = $this->valida_correo(correo: $value);
             if(errores::$error){
                 return  $this->error->error('Error '.$key.' Invalido',$correo_valido);
             }
@@ -482,7 +482,7 @@ class validacion {
      * @internal  $this->valida_double_mayor_0($registro[$key]);
      */
     public function valida_double_mayores_0(array $registro, array $keys):array{
-        $valida = $this->valida_existencia_keys($registro,$keys);
+        $valida = $this->valida_existencia_keys(keys: $keys, registro: $registro,);
         if(errores::$error){
             return $this->error->error('Error al validar $registro no existe un key ',$valida);
         }
@@ -589,7 +589,7 @@ class validacion {
     }
 
     /**
-     * PROBADO
+     * PROBADO P ORDER P INT
      * Funcion para validar que exista o no sea vacia una llave dentro de un arreglo
      *
      * @param array $registro Registro a validar
@@ -604,7 +604,7 @@ class validacion {
      * }
      *
      */
-    public function valida_existencia_keys(array $registro, array $keys):array|bool{ //DEBUG
+    public function valida_existencia_keys(array $keys, array $registro):array|bool{ //DEBUG
         foreach ($keys as $key){
             if($key === ''){
                 return $this->error->error('Error '.$key.' no puede venir vacio',$keys);
@@ -834,7 +834,7 @@ class validacion {
     }
 
     /**
-     * PROBADO-PARAMS ORDER
+     * PROBADO-PARAMS ORDER P INT
      * funcion que revisa si una expresion regular es valida declarada con this->patterns
      *
      * @param  string $key key definido para obtener de this->patterns

@@ -107,7 +107,7 @@ class validacionTest extends test {
         $val = new validacion();
         $registro = array();
         $keys = array();
-        $resultado = $val->valida_existencia_keys($registro, $keys);
+        $resultado = $val->valida_existencia_keys(keys: $keys, registro: $registro);
         $this->assertIsBool( $resultado);
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
@@ -117,7 +117,7 @@ class validacionTest extends test {
         $registro = array();
         $keys = array();
         $keys[] = '';
-        $resultado = $val->valida_existencia_keys($registro, $keys);
+        $resultado = $val->valida_existencia_keys(keys: $keys, registro: $registro);
         $this->assertIsArray( $resultado);
         $this->assertStringContainsStringIgnoringCase('Error  no puede venir vacio', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
@@ -127,7 +127,7 @@ class validacionTest extends test {
         $keys = array();
         $keys[] = 'a';
         $registro['a'] = 'a';
-        $resultado = $val->valida_existencia_keys($registro, $keys);
+        $resultado = $val->valida_existencia_keys(keys: $keys, registro: $registro);
         $this->assertIsBool( $resultado);
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
