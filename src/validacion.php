@@ -131,7 +131,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P ORDER P INT
      * Funcion para validar la forma correcta de un id
      *
      * @param int|string|null $txt valor a validar
@@ -707,9 +707,7 @@ class validacion {
     }
 
     /**
-     *
-     * PHPUNIT
-     *
+     * P ORDER P INT
      * @param array $registro Registro a validar
      * @param string $key Key a validar
      *
@@ -720,7 +718,7 @@ class validacion {
      *      $id_valido = $this->valida_id($registro, $key);
      *
      */
-    public function valida_id(array $registro, string $key): array{ //FIN
+    public function valida_id(string $key, array $registro): array{
         $key = trim($key);
         if($key === ''){
             return $this->error->error('Error key no puede venir vacio '.$key,$registro);
@@ -734,7 +732,7 @@ class validacion {
         if((int)$registro[$key] <= 0){
             return $this->error->error('Error el '.$key.' debe ser mayor a 0',$registro);
         }
-        if(!$this->id($registro[$key])){
+        if(!$this->id(txt:$registro[$key])){
             return $this->error->error('Error el '.$key.' es invalido',$registro);
         }
 
@@ -742,7 +740,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     *
      * Funcion para validar la forma correcta de un id
      *
      * @param array $registro Registro a validar
@@ -770,7 +768,7 @@ class validacion {
             if(!isset($registro[$key])){
                 return  $this->error->error('Error no existe '.$key,$registro);
             }
-            $id_valido = $this->valida_id($registro, $key);
+            $id_valido = $this->valida_id(key: $key, registro: $registro);
             if(errores::$error){
                 return  $this->error->error('Error '.$key.' Invalido',$id_valido);
             }
