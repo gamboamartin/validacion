@@ -860,14 +860,14 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P ORDER P INT
      * @param array $fechas
      * @return array
      */
     public function valida_rango_fecha(array $fechas): array
     {
         $keys = array('fecha_inicial','fecha_final');
-        $valida = $this->valida_existencia_keys($fechas,$keys);
+        $valida = $this->valida_existencia_keys(keys:$keys, registro: $fechas);
         if(errores::$error) {
             return $this->error->error('Error al validar fechas',$valida);
         }
@@ -878,11 +878,11 @@ class validacion {
         if($fechas['fecha_final'] === ''){
             return $this->error->error('Error fecha final no puede venir vacia', $fechas['fecha_final']);
         }
-        $valida = $this->valida_fecha($fechas['fecha_inicial']);
+        $valida = $this->valida_fecha(fecha: $fechas['fecha_inicial']);
         if(errores::$error) {
             return $this->error->error('Error al validar fecha inicial',$valida);
         }
-        $valida = $this->valida_fecha($fechas['fecha_final']);
+        $valida = $this->valida_fecha(fecha: $fechas['fecha_final']);
         if(errores::$error) {
             return $this->error->error('Error al validar fecha final',$valida);
         }
@@ -893,7 +893,7 @@ class validacion {
     }
 
     /**
-     *
+     * P ORDER P INT
      * @param string $seccion
      * @return array
      */
