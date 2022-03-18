@@ -34,6 +34,25 @@ class validacionTest extends test {
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
+
+    public function test_valida_campo_obligatorio(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        $registro = array();
+        $campos_obligatorios = array();
+        $tabla = '';
+        $resultado = $val->valida_campo_obligatorio(campos_obligatorios: $campos_obligatorios,registro:  $registro,
+            tabla: $tabla);
+
+        $this->assertIsArray( $resultado);
+        $this->assertEmpty($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+
+
+    }
+
     public function test_valida_data_modelo(): void{
         errores::$error = false;
         $val = new validacion();

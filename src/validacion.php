@@ -247,7 +247,7 @@ class validacion {
     }
 
     /**
-     *
+     * P ORDER P INT PROBADO
      * Funcion que valida los campos obligatorios para una transaccion
      * @param array $campos_obligatorios
      * @param array $registro
