@@ -6,7 +6,8 @@
     "autoload": {
         "psr-4": {
             "gamboamartin\\validacion\\": "src/",
-            "gamboamartin\\test\\": "tests/"
+            "gamboamartin\\test\\": "tests/",
+            "config\\": "config/"
         }
     },
     "authors": [
