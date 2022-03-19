@@ -180,6 +180,45 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_id(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        $key = '';
+        $registro = array();
+        $resultado = $val->valida_id(key: $key, registro: $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error key no puede venir vacio', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'a';
+        $registro = array();
+        $resultado = $val->valida_id(key: $key, registro: $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error no existe a', $resultado['mensaje']);
+
+        errores::$error = false;
+        $key = 'a';
+        $registro = array();
+        $registro['a'] = 'z';
+        $resultado = $val->valida_id(key: $key, registro: $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error el a debe ser mayor a 0', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+
+        errores::$error = false;
+        $key = 'a';
+        $registro = array();
+        $registro['a'] = '1';
+        $resultado = $val->valida_id(key: $key, registro: $registro);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_valida_pattern(): void{
         errores::$error = false;
         $val = new validacion();

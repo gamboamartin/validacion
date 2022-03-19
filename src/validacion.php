@@ -259,7 +259,7 @@ class validacion {
     public function valida_campo_obligatorio(array $campos_obligatorios, array $registro, string $tabla):array{
         foreach($campos_obligatorios as $campo_obligatorio){
             $campo_obligatorio = trim($campo_obligatorio);
-            if(!key_exists($campo_obligatorio,$registro)){
+            if(!array_key_exists($campo_obligatorio,$registro)){
                 return $this->error->error('Error el campo '.$campo_obligatorio.' debe existir en el registro de '.$tabla,
                     array($registro,$campos_obligatorios));
 
@@ -707,18 +707,17 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
-     * @param array $registro Registro a validar
+     * P ORDER P INT PROBADO
      * @param string $key Key a validar
      *
-     * @return array array con datos del registro y mensaje de exito
+     * @param array $registro Registro a validar
+     * @return bool|array array con datos del registro y mensaje de exito
      * @example
      *      $registro['registro_id'] = 1;
      *      $key = 'registro_id';
      *      $id_valido = $this->valida_id($registro, $key);
-     *
      */
-    public function valida_id(string $key, array $registro): array{
+    public function valida_id(string $key, array $registro): bool|array{
         $key = trim($key);
         if($key === ''){
             return $this->error->error('Error key no puede venir vacio '.$key,$registro);
@@ -736,7 +735,7 @@ class validacion {
             return $this->error->error('Error el '.$key.' es invalido',$registro);
         }
 
-        return array('mensaje'=>'exito',$registro);
+        return true;
     }
 
     /**
