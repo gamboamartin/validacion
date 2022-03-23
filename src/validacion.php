@@ -19,7 +19,7 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT
+     * PARAMS ORDER P INT PROBADO
      * @param array $data_boton
      * @return bool|array
      */
@@ -156,7 +156,7 @@ class validacion {
     }
 
     /**
-     * PROBADO-PARAMS ORDER
+     * PROBADO-PARAMS ORDER P INT
      * Funcion para validar letra numero espacio
      *
      * @param  string $txt valor a validar
@@ -168,7 +168,7 @@ class validacion {
      * @return bool true si cumple con pattern false si no cumple
      */
     public function letra_numero_espacio(string $txt):bool{
-        return $this->valida_pattern('letra_numero_espacio',$txt);
+        return $this->valida_pattern(key: 'letra_numero_espacio',txt: $txt);
     }
 
     /**

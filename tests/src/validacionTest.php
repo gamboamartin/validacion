@@ -17,6 +17,58 @@ class validacionTest extends test {
         $this->errores = new errores();
     }
 
+    public function test_btn_base(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+
+        $data_boton = array();
+        $resultado = $val->btn_base($data_boton);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error $data_boton[filtro] debe existir', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $data_boton = array();
+        $data_boton['filtro'] = '';
+        $resultado = $val->btn_base($data_boton);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error $data_boton[filtro] debe ser un array', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $data_boton = array();
+        $data_boton['filtro'] = array();
+        $resultado = $val->btn_base($data_boton);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error $data_boton[id] debe existir', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $data_boton = array();
+        $data_boton['filtro'] = array();
+        $data_boton['id'] = array();
+        $resultado = $val->btn_base($data_boton);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error $data_boton[etiqueta] debe existir', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $data_boton = array();
+        $data_boton['filtro'] = array();
+        $data_boton['id'] = array();
+        $data_boton['etiqueta'] = array();
+        $resultado = $val->btn_base($data_boton);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_letra_numero_espacio(): void{
         errores::$error = false;
         $val = new validacion();
