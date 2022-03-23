@@ -53,6 +53,52 @@ class validacionTest extends test {
 
     }
 
+    public function test_class(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        $class = '';
+        $tabla = '';
+        $resultado = $val->valida_class(class: $class, tabla: $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error tabla no puede venir vacia', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $class = '';
+        $tabla = 'a';
+        $resultado = $val->valida_class(class: $class, tabla: $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error CLASE no existe models', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $class = 'a';
+        $tabla = 'a';
+        $resultado = $val->valida_class(class: $class, tabla: $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error CLASE no existe models', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $class = 'a';
+        $tabla = 'seccion';
+        $resultado = $val->valida_class(class: $class, tabla: $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error CLASE no existe models', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $class = 'seccion';
+        $tabla = 'seccion';
+        $resultado = $val->valida_class(class: $class, tabla: $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error CLASE no existe models', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+        errores::$error = false;
+
+    }
+
     public function test_valida_data_modelo(): void{
         errores::$error = false;
         $val = new validacion();

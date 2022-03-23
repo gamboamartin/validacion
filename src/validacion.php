@@ -147,7 +147,7 @@ class validacion {
     }
 
     /**
-     *
+     *  P ORDER P INT
      * @return string[]
      */
     private function keys_documentos(): array
@@ -279,12 +279,12 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER
+     * PARAMS ORDER P INT PROBADO
      * @param string $tabla
      * @param string $class
      * @return bool|array
      */
-    private function valida_class(string $class, string $tabla): bool|array
+    PUBLIC function valida_class(string $class, string $tabla): bool|array
     {
         $class = str_replace('models\\','',$class);
         $class = 'models\\'.$class;
@@ -776,7 +776,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P ORDER P INT
      * @param array $registro
      * @return array
      */
@@ -786,7 +786,7 @@ class validacion {
         if(errores::$error){
             return $this->error->error('Error al obtener keys',$keys);
         }
-        $valida = $this->valida_existencia_keys($registro, $keys);
+        $valida = $this->valida_existencia_keys(keys: $keys, registro: $registro);
         if(errores::$error){
             return $this->error->error('Error al validar registro',$valida);
         }
@@ -794,17 +794,17 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER
+     * PARAMS ORDER P INT
      * @param string $tabla
      * @return bool|array
      */
     public function valida_modelo(string $tabla): bool|array
     {
-        $class = $this->class_depurada($tabla);
+        $class = $this->class_depurada(tabla: $tabla);
         if(errores::$error){
             return $this->error->error('Error al ajustar class',$class);
         }
-        $valida = $this->valida_class($tabla, $class);
+        $valida = $this->valida_class(class:  $class, tabla: $tabla);
         if(errores::$error){
             return $this->error->error('Error al validar '.$tabla,$valida);
         }
