@@ -63,7 +63,7 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT
+     * PARAMS ORDER P INT PROBADO
      * @param string $tabla
      * @return string|array
      */

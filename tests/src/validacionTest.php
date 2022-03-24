@@ -69,6 +69,27 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_class_depurada(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $val = new liberator($val);
+
+        $tabla = '';
+        $resultado = $val->class_depurada(tabla: $tabla);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error la tabla no puede venir vacia', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $tabla = 'a';
+        $resultado = $val->class_depurada(tabla: $tabla);
+        $this->assertIsString( $resultado);
+        $this->assertEquals('models\\a', $resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_letra_numero_espacio(): void{
         errores::$error = false;
         $val = new validacion();
