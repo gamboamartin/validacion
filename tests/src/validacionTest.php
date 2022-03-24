@@ -393,6 +393,36 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_modelo(){
+
+        errores::$error = false;
+        $validacion = new validacion();
+
+        $tabla = '';
+        $resultado = $validacion->valida_modelo($tabla);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error al ajustar class',$resultado['mensaje']);
+
+        errores::$error = false;
+
+
+        $tabla = 'a';
+        $resultado = $validacion->valida_modelo($tabla);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error al validar a',$resultado['mensaje']);
+
+        errores::$error = false;
+
+
+        $tabla = 'prueba';
+        $resultado = $validacion->valida_modelo($tabla);
+        errores::$error = false;
+    }
+
     public function test_valida_pattern(): void{
         errores::$error = false;
         $val = new validacion();
