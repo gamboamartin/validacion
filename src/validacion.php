@@ -172,7 +172,7 @@ class validacion {
     }
 
     /**
-     *
+     * P ORDER P INT
      * @param string $seccion
      * @return array|bool
      */
@@ -190,13 +190,13 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P INT
      * @param string $seccion
      * @param string $accion
      * @return array|bool
      */
     public function seccion_accion(string $seccion,string $accion):array|bool{
-        $valida = $this->seccion($seccion);
+        $valida = $this->seccion(seccion: $seccion);
         if(errores::$error){
             return  $this->error->error('Error al validar seccion',$valida);
         }
