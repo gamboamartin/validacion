@@ -302,7 +302,7 @@ class validacion {
     }
 
     /**
-     * P INT
+     * P INT P ORDER
      * @param array $registro
      * @return bool|array
      */
@@ -739,7 +739,7 @@ class validacion {
     }
 
     /**
-     * P INT
+     * P INT P ORDER
      * Funcion para validar la forma correcta de un id
      *
      * @param array $registro Registro a validar
@@ -756,7 +756,7 @@ class validacion {
      * @throws errores si  key es menor 1
      * @throws errores si  key eno cumple con patterns key
      */
-    public function valida_ids(array $registro, array $keys):array{ //FIN
+    public function valida_ids(array $keys, array $registro):array{
         if(count($keys) === 0){
             return $this->error->error("Error keys vacios",$keys);
         }
