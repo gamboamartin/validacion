@@ -302,14 +302,14 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P INT
      * @param array $registro
      * @return bool|array
      */
     public function valida_colonia(array $registro): bool|array
     {
         $keys = array('colonia_id');
-        $valida = $this->valida_ids($registro,$keys);
+        $valida = $this->valida_ids(keys: $keys, registro: $registro);
         if (errores::$error) {
             return $this->error->error('Error al validar registro', $valida);
         }
@@ -739,7 +739,7 @@ class validacion {
     }
 
     /**
-     *
+     * P INT
      * Funcion para validar la forma correcta de un id
      *
      * @param array $registro Registro a validar
