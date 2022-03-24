@@ -739,7 +739,7 @@ class validacion {
     }
 
     /**
-     * P INT P ORDER
+     * P INT P ORDER PROBADO
      * Funcion para validar la forma correcta de un id
      *
      * @param array $registro Registro a validar

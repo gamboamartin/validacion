@@ -126,7 +126,7 @@ class validacionTest extends test {
 
     }
 
-    public function test_class(): void
+    public function test_valida_class(): void
     {
         errores::$error = false;
         $val = new validacion();
@@ -336,6 +336,61 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
+    }
+
+    public function test_valida_ids(){
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $registro = array();
+        $keys = array();
+        $resultado = $validacion->valida_ids( keys: $keys, registro: $registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error keys vacios',$resultado['mensaje']);
+
+        errores::$error = false;
+        $registro = array();
+        $keys = array();
+        $keys[] = '';
+        $resultado = $validacion->valida_ids(keys: $keys, registro: $registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error  Invalido',$resultado['mensaje']);
+
+        errores::$error = false;
+        $registro = array();
+        $keys = array();
+        $keys[] = 'x';
+        $resultado = $validacion->valida_ids(keys: $keys, registro: $registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error no existe x',$resultado['mensaje']);
+
+        errores::$error = false;
+        $registro = array();
+        $keys = array();
+        $keys[] = 'x';
+        $registro['x'] = '';
+        $resultado = $validacion->valida_ids(keys: $keys, registro: $registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error x Invalido',$resultado['mensaje']);
+
+        errores::$error = false;
+        $registro = array();
+        $keys = array();
+        $keys[] = 'x';
+        $registro['x'] = '1';
+        $resultado = $validacion->valida_ids(keys: $keys, registro: $registro);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        errores::$error = false;
+
     }
 
     public function test_valida_pattern(): void{
