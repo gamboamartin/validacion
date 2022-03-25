@@ -654,7 +654,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P INT P ORDER
      * Valida los datos de entrada para un filtro especial
      *
      * @param string $campo campo de una tabla tabla.campo
