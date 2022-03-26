@@ -3,6 +3,7 @@ namespace gamboamartin\validacion;
 
 use gamboamartin\errores\errores;
 use JetBrains\PhpStorm\Pure;
+use stdClass;
 
 class validacion {
     public array $patterns = array();
@@ -604,7 +605,10 @@ class validacion {
      * }
      *
      */
-    public function valida_existencia_keys(array $keys, array $registro):array|bool{ //DEBUG
+    public function valida_existencia_keys(array $keys, array|stdClass $registro):array|bool{ //DEBUG
+        if(is_object($registro)){
+            $registro = (array)$registro;
+        }
         foreach ($keys as $key){
             if($key === ''){
                 return $this->error->error('Error '.$key.' no puede venir vacio',$keys);
