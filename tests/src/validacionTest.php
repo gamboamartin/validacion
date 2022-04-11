@@ -423,6 +423,28 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_name_clase(){
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $tabla = '';
+        $resultado = $validacion->valida_name_clase($tabla);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error tabla no puede venir vacio',$resultado['mensaje']);
+
+        errores::$error = false;
+        $tabla = 'a';
+        $resultado = $validacion->valida_name_clase($tabla);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error no existe la clase models\a',$resultado['mensaje']);
+        errores::$error = false;
+
+    }
+
     public function test_valida_pattern(): void{
         errores::$error = false;
         $val = new validacion();

@@ -816,7 +816,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * P ORDER P INT PROBADO
      * @param string $tabla
      * @return bool|array
      */
