@@ -191,12 +191,12 @@ class validacion {
     }
 
     /**
-     * P INT
+     * P INT P ORDER
      * @param string $seccion
      * @param string $accion
      * @return array|bool
      */
-    public function seccion_accion(string $seccion,string $accion):array|bool{
+    public function seccion_accion(string $accion, string $seccion):array|bool{
         $valida = $this->seccion(seccion: $seccion);
         if(errores::$error){
             return  $this->error->error('Error al validar seccion',$valida);
