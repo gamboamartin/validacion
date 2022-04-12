@@ -658,12 +658,13 @@ class validacion {
     }
 
     /**
-     * P INT P ORDER
+     * P INT P ORDER PROBADO
      * Valida los datos de entrada para un filtro especial
      *
      * @param string $campo campo de una tabla tabla.campo
      * @param array $filtro filtro a validar
      *
+     * @return array|bool
      * @example
      *
      *      Ej 1
@@ -672,14 +673,9 @@ class validacion {
      *      $resultado = valida_filtro_especial($campo, $filtro);
      *      $resultado = array('operador'=>'x','valor'=>'x');
      *
-     * @return mixed
-     * @throws errores $campo = '', Campo no puede venir vacio
-     * @throws errores $campo = int cualquier numero,  Campo no puede ser un numero
-     * @throws errores $filtro = array(), filtro[operador] debe existir
-     * @throws errores $filtro = array('operador'=>'x'), filtro[valor] debe existir
      * @uses modelo_basico->obten_filtro_especial
      */
-    public function valida_filtro_especial(string $campo, array $filtro):array{ //DOC //DEBUG
+    public function valida_filtro_especial(string $campo, array $filtro):array|bool{ //DOC //DEBUG
         if(!isset($filtro['operador'])){
             return $this->error->error("Error operador no existe",$filtro);
         }
@@ -692,7 +688,7 @@ class validacion {
         if($campo === ''){
             return $this->error->error("Error campo vacio",$campo);
         }
-        return $filtro;
+        return true;
     }
 
     /**

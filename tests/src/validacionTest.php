@@ -273,6 +273,30 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_filtro_especial(){
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $campo = '';
+        $filtro = array();
+        $resultado = $validacion->valida_filtro_especial($campo, $filtro);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error operador no existe', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $campo = 'z';
+        $filtro = array();
+        $filtro['operador'] = 'a';
+        $filtro['valor'] = 'a';
+        $resultado = $validacion->valida_filtro_especial($campo, $filtro);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_valida_filtros(): void{
         errores::$error = false;
         $val = new validacion();
