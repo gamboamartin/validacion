@@ -565,16 +565,16 @@ class validacion {
     }
 
     /**
-     * PHPUNIT/AMBITO
+     * P INT  P ORDER
      * Valida la estructura
      * @param string $seccion
      * @param string $accion
-     * @return array  conjunto de resultados
+     * @return array|bool conjunto de resultados
      * @example
      *        $valida = $this->valida_estructura_seccion_accion($seccion,$accion);
      * @uses directivas
      */
-    public function valida_estructura_seccion_accion(string $seccion, string $accion):array{ //FIN PROT
+    public function valida_estructura_seccion_accion(string $accion, string $seccion):array|bool{ //FIN PROT
         $seccion = str_replace('models\\','',$seccion);
         $class_model = 'models\\'.$seccion;
         if($seccion === ''){
@@ -586,7 +586,7 @@ class validacion {
         if(!class_exists($class_model)){
             return   $this->error->error('no existe la clase '.$seccion, $seccion);
         }
-        return array('seccion'=>$seccion,'accion'=>$accion);
+        return true;
     }
 
     /**
