@@ -85,7 +85,7 @@ class validacion {
     }
 
     /**
-     * PARAMS-ORDER P INT
+     * PARAMS-ORDER P INT ERRREV
      * @param int|string|null $correo
      * @return bool
      */
@@ -329,20 +329,21 @@ class validacion {
     }
 
     /**
-     * PARAMS-ORDER P INT
+     * PARAMS-ORDER P INT ERRREV
      * @param string $correo
      * @return bool|array
      */
     public function valida_correo(string $correo): bool|array
     {
         if(!$this->correo(correo: $correo)){
-            return $this->error->error('Error el correo es invalido', $correo);
+            return $this->error->error(mensaje: 'Error el correo es invalido',data:  $correo,
+                params: get_defined_vars());
         }
         return true;
     }
 
     /**
-     * PARAMS ORDER P INT
+     * PARAMS ORDER P INT ERRREV
      * @param array $registro
      * @param array $keys
      * @return bool|array
@@ -350,22 +351,26 @@ class validacion {
     public function valida_correos( array $keys, array $registro): bool|array
     {
         if(count($keys) === 0){
-            return $this->error->error("Error keys vacios",$keys);
+            return $this->error->error(mensaje: "Error keys vacios",data: $keys, params: get_defined_vars());
         }
         foreach($keys as $key){
             if($key === ''){
-                return $this->error->error('Error '.$key.' Invalido',$registro);
+                return $this->error->error(mensaje: 'Error '.$key.' Invalido',data: $registro,
+                    params: get_defined_vars());
             }
             if(!isset($registro[$key])){
-                return  $this->error->error('Error no existe '.$key,$registro);
+                return  $this->error->error(mensaje: 'Error no existe '.$key,data: $registro,
+                    params: get_defined_vars());
             }
             if(trim($registro[$key]) === ''){
-                return  $this->error->error('Error '.$key.' vacio',$registro);
+                return  $this->error->error(mensaje: 'Error '.$key.' vacio',data: $registro,
+                    params: get_defined_vars());
             }
             $value = (string)$registro[$key];
             $correo_valido = $this->valida_correo(correo: $value);
             if(errores::$error){
-                return  $this->error->error('Error '.$key.' Invalido',$correo_valido);
+                return  $this->error->error(mensaje: 'Error '.$key.' Invalido',data: $correo_valido,
+                    params: get_defined_vars());
             }
         }
         return true;
@@ -590,12 +595,12 @@ class validacion {
     }
 
     /**
-     * PROBADO P ORDER P INT
+     * PROBADO P ORDER P INT ERRREV
      * Funcion para validar que exista o no sea vacia una llave dentro de un arreglo
      *
-     * @param array $registro Registro a validar
      * @param array $keys Keys a validar
      *
+     * @param array|stdClass $registro Registro a validar
      * @return array|bool array con datos del registro
      * @example
      *      $keys = array('clase','sub_clase','producto','unidad');
@@ -603,7 +608,6 @@ class validacion {
      * if(isset($valida['error'])){
      * return $this->errores->error('Error al validar $datos_formulario',$valida);
      * }
-     *
      */
     public function valida_existencia_keys(array $keys, array|stdClass $registro):array|bool{ //DEBUG
         if(is_object($registro)){
@@ -611,13 +615,16 @@ class validacion {
         }
         foreach ($keys as $key){
             if($key === ''){
-                return $this->error->error('Error '.$key.' no puede venir vacio',$keys);
+                return $this->error->error(mensaje:'Error '.$key.' no puede venir vacio',data: $keys,
+                    params: get_defined_vars());
             }
             if(!isset($registro[$key])){
-                return $this->error->error('Error '.$key.' no existe en el registro',$registro);
+                return $this->error->error(mensaje: 'Error '.$key.' no existe en el registro', data: $registro,
+                    params: get_defined_vars());
             }
             if($registro[$key] === ''){
-                return $this->error->error('Error '.$key.' esta vacio en el registro',$registro);
+                return $this->error->error(mensaje: 'Error '.$key.' esta vacio en el registro', data: $registro,
+                    params: get_defined_vars());
             }
         }
 
@@ -831,7 +838,7 @@ class validacion {
     }
 
     /**
-     * PROBADO-PARAMS ORDER P INT
+     * PROBADO-PARAMS ORDER P INT ERRREV
      * funcion que revisa si una expresion regular es valida declarada con this->patterns
      *
      * @param  string $key key definido para obtener de this->patterns
