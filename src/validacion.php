@@ -609,8 +609,10 @@ class validacion {
      * return $this->errores->error('Error al validar $datos_formulario',$valida);
      * }
      */
-    public function valida_existencia_keys(array $keys, array|stdClass $registro):array|bool{ //DEBUG
-        if(is_object($registro)){
+    public function valida_existencia_keys(array $keys, iterable $registro):array|bool{ //DEBUG
+
+
+        if(!is_array($registro)){
             $registro = (array)$registro;
         }
         foreach ($keys as $key){
