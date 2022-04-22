@@ -609,7 +609,7 @@ class validacion {
      * return $this->errores->error('Error al validar $datos_formulario',$valida);
      * }
      */
-    public function valida_existencia_keys(array $keys, mixed $registro):array|bool{ //DEBUG
+    public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|bool{ //DEBUG
 
         if(is_object($registro)){
             $registro = (array)$registro;
@@ -623,7 +623,7 @@ class validacion {
                 return $this->error->error(mensaje: 'Error '.$key.' no existe en el registro', data: $registro,
                     params: get_defined_vars());
             }
-            if($registro[$key] === ''){
+            if($registro[$key] === '' && $valida_vacio){
                 return $this->error->error(mensaje: 'Error '.$key.' esta vacio en el registro', data: $registro,
                     params: get_defined_vars());
             }

@@ -269,6 +269,26 @@ class validacionTest extends test {
         $this->assertIsBool( $resultado);
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $registro = array();
+        $keys = array();
+        $keys[] = 'a';
+        $registro['a'] = 'a';
+        $resultado = $val->valida_existencia_keys(keys: $keys, registro: $registro, valida_vacio: false);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $registro = array();
+        $keys = array();
+        $keys[] = 'a';
+        $registro['a'] = '';
+        $resultado = $val->valida_existencia_keys(keys: $keys, registro: $registro, valida_vacio: false);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
         errores::$error = false;
 
     }
