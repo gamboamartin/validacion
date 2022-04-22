@@ -261,8 +261,8 @@ class validacion {
         foreach($campos_obligatorios as $campo_obligatorio){
             $campo_obligatorio = trim($campo_obligatorio);
             if(!array_key_exists($campo_obligatorio,$registro)){
-                return $this->error->error('Error el campo '.$campo_obligatorio.' debe existir en el registro de '.$tabla,
-                    array($registro,$campos_obligatorios));
+                return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' debe existir en el registro de '.$tabla,
+                    data: array($registro,$campos_obligatorios), params: get_defined_vars());
 
             }
             if(is_array($registro[$campo_obligatorio])){
