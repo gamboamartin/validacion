@@ -248,7 +248,7 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT PROBADO
+     * P ORDER P INT PROBADO ERRORREV
      * Funcion que valida los campos obligatorios para una transaccion
      * @param array $campos_obligatorios
      * @param array $registro
@@ -266,12 +266,12 @@ class validacion {
 
             }
             if(is_array($registro[$campo_obligatorio])){
-                return $this->error->error('Error el campo '.$campo_obligatorio.' no puede ser un array',
-                    array($registro,$campos_obligatorios));
+                return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' no puede ser un array',
+                    data: array($registro,$campos_obligatorios), params: get_defined_vars());
             }
             if((string)$registro[$campo_obligatorio] === ''){
-                return $this->error->error('Error el campo '.$campo_obligatorio.' no puede venir vacio',
-                    array($registro,$campos_obligatorios));
+                return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' no puede venir vacio',
+                    data: array($registro,$campos_obligatorios), params: get_defined_vars());
             }
         }
 
