@@ -377,7 +377,7 @@ class validacion {
     }
 
     /**
-     * PROBADO P ORDER P INT
+     * PROBADO P ORDER P INT ERRRORREV
      * Funcion que valida la existencia y forma de un modelo enviando un txt con el nombre del modelo a validar
      *
      * @param string $name_modelo txt con el nombre del modelo a validar
@@ -396,13 +396,13 @@ class validacion {
         $name_modelo = str_replace('models\\','',$name_modelo);
         $class = 'models\\'.$name_modelo;
         if(trim($name_modelo) ===''){
-            return $this->error->error("Error modelo vacio",$name_modelo);
+            return $this->error->error(mensaje: "Error modelo vacio",data: $name_modelo, params: get_defined_vars());
         }
         if(is_numeric($name_modelo)){
-            return $this->error->error("Error modelo",$name_modelo);
+            return $this->error->error(mensaje:"Error modelo",data:$name_modelo, params: get_defined_vars());
         }
         if(!class_exists($class)){
-            return $this->error->error("Error modelo",$class);
+            return $this->error->error(mensaje:"Error modelo",data:$class, params: get_defined_vars());
         }
 
         return true;
