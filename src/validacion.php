@@ -380,7 +380,7 @@ class validacion {
     }
 
     /**
-     * PROBADO P ORDER P INT ERRRORREV
+     * FULL
      * Funcion que valida la existencia y forma de un modelo enviando un txt con el nombre del modelo a validar
      *
      * @param string $name_modelo txt con el nombre del modelo a validar
