@@ -823,7 +823,7 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT PROBADO
+     * P ORDER P INT PROBADO ERROREV
      * @param string $tabla
      * @return bool|array
      */
@@ -833,10 +833,12 @@ class validacion {
         $tabla = str_replace($namespace,'',$tabla);
         $clase = $namespace.$tabla;
         if($tabla === ''){
-            return $this->error->error('Error tabla no puede venir vacio',$tabla);
+            return $this->error->error(mensaje: 'Error tabla no puede venir vacio',data: $tabla,
+                params: get_defined_vars());
         }
         if(!class_exists($clase)){
-            return $this->error->error('Error no existe la clase '.$clase,$clase);
+            return $this->error->error(mensaje: 'Error no existe la clase '.$clase,data: $clase,
+                params: get_defined_vars());
         }
         return true;
     }
