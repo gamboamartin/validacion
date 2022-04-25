@@ -94,7 +94,7 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
+     * P ORDER P INT ERRORREV
      * @param string $key
      * @param array $arreglo
      * @return bool
@@ -108,7 +108,7 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
+     * P ORDER P INT ERRORREV
      * @param array $keys
      * @param array $data
      * @return bool|array
@@ -117,15 +117,18 @@ class validacion {
     {
         foreach($keys as $key){
             if($key === ''){
-                return $this->error->error("Error key no puede venir vacio", $key);
+                return $this->error->error(mensaje: "Error key no puede venir vacio", data: $key,
+                    params: get_defined_vars());
             }
             $valida = $this->existe_key_data(arreglo: $data, key: $key);
             if(!$valida){
-                return $this->error->error("Error al validar existencia de key", $key);
+                return $this->error->error(mensaje: "Error al validar existencia de key", data: $key,
+                    params: get_defined_vars());
             }
             $valida = $this->valida_fecha(fecha: $data[$key]);
             if(errores::$error){
-                return $this->error->error("Error al validar fecha: ".'$data['.$key.']', $valida);
+                return $this->error->error(mensaje: "Error al validar fecha: ".'$data['.$key.']', data: $valida,
+                    params: get_defined_vars());
             }
         }
         return true;
@@ -647,7 +650,7 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
+     * P ORDER P INT ERRORREV
      * Funcion para validar LA ESTRUCTURA DE UNA FECHA
      *
      * @param string $fecha
@@ -660,7 +663,7 @@ class validacion {
     public function valida_fecha(string $fecha): array
     {
         if(! $this->valida_pattern(key: 'fecha',txt: $fecha)){
-            return $this->error->error('Error fecha invalida', $fecha);
+            return $this->error->error(mensaje: 'Error fecha invalida', data: $fecha, params: get_defined_vars());
         }
         return array('mensaje'=>'fecha valida');
     }
