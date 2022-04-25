@@ -598,7 +598,7 @@ class validacion {
     }
 
     /**
-     * PROBADO P ORDER P INT ERRREV
+     * FULL
      * Funcion para validar que exista o no sea vacia una llave dentro de un arreglo
      *
      * @param array $keys Keys a validar
