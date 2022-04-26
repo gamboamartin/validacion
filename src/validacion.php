@@ -527,7 +527,7 @@ class validacion {
     }
 
     /**
-     * PROBADO-PARAMS ORDER
+     * FULL
      * Funcion para validar la estructura de los parametros de un input basico
      *
      * @param array $columnas Columnas a mostrar en select
@@ -543,13 +543,15 @@ class validacion {
         $tabla = str_replace($namespace,'',$tabla);
         $clase = $namespace.$tabla;
         if(count($columnas) === 0){
-            return $this->error->error('Error deben existir columnas',$columnas);
+            return $this->error->error(mensaje: 'Error deben existir columnas',data: $columnas,
+                params: get_defined_vars());
         }
         if($tabla === ''){
-            return $this->error->error('Error la tabla no puede venir vacia',$tabla);
+            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia',data: $tabla,
+                params: get_defined_vars());
         }
         if(!class_exists($clase)){
-            return $this->error->error('Error modelo no existe',$clase);
+            return $this->error->error(mensaje: 'Error modelo no existe',data: $clase, params: get_defined_vars());
         }
         return true;
     }
