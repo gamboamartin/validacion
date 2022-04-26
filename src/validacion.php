@@ -64,7 +64,7 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT PROBADO
+     * FULL
      * @param string $tabla
      * @return string|array
      */
@@ -72,13 +72,15 @@ class validacion {
     {
         $tabla = trim($tabla);
         if($tabla === ''){
-            return $this->error->error('Error la tabla no puede venir vacia', $tabla);
+            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia', data: $tabla,
+                params: get_defined_vars());
         }
         $tabla = str_replace('models\\','',$tabla);
 
         $tabla = trim($tabla);
         if($tabla === ''){
-            return $this->error->error('Error la tabla no puede venir vacia', $tabla);
+            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia', data: $tabla,
+                params: get_defined_vars());
         }
 
         return 'models\\'.$tabla;
@@ -283,7 +285,7 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT PROBADO
+     * FULL
      * @param string $tabla
      * @param string $class
      * @return bool|array
@@ -294,13 +296,16 @@ class validacion {
         $class = 'models\\'.$class;
 
         if($tabla === ''){
-            return $this->error->error('Error tabla no puede venir vacia',$tabla);
+            return $this->error->error(mensaje: 'Error tabla no puede venir vacia',data: $tabla,
+                params: get_defined_vars());
         }
         if($class === ''){
-            return $this->error->error('Error $class no puede venir vacia',$class);
+            return $this->error->error(mensaje:'Error $class no puede venir vacia',data: $class,
+                params: get_defined_vars());
         }
         if(!class_exists($class)){
-            return $this->error->error('Error CLASE no existe '.$class,$tabla);
+            return $this->error->error(mensaje:'Error CLASE no existe '.$class,data: $tabla,
+                params: get_defined_vars());
         }
         return true;
     }
@@ -813,7 +818,7 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT PROBADO
+     * FULL
      * @param string $tabla
      * @return bool|array
      */
@@ -821,11 +826,11 @@ class validacion {
     {
         $class = $this->class_depurada(tabla: $tabla);
         if(errores::$error){
-            return $this->error->error('Error al ajustar class',$class);
+            return $this->error->error(mensaje: 'Error al ajustar class',data: $class, params: get_defined_vars());
         }
         $valida = $this->valida_class(class:  $class, tabla: $tabla);
         if(errores::$error){
-            return $this->error->error('Error al validar '.$tabla,$valida);
+            return $this->error->error(mensaje: 'Error al validar '.$tabla,data: $valida, params: get_defined_vars());
         }
         return $valida;
     }
