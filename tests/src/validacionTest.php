@@ -69,6 +69,36 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_btn_second()
+    {
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $data_boton = array();
+        $resultado = $validacion->btn_second($data_boton);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error $data_boton[etiqueta] debe existir', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $data_boton = array();
+        $data_boton['etiqueta'] = 'a';
+        $resultado = $validacion->btn_second($data_boton);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error $data_boton[class] debe existir', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $data_boton = array();
+        $data_boton['etiqueta'] = 'a';
+        $data_boton['class'] = 'b';
+        $resultado = $validacion->btn_second($data_boton);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_class_depurada(): void{
         errores::$error = false;
         $val = new validacion();

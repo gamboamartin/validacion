@@ -26,29 +26,33 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT PROBADO
+     * FULL
      * @param array $data_boton
      * @return bool|array
      */
     public function btn_base(array $data_boton): bool|array
     {
         if(!isset($data_boton['filtro'])){
-            return $this->error->error('Error $data_boton[filtro] debe existir',$data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe existir',data: $data_boton
+                , params: get_defined_vars());
         }
         if(!is_array($data_boton['filtro'])){
-            return $this->error->error('Error $data_boton[filtro] debe ser un array',$data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe ser un array',data: $data_boton,
+                params: get_defined_vars());
         }
         if(!isset($data_boton['id'])){
-            return $this->error->error('Error $data_boton[id] debe existir',$data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[id] debe existir',data: $data_boton,
+                params: get_defined_vars());
         }
         if(!isset($data_boton['etiqueta'])){
-            return $this->error->error('Error $data_boton[etiqueta] debe existir',$data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton,
+                params: get_defined_vars());
         }
         return true;
     }
 
     /**
-     * PARAMS ORDER P INT
+     * PARAMS ORDER P INT PROBADO
      * @param array $data_boton
      * @return bool|array
      */
@@ -667,15 +671,20 @@ class validacion {
      * Funcion para validar LA ESTRUCTURA DE UNA FECHA
      *
      * @param string $fecha
+     * @param string $tipo_val
+     *          utiliza los patterns de las siguientes formas
+     *          fecha=yyyy-mm-dd
+     *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
+     *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
      *
+     * @return array con resultado de validacion
      * @example
      *      $valida_fecha = $this->validaciones->valida_fecha($fecha);
      *
-     * @return array con resultado de validacion
      */
-    public function valida_fecha(string $fecha): array
+    public function valida_fecha(string $fecha, string $tipo_val = 'fecha'): array
     {
-        if(! $this->valida_pattern(key: 'fecha',txt: $fecha)){
+        if(! $this->valida_pattern(key: $tipo_val,txt: $fecha)){
             return $this->error->error(mensaje: 'Error fecha invalida', data: $fecha, params: get_defined_vars());
         }
         return array('mensaje'=>'fecha valida');
