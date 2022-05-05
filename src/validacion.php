@@ -52,23 +52,27 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT PROBADO
+     * FULL
      * @param array $data_boton
      * @return bool|array
      */
     public function btn_second(array $data_boton): bool|array
     {
         if(!isset($data_boton['etiqueta'])){
-            return $this->error->error('Error $data_boton[etiqueta] debe existir',$data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton,
+                params: get_defined_vars());
         }
         if($data_boton['etiqueta'] === ''){
-            return $this->error->error('Error etiqueta no puede venir vacio',$data_boton['etiqueta']);
+            return $this->error->error(mensaje: 'Error etiqueta no puede venir vacio',data: $data_boton['etiqueta'],
+                params: get_defined_vars());
         }
         if(!isset($data_boton['class'])){
-            return $this->error->error('Error $data_boton[class] debe existir',$data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[class] debe existir',data: $data_boton,
+                params: get_defined_vars());
         }
         if($data_boton['class'] === ''){
-            return $this->error->error('Error class no puede venir vacio',$data_boton['class']);
+            return $this->error->error(mensaje: 'Error class no puede venir vacio',data: $data_boton['class'],
+                params: get_defined_vars());
         }
         return true;
     }
@@ -872,7 +876,7 @@ class validacion {
     }
 
     /**
-     * PROBADO-PARAMS ORDER P INT ERRREV
+     * FULL
      * funcion que revisa si una expresion regular es valida declarada con this->patterns
      *
      * @param  string $key key definido para obtener de this->patterns
