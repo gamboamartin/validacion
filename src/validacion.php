@@ -10,9 +10,15 @@ class validacion {
     protected errores $error;
     #[Pure] public function __construct(){
         $this->error = new errores();
+        $fecha = "[1-2][0-9]{3}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3)[0-1])";
+        $hora_min_sec = "(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])";
+
         $this->patterns['letra_numero_espacio'] = '/^(([a-zA-Z áéíóúÁÉÍÓÚñÑ]+[1-9]*)+(\s)?)+([a-zA-Z áéíóúÁÉÍÓÚñÑ]+[1-9]*)*$/';
         $this->patterns['id'] = '/^[1-9]+[0-9]*$/';
-        $this->patterns['fecha'] = '/^[1-2][0-9]{3}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3)[0-1])$/';
+        $this->patterns['fecha'] = "/^$fecha$/";
+        $this->patterns['hora_min_sec'] = "/^$hora_min_sec$/";
+        $this->patterns['fecha_hora_min_sec_esp'] = "/^$fecha $hora_min_sec$/";
+        $this->patterns['fecha_hora_min_sec_t'] = "/^$fecha".'T'."$hora_min_sec$/";
         $this->patterns['double'] = '/^[0-9]*.[0-9]*$/';
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
         $this->patterns['correo'] = "/^[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/";
