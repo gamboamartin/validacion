@@ -323,6 +323,98 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_fecha()
+    {
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $fecha = '';
+        $resultado = $validacion->valida_fecha($fecha);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error la fecha esta vacia', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = 'a';
+        $resultado = $validacion->valida_fecha($fecha);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error fecha invalida', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01';
+        $resultado = $validacion->valida_fecha($fecha);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01';
+        $resultado = $validacion->valida_fecha($fecha, 'fecha');
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01 01:01:11';
+        $resultado = $validacion->valida_fecha($fecha, 'fecha');
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error fecha invalida', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01 01:01:11';
+        $resultado = $validacion->valida_fecha($fecha, 'fecha_hora_min_sec_esp');
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01';
+        $resultado = $validacion->valida_fecha($fecha, 'fecha_hora_min_sec_esp');
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error fecha invalida', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01 12:54:41';
+        $resultado = $validacion->valida_fecha($fecha, 'fecha_hora_min_sec_esp');
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01T12:54:41';
+        $resultado = $validacion->valida_fecha($fecha, 'fecha_hora_min_sec_esp');
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error fecha invalida', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01T12:54:41';
+        $resultado = $validacion->valida_fecha($fecha, 'fecha_hora_min_sec_t');
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01T12:54:41';
+        $resultado = $validacion->valida_fecha($fecha, '');
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error tipo_val no puede venir vacio', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $fecha = '2022-01-01T12:54:41';
+        $resultado = $validacion->valida_fecha($fecha, 'xxx');
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error el tipo val no pertenece a fechas validas',
+            $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_valida_filtro_especial(){
 
         errores::$error = false;

@@ -8,6 +8,7 @@ use stdClass;
 class validacion {
     public array $patterns = array();
     protected errores $error;
+    private array $regex_fecha = array();
     #[Pure] public function __construct(){
         $this->error = new errores();
         $fecha = "[1-2][0-9]{3}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3)[0-1])";
@@ -23,6 +24,9 @@ class validacion {
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
         $this->patterns['correo'] = "/^[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/";
 
+        $this->regex_fecha[] = 'fecha';
+        $this->regex_fecha[] = 'fecha_hora_min_sec_esp';
+        $this->regex_fecha[] = 'fecha_hora_min_sec_t';
     }
 
     /**
@@ -671,7 +675,7 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT ERRORREV
+     * FULL
      * Funcion para validar LA ESTRUCTURA DE UNA FECHA
      *
      * @param string $fecha
@@ -681,17 +685,31 @@ class validacion {
      *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
      *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
      *
-     * @return array con resultado de validacion
+     * @return array|bool con resultado de validacion
      * @example
      *      $valida_fecha = $this->validaciones->valida_fecha($fecha);
-     *
      */
-    public function valida_fecha(string $fecha, string $tipo_val = 'fecha'): array
+    public function valida_fecha(string $fecha, string $tipo_val = 'fecha'): array|bool
     {
+        $fecha = trim($fecha);
+        if($fecha === ''){
+            return $this->error->error(mensaje: 'Error la fecha esta vacia', data: $fecha, params: get_defined_vars());
+        }
+        $tipo_val = trim($tipo_val);
+        if($tipo_val === ''){
+            return $this->error->error(mensaje: 'Error tipo_val no puede venir vacio', data: $tipo_val,
+                params: get_defined_vars());
+        }
+
+        if(!in_array($tipo_val, $this->regex_fecha, true)){
+            return $this->error->error(mensaje: 'Error el tipo val no pertenece a fechas validas',
+                data: $this->regex_fecha, params: get_defined_vars());
+        }
+
         if(! $this->valida_pattern(key: $tipo_val,txt: $fecha)){
             return $this->error->error(mensaje: 'Error fecha invalida', data: $fecha, params: get_defined_vars());
         }
-        return array('mensaje'=>'fecha valida');
+        return true;
     }
 
     /**
