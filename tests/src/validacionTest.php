@@ -641,6 +641,50 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_rango_fecha(){
+
+        errores::$error = false;
+        $validacion = new validacion();
+
+        $fechas = array();
+        $resultado = $validacion->valida_rango_fecha($fechas);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error al validar fechas',$resultado['mensaje']);
+
+        errores::$error = false;
+
+        $fechas = array();
+        $fechas['fecha_inicial'] = '2020-01-01';
+        $resultado = $validacion->valida_rango_fecha($fechas);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error al validar fechas',$resultado['mensaje']);
+
+        errores::$error = false;
+
+        $fechas = array();
+        $fechas['fecha_inicial'] = '2020-01-01';
+        $fechas['fecha_final'] = '2020-01-01';
+        $resultado = $validacion->valida_rango_fecha($fechas);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+
+        $fechas = array();
+        $fechas['fecha_inicial'] = '2020-01-01';
+        $fechas['fecha_final'] = '2010-01-01';
+        $resultado = $validacion->valida_rango_fecha($fechas);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error la fecha inicial no puede ser mayor a la final',$resultado['mensaje']);
+        errores::$error = false;
+    }
 
 
 }

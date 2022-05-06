@@ -922,12 +922,12 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT ERRORREV
+     * FULL
      * @param array $fechas
      * @param string $tipo_val
-     * @return array
+     * @return array|bool
      */
-    public function valida_rango_fecha(array $fechas, string $tipo_val = 'fecha'): array
+    public function valida_rango_fecha(array $fechas, string $tipo_val = 'fecha'): array|bool
     {
         $keys = array('fecha_inicial','fecha_final');
         $valida = $this->valida_existencia_keys(keys:$keys, registro: $fechas);
