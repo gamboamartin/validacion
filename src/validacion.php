@@ -922,34 +922,40 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
+     * P ORDER P INT ERRORREV
      * @param array $fechas
+     * @param string $tipo_val
      * @return array
      */
-    public function valida_rango_fecha(array $fechas): array
+    public function valida_rango_fecha(array $fechas, string $tipo_val = 'fecha'): array
     {
         $keys = array('fecha_inicial','fecha_final');
         $valida = $this->valida_existencia_keys(keys:$keys, registro: $fechas);
         if(errores::$error) {
-            return $this->error->error('Error al validar fechas',$valida);
+            return $this->error->error(mensaje: 'Error al validar fechas', data: $valida, params: get_defined_vars());
         }
 
         if($fechas['fecha_inicial'] === ''){
-            return $this->error->error('Error fecha inicial no puede venir vacia', $fechas['fecha_inicial']);
+            return $this->error->error(mensaje: 'Error fecha inicial no puede venir vacia',
+                data:$fechas['fecha_inicial'], params: get_defined_vars());
         }
         if($fechas['fecha_final'] === ''){
-            return $this->error->error('Error fecha final no puede venir vacia', $fechas['fecha_final']);
+            return $this->error->error(mensaje: 'Error fecha final no puede venir vacia',
+                data:$fechas['fecha_final'], params: get_defined_vars());
         }
-        $valida = $this->valida_fecha(fecha: $fechas['fecha_inicial']);
+        $valida = $this->valida_fecha(fecha: $fechas['fecha_inicial'], tipo_val: $tipo_val);
         if(errores::$error) {
-            return $this->error->error('Error al validar fecha inicial',$valida);
+            return $this->error->error(mensaje: 'Error al validar fecha inicial',data:$valida,
+                params: get_defined_vars());
         }
-        $valida = $this->valida_fecha(fecha: $fechas['fecha_final']);
+        $valida = $this->valida_fecha(fecha: $fechas['fecha_final'], tipo_val: $tipo_val);
         if(errores::$error) {
-            return $this->error->error('Error al validar fecha final',$valida);
+            return $this->error->error(mensaje: 'Error al validar fecha final',data:$valida,
+                params: get_defined_vars());
         }
         if($fechas['fecha_inicial']>$fechas['fecha_final']){
-            return $this->error->error('Error la fecha inicial no puede ser mayor a la final',$fechas);
+            return $this->error->error(mensaje: 'Error la fecha inicial no puede ser mayor a la final',
+                data:$fechas, params: get_defined_vars());
         }
         return $valida;
     }
