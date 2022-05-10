@@ -105,9 +105,10 @@ class validacion {
     }
 
     /**
-     * PARAMS-ORDER P INT ERRREV
+     * Valida el regex de un correo
+     * PARAMS-ORDER P INT ERRREV    DOC
      * @param int|string|null $correo
-     * @return bool
+     * @return bool true si es valido el formato de correo false si no lo es
      */
     private function correo(int|string|null $correo):bool{
         return $this->valida_pattern(key: 'correo',txt: $correo);
@@ -355,9 +356,10 @@ class validacion {
     }
 
     /**
-     * PARAMS-ORDER P INT ERRREV
+     * PARAMS-ORDER P INT ERRREV DOC
+     * Valida si un correo es valido
      * @param string $correo
-     * @return bool|array
+     * @return bool|array bool true si es un correo valido, array si error
      */
     public function valida_correo(string $correo): bool|array
     {
@@ -369,9 +371,10 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT ERRREV
-     * @param array $registro
-     * @param array $keys
+     * PARAMS ORDER P INT ERRREV DOC
+     * Verifica un conjunto de correos integrados en un registro por key
+     * @param array $registro registro de donde se obtendran los correos a validar
+     * @param array $keys keys que se buscaran en el registro para aplicar validacion de correos
      * @return bool|array
      */
     public function valida_correos( array $keys, array $registro): bool|array
@@ -675,7 +678,7 @@ class validacion {
     }
 
     /**
-     * FULL
+     * FULL DOC
      * Funcion para validar LA ESTRUCTURA DE UNA FECHA
      *
      * @param string $fecha
@@ -894,7 +897,7 @@ class validacion {
     }
 
     /**
-     * FULL
+     * FULL DOC
      * funcion que revisa si una expresion regular es valida declarada con this->patterns
      *
      * @param  string $key key definido para obtener de this->patterns
