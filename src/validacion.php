@@ -124,8 +124,9 @@ class validacion {
 
     /**
      * P ORDER P INT ERRORREV
-     * @param string $key
-     * @param array $arreglo
+     * Verifica si existe un elemento en un array
+     * @param string $key Key a buscar en el arreglo
+     * @param array $arreglo arreglo donde se buscara la llave
      * @return bool
      */
     public function existe_key_data(array $arreglo, string $key ):bool{
@@ -138,8 +139,9 @@ class validacion {
 
     /**
      * P ORDER P INT ERRORREV
-     * @param array $keys
-     * @param array $data
+     * Verifica los keys que existen dentro de data para ver que este cargada de manera correcta la fecha
+     * @param array $keys Keys a verificar
+     * @param array $data arreglo donde se verificaran las fechas en base a los keys enviados
      * @return bool|array
      */
     public function fechas_in_array(array $data, array $keys): bool|array
