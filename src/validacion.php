@@ -82,8 +82,9 @@ class validacion {
     }
 
     /**
-     * FULL
-     * @param string $tabla
+     * TODO
+     * Valida que una clase de tipo modelo sea correcta y la inicializa como models\\tabla
+     * @param string $tabla Tabla o estructura de la base de datos y modelo
      * @return string|array
      */
     private function class_depurada(string $tabla): string|array
