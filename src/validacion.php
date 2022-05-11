@@ -883,8 +883,8 @@ class validacion {
     }
 
     /**
-     * FULL
-     * @param string $tabla
+     * Se valida que la tabla sea un modelo valido
+     * @param string $tabla Tabla o estructura de la base de datos y modelo
      * @return bool|array
      */
     public function valida_modelo(string $tabla): bool|array
