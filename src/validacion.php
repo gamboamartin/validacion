@@ -145,6 +145,7 @@ class validacion {
     public function fechas_in_array(array $data, array $keys): bool|array
     {
         foreach($keys as $key){
+
             if($key === ''){
                 return $this->error->error(mensaje: "Error key no puede venir vacio", data: $key,
                     params: get_defined_vars());
@@ -154,6 +155,15 @@ class validacion {
                 return $this->error->error(mensaje: "Error al validar existencia de key", data: $key,
                     params: get_defined_vars());
             }
+            /**
+             * El key debe ser el tipo val para la obtencion del regex de formato de fecha
+             * @param $key
+             *          utiliza los patterns de las siguientes formas
+             *          fecha=yyyy-mm-dd
+             *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
+             *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
+             * 
+             */
             $valida = $this->valida_fecha(fecha: $data[$key]);
             if(errores::$error){
                 return $this->error->error(mensaje: "Error al validar fecha: ".'$data['.$key.']', data: $valida,
@@ -691,10 +701,10 @@ class validacion {
     }
 
     /**
-     * FULL DOC
+     * TODO
      * Funcion para validar LA ESTRUCTURA DE UNA FECHA
      *
-     * @param string $fecha
+     * @param string $fecha txt con fecha a validar
      * @param string $tipo_val
      *          utiliza los patterns de las siguientes formas
      *          fecha=yyyy-mm-dd
