@@ -325,9 +325,9 @@ class validacion {
     }
 
     /**
-     * FULL
-     * @param string $tabla
-     * @param string $class
+     * TODO valida si una clase de tipo modelo es valida
+     * @param string $tabla Tabla o estructura de la bd
+     * @param string $class Class o estructura de una bd regularmente la misma que tabla
      * @return bool|array
      */
     PUBLIC function valida_class(string $class, string $tabla): bool|array
@@ -336,16 +336,13 @@ class validacion {
         $class = 'models\\'.$class;
 
         if($tabla === ''){
-            return $this->error->error(mensaje: 'Error tabla no puede venir vacia',data: $tabla,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error tabla no puede venir vacia',data: $tabla);
         }
         if($class === ''){
-            return $this->error->error(mensaje:'Error $class no puede venir vacia',data: $class,
-                params: get_defined_vars());
+            return $this->error->error(mensaje:'Error $class no puede venir vacia',data: $class);
         }
         if(!class_exists($class)){
-            return $this->error->error(mensaje:'Error CLASE no existe '.$class,data: $tabla,
-                params: get_defined_vars());
+            return $this->error->error(mensaje:'Error CLASE no existe '.$class,data: $tabla);
         }
         return true;
     }
