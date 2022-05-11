@@ -138,6 +138,37 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_correo(){
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $validacion = new liberator($validacion);
+
+        $correo = '';
+        $resultado = $validacion->correo($correo);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error el correo esta vacio', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $correo = 'a';
+        $resultado = $validacion->correo($correo);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $correo = 'a@a.com';
+        $resultado = $validacion->correo($correo);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_valida_campo_obligatorio(): void
     {
         errores::$error = false;
