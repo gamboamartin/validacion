@@ -162,7 +162,7 @@ class validacion {
              *          fecha=yyyy-mm-dd
              *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
              *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
-             * 
+             *
              */
             $valida = $this->valida_fecha(fecha: $data[$key]);
             if(errores::$error){
@@ -462,7 +462,7 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     * ERROR
      * @param string $value valor a validar
      * @return array con exito y valor
      * @throws errores (string)$value === ''
@@ -477,14 +477,15 @@ class validacion {
      */
     public function valida_double_mayor_0(string $value):array{
         if($value === ''){
-            return $this->error->error('Error esta vacio '.$value,$value);
+            return $this->error->error(mensaje: 'Error esta vacio '.$value,data: $value, params: get_defined_vars());
         }
         if((float)$value <= 0.0){
-            return $this->error->error('Error el '.$value.' debe ser mayor a 0',$value);
+            return $this->error->error(mensaje: 'Error el '.$value.' debe ser mayor a 0',data: $value,
+                params: get_defined_vars());
         }
 
-        if(! $this->valida_pattern('double',$value)){
-            return $this->error->error('Error valor vacio['.$value.']',$value);
+        if(! $this->valida_pattern(key: 'double',txt: $value)){
+            return $this->error->error(mensaje: 'Error valor vacio['.$value.']',data: $value, params: get_defined_vars());
         }
 
         return array('mensaje'=>'exito',$value);
@@ -542,13 +543,14 @@ class validacion {
     public function valida_double_mayores_0(array $registro, array $keys):array{
         $valida = $this->valida_existencia_keys(keys: $keys, registro: $registro,);
         if(errores::$error){
-            return $this->error->error('Error al validar $registro no existe un key ',$valida);
+            return $this->error->error(mensaje: 'Error al validar $registro no existe un key ',data: $valida,
+                params: get_defined_vars());
         }
 
         foreach($keys as $key){
             $valida = $this->valida_double_mayor_0($registro[$key]);
             if(errores::$error){
-                return$this->error->error('Error $registro['.$key.']',$valida);
+                return$this->error->error(mensaje: 'Error $registro['.$key.']',data: $valida, params: get_defined_vars());
             }
         }
         return array('mensaje'=>'exito',$registro);
@@ -649,7 +651,7 @@ class validacion {
     }
 
     /**
-     * FULL
+     * TODO
      * Funcion para validar que exista o no sea vacia una llave dentro de un arreglo
      *
      * @param array $keys Keys a validar
