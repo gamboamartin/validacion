@@ -950,10 +950,14 @@ class validacion {
     }
 
     /**
-     * FULL
-     * @param array $fechas
+     * TODO Valida un rango de fechas
+     * @param array $fechas conjunto de fechas fechas['fecha_inicial'], fechas['fecha_final']
      * @param string $tipo_val
-     * @return array|bool
+     *          utiliza los patterns de las siguientes formas
+     *          fecha=yyyy-mm-dd
+     *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
+     *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
+     * @return array|bool true si no hay error
      */
     public function valida_rango_fecha(array $fechas, string $tipo_val = 'fecha'): array|bool
     {
