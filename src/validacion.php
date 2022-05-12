@@ -218,7 +218,7 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
+     * Funcion que valida el dato de una seccion corresponda con la existencia de un modelo
      * @param string $seccion
      * @return array|bool
      */
@@ -227,10 +227,10 @@ class validacion {
         $class_model = 'models\\'.$seccion;
         $seccion = strtolower(trim($seccion));
         if(trim($seccion) === ''){
-            return  $this->error->error('Error seccion  no puede ser vacio',$seccion);
+            return  $this->error->error(mensaje: 'Error seccion  no puede ser vacio',data: $seccion);
         }
         if(!class_exists($class_model)){
-            return  $this->error->error('Error no existe el modelo '.$class_model,$class_model);
+            return  $this->error->error(mensaje: 'Error no existe el modelo '.$class_model,data: $class_model);
         }
         return true;
     }
