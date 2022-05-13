@@ -169,6 +169,26 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_seccion(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $val = new liberator($val);
+
+        $seccion = '';
+        $resultado = $val->seccion($seccion);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error seccion  no puede ser vacio', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $seccion = 'a';
+        $resultado = $val->seccion($seccion);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error no existe el modelo models\a', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_valida_campo_obligatorio(): void
     {
         errores::$error = false;

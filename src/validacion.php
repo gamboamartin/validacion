@@ -219,8 +219,10 @@ class validacion {
 
     /**
      * Funcion que valida el dato de una seccion corresponda con la existencia de un modelo
+     * @version 1.0.0
      * @param string $seccion
      * @return array|bool
+     *
      */
     private function seccion(string $seccion):array|bool{
         $seccion = str_replace('models\\','',$seccion);
@@ -237,9 +239,10 @@ class validacion {
 
     /**
      * P INT P ORDER
-     * @param string $seccion
-     * @param string $accion
-     * @return array|bool
+     * verifica los datos de una seccion y una accion sean correctos
+     * @param string $seccion seccion basada en modelo
+     * @param string $accion accion a ejecutar
+     * @return array|bool array si hay error bool true exito
      */
     public function seccion_accion(string $accion, string $seccion):array|bool{
         $valida = $this->seccion(seccion: $seccion);
