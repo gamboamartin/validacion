@@ -724,21 +724,20 @@ class validacion {
     {
         $fecha = trim($fecha);
         if($fecha === ''){
-            return $this->error->error(mensaje: 'Error la fecha esta vacia', data: $fecha, params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error la fecha esta vacia', data: $fecha);
         }
         $tipo_val = trim($tipo_val);
         if($tipo_val === ''){
-            return $this->error->error(mensaje: 'Error tipo_val no puede venir vacio', data: $tipo_val,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error tipo_val no puede venir vacio', data: $tipo_val);
         }
 
         if(!in_array($tipo_val, $this->regex_fecha, true)){
             return $this->error->error(mensaje: 'Error el tipo val no pertenece a fechas validas',
-                data: $this->regex_fecha, params: get_defined_vars());
+                data: $this->regex_fecha);
         }
 
         if(! $this->valida_pattern(key: $tipo_val,txt: $fecha)){
-            return $this->error->error(mensaje: 'Error fecha invalida', data: $fecha, params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error fecha invalida', data: $fecha);
         }
         return true;
     }
@@ -925,9 +924,8 @@ class validacion {
     }
 
     /**
-     * TODO
      * funcion que revisa si una expresion regular es valida declarada con this->patterns
-     *
+     * @version 1.0.0
      * @param  string $key key definido para obtener de this->patterns
      * @param  string $txt valor a comparar
      *
