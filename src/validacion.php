@@ -23,6 +23,7 @@ class validacion {
         $this->patterns['double'] = '/^[0-9]*.[0-9]*$/';
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
         $this->patterns['correo'] = "/^[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/";
+        $this->patterns['telefono_mx'] = "/^[1-9]{1}[0-9]{9}$/";
 
         $this->regex_fecha[] = 'fecha';
         $this->regex_fecha[] = 'fecha_hora_min_sec_esp';
@@ -30,27 +31,24 @@ class validacion {
     }
 
     /**
-     * FULL
-     * @param array $data_boton
-     * @return bool|array
+     * Verifica los datos minimos necesarios para la creacion de un boton en html
+     * @version 1.0.0
+     * @param array $data_boton datos['filtro'=>array(),'id', 'etiqueta]
+     * @return bool|array Bool true si es exito
      */
     public function btn_base(array $data_boton): bool|array
     {
         if(!isset($data_boton['filtro'])){
-            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe existir',data: $data_boton
-                , params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe existir',data: $data_boton);
         }
         if(!is_array($data_boton['filtro'])){
-            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe ser un array',data: $data_boton,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe ser un array',data: $data_boton);
         }
         if(!isset($data_boton['id'])){
-            return $this->error->error(mensaje: 'Error $data_boton[id] debe existir',data: $data_boton,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error $data_boton[id] debe existir',data: $data_boton);
         }
         if(!isset($data_boton['etiqueta'])){
-            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton);
         }
         return true;
     }
