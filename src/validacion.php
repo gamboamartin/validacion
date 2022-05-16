@@ -352,8 +352,9 @@ class validacion {
 
     /**
      * P INT P ORDER ERROR
+     * Funcion para verificar que dentro de un registro exista de manera correcta colonia_id
      * @param array $registro Registro a validar
-     * @return bool|array
+     * @return bool|array array si hay error
      */
     public function valida_colonia(array $registro): bool|array
     {
@@ -824,9 +825,10 @@ class validacion {
     }
 
     /**
-     * FULL
-     * Funcion para validar la forma correcta de un id
      *
+     * Funcion para validar la forma correcta de un id basada en un conjunto de keys para verificar dentro de un
+     * registro
+     * @version 1.0.0
      * @param array $registro Registro a validar
      * @param array $keys Keys a validar
      *
