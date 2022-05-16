@@ -352,7 +352,7 @@ class validacion {
 
     /**
      * P INT P ORDER ERROR
-     * @param array $registro
+     * @param array $registro Registro a validar
      * @return bool|array
      */
     public function valida_colonia(array $registro): bool|array
@@ -792,9 +792,9 @@ class validacion {
     }
 
     /**
-     * FULL
-     * @param string $key Key a validar
-     *
+     * Valida si un id es valido, en base a los keys a verificar
+     * @version 1.0.0
+     * @param string $key Key a validar de tipo id
      * @param array $registro Registro a validar
      * @return bool|array array con datos del registro y mensaje de exito
      * @example
@@ -805,22 +805,19 @@ class validacion {
     public function valida_id(string $key, array $registro): bool|array{
         $key = trim($key);
         if($key === ''){
-            return $this->error->error(mensaje: 'Error key no puede venir vacio '.$key,data: $registro,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error key no puede venir vacio '.$key,data: $registro);
         }
         if(!isset($registro[$key])){
-            return $this->error->error(mensaje:'Error no existe '.$key,data:$registro, params: get_defined_vars());
+            return $this->error->error(mensaje:'Error no existe '.$key,data:$registro);
         }
         if((string)$registro[$key] === ''){
-            return $this->error->error(mensaje:'Error esta vacio '.$key,data:$registro, params: get_defined_vars());
+            return $this->error->error(mensaje:'Error esta vacio '.$key,data:$registro);
         }
         if((int)$registro[$key] <= 0){
-            return $this->error->error(mensaje:'Error el '.$key.' debe ser mayor a 0',data:$registro,
-                params: get_defined_vars());
+            return $this->error->error(mensaje:'Error el '.$key.' debe ser mayor a 0',data:$registro);
         }
         if(!$this->id(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro,
-                params: get_defined_vars());
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
         }
 
         return true;
@@ -846,21 +843,18 @@ class validacion {
      */
     public function valida_ids(array $keys, array $registro):array{
         if(count($keys) === 0){
-            return $this->error->error(mensaje: "Error keys vacios",data: $keys, params: get_defined_vars());
+            return $this->error->error(mensaje: "Error keys vacios",data: $keys);
         }
         foreach($keys as $key){
             if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro,
-                    params: get_defined_vars());
+                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro);
             }
             if(!isset($registro[$key])){
-                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro,
-                    params: get_defined_vars());
+                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro);
             }
             $id_valido = $this->valida_id(key: $key, registro: $registro);
             if(errores::$error){
-                return  $this->error->error(mensaje:'Error '.$key.' Invalido',data:$id_valido,
-                    params: get_defined_vars());
+                return  $this->error->error(mensaje:'Error '.$key.' Invalido',data:$id_valido);
             }
         }
         return array('mensaje'=>'ids validos',$registro,$keys);
