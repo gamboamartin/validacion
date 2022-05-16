@@ -653,12 +653,12 @@ class validacion {
     }
 
     /**
-     * TODO
+     *
      * Funcion para validar que exista o no sea vacia una llave dentro de un arreglo
-     *
+     * @version 1.0.0
      * @param array $keys Keys a validar
-     *
      * @param array|stdClass $registro Registro a validar
+     * @param bool $valida_vacio Si es true verificara el key sea vacio si es false solo valida que existe el key
      * @return array|bool array con datos del registro
      * @example
      *      $keys = array('clase','sub_clase','producto','unidad');
@@ -667,23 +667,20 @@ class validacion {
      * return $this->errores->error('Error al validar $datos_formulario',$valida);
      * }
      */
-    public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|bool{ //DEBUG
+    public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|bool{
 
         if(is_object($registro)){
             $registro = (array)$registro;
         }
         foreach ($keys as $key){
             if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' no puede venir vacio',data: $keys,
-                    params: get_defined_vars());
+                return $this->error->error(mensaje:'Error '.$key.' no puede venir vacio',data: $keys);
             }
             if(!isset($registro[$key])){
-                return $this->error->error(mensaje: 'Error '.$key.' no existe en el registro', data: $registro,
-                    params: get_defined_vars());
+                return $this->error->error(mensaje: 'Error '.$key.' no existe en el registro', data: $registro);
             }
             if($registro[$key] === '' && $valida_vacio){
-                return $this->error->error(mensaje: 'Error '.$key.' esta vacio en el registro', data: $registro,
-                    params: get_defined_vars());
+                return $this->error->error(mensaje: 'Error '.$key.' esta vacio en el registro', data: $registro);
             }
         }
 
