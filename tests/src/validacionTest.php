@@ -666,7 +666,7 @@ class validacionTest extends test {
     public function test_valida_pattern(): void{
         errores::$error = false;
         $val = new validacion();
-        $val = new liberator($val);
+        //$val = new liberator($val);
         $key = '';
         $txt = '';
         $resultado = $val->valida_pattern($key, $txt);
@@ -684,12 +684,235 @@ class validacionTest extends test {
         $this->assertNotTrue($resultado);
         $this->assertNotTrue(errores::$error);
 
+        errores::$error = false;
         $key = 'id';
         $txt = '10';
         $resultado = $val->valida_pattern($key, $txt);
         $this->assertIsBool( $resultado);
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
+
+
+        errores::$error = false;
+        $key = 'funcion';
+        $txt = 'a';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'funcion';
+        $txt = 'a_';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'funcion';
+        $txt = 'a_a_as';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'a';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_x';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_x.';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_x.s';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_x.s_';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_x.s_s';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_x.s_s.';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_x.s_s.d';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'filtro';
+        $txt = 'aa_x.s_s._d';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_php';
+        $txt = 'aa_x.s_s._d';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_php';
+        $txt = 'aa_x.s_s_d.';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_php';
+        $txt = 'aa_x.s_s.d.php';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_lock';
+        $txt = 'aa_x.s_s.d.php';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_lock';
+        $txt = 'aa_x.s_s.d.php.lock';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_lock';
+        $txt = 'aa_x.s_s.d.php.lock';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_info';
+        $txt = 'aa_x.s_s.d.php';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_info';
+        $txt = 'aa_x.s_s.d.php.';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_info';
+        $txt = 'aa_x.s_s.d.php.2020-12-12';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_info';
+        $txt = 'aa_x.s_s.d.php.2020-12-12.';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_info';
+        $txt = 'aa_x.s_s.d.php.2020-12-12.23:54';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_info';
+        $txt = 'aa_x.s_s.d.php.2020-12-12.23:54:14';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'file_service_info';
+        $txt = 'aa_x.s_s.d.php.2020-12-12.23:54:14.info';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+
+        errores::$error = false;
+
 
     }
 
