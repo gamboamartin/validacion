@@ -211,6 +211,7 @@ class validacionTest extends test {
     {
         errores::$error = false;
         $val = new validacion();
+        $val = new liberator($val);
         $class = '';
         $tabla = '';
         $resultado = $val->valida_class(class: $class, tabla: $tabla);

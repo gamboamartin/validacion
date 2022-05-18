@@ -13,6 +13,7 @@ class validacion {
         $this->error = new errores();
         $fecha = "[1-2][0-9]{3}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3)[0-1])";
         $hora_min_sec = "(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])";
+        $funcion = "(([a-z]+(_?[a-z]+)*|([a-z]*)))+";
 
         $this->patterns['letra_numero_espacio'] = '/^(([a-zA-Z áéíóúÁÉÍÓÚñÑ]+[1-9]*)+(\s)?)+([a-zA-Z áéíóúÁÉÍÓÚñÑ]+[1-9]*)*$/';
         $this->patterns['id'] = '/^[1-9]+[0-9]*$/';
@@ -24,6 +25,9 @@ class validacion {
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
         $this->patterns['correo'] = "/^[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/";
         $this->patterns['telefono_mx'] = "/^[1-9]{1}[0-9]{9}$/";
+        $this->patterns['file_info'] = "/^($funcion+.?)+[a-z]+.php.$fecha.$hora_min_sec$/";
+        $this->patterns['funcion'] = "/^$funcion$/";
+        $this->patterns['filtro'] = "/^$funcion.?$funcion$/";
 
         $this->regex_fecha[] = 'fecha';
         $this->regex_fecha[] = 'fecha_hora_min_sec_esp';
@@ -54,36 +58,34 @@ class validacion {
     }
 
     /**
-     * FULL
-     * @param array $data_boton
-     * @return bool|array
+     * Valida los datos para la emision de un boton
+     * @version 1.0.0
+     * @param array $data_boton Datos de boton
+     * @return bool|array true si son validos los datos
      */
     public function btn_second(array $data_boton): bool|array
     {
         if(!isset($data_boton['etiqueta'])){
-            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton);
         }
         if($data_boton['etiqueta'] === ''){
-            return $this->error->error(mensaje: 'Error etiqueta no puede venir vacio',data: $data_boton['etiqueta'],
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error etiqueta no puede venir vacio',data: $data_boton['etiqueta']);
         }
         if(!isset($data_boton['class'])){
-            return $this->error->error(mensaje: 'Error $data_boton[class] debe existir',data: $data_boton,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error $data_boton[class] debe existir',data: $data_boton);
         }
         if($data_boton['class'] === ''){
-            return $this->error->error(mensaje: 'Error class no puede venir vacio',data: $data_boton['class'],
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error class no puede venir vacio',data: $data_boton['class']);
         }
         return true;
     }
 
     /**
-     * TODO
+     *
      * Valida que una clase de tipo modelo sea correcta y la inicializa como models\\tabla
+     * @version 1.0.0
      * @param string $tabla Tabla o estructura de la base de datos y modelo
-     * @return string|array
+     * @return string|array clase depurada con models integrado
      */
     private function class_depurada(string $tabla): string|array
     {
@@ -326,12 +328,13 @@ class validacion {
     }
 
     /**
-     * TODO valida si una clase de tipo modelo es valida
+     * Valida si una clase de tipo modelo es valida
+     * @version 1.0.0
      * @param string $tabla Tabla o estructura de la bd
      * @param string $class Class o estructura de una bd regularmente la misma que tabla
-     * @return bool|array
+     * @return bool|array verdadero si las entradas son validas
      */
-    PUBLIC function valida_class(string $class, string $tabla): bool|array
+    private function valida_class(string $class, string $tabla): bool|array
     {
         $class = str_replace('models\\','',$class);
         $class = 'models\\'.$class;
@@ -877,8 +880,9 @@ class validacion {
 
     /**
      * Se valida que la tabla sea un modelo valido
+     * @version 1.0.0
      * @param string $tabla Tabla o estructura de la base de datos y modelo
-     * @return bool|array
+     * @return bool|array verdadero si es correcta la entrada
      */
     public function valida_modelo(string $tabla): bool|array
     {
