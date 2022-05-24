@@ -18,7 +18,7 @@
     ],
     "require": {
         "php": " >=8.1",
-        "gamboa.martin/errores": "dev-main",
+        "gamboa.martin/errores": "^1.0.0",
         "gamboa.martin/test": "dev-main"
     },
     "require-dev": {
