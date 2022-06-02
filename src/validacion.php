@@ -617,19 +617,19 @@ class validacion {
     }
 
     /**
-     * PRUEBAS FINALIZADAS
-     * @param int $menu_id
+     * Funcion que valida los campos necesarios para la aplicacion de menu
+     * @param int $menu_id Menu id a validar
      * @return array|bool
      */
     public function valida_estructura_menu(int $menu_id):array|bool{
         if(!isset($_SESSION['grupo_id'])){
-            return $this->error->error('Error debe existir grupo_id',$_SESSION);
+            return $this->error->error(mensaje: 'Error debe existir grupo_id',data: $_SESSION);
         }
         if((int)$_SESSION['grupo_id']<=0){
-            return $this->error->error('Error grupo_id debe ser mayor a 0',$_SESSION);
+            return $this->error->error(mensaje: 'Error grupo_id debe ser mayor a 0',data: $_SESSION);
         }
         if($menu_id<=0){
-            return $this->error->error('Error $menu_id debe ser mayor a 0',"menu_id: ".$menu_id);
+            return $this->error->error(mensaje: 'Error $menu_id debe ser mayor a 0',data: "menu_id: ".$menu_id);
         }
         return true;
     }
