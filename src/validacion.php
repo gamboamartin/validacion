@@ -935,14 +935,13 @@ class validacion {
      * @return bool true si cumple con pattern false si no cumple
      * @uses validacion
      */
-    PUBLIC function valida_pattern(string $key, string $txt):bool{
+    public function valida_pattern(string $key, string $txt):bool{
         if($key === ''){
             return false;
         }
         if(!isset($this->patterns[$key])){
             return false;
         }
-        //var_dump($this->patterns[$key]);
         $result = preg_match($this->patterns[$key], $txt);
         $r = false;
         if((int)$result !== 0){
