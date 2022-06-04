@@ -914,12 +914,40 @@ class validacion {
         $tabla = str_replace($namespace,'',$tabla);
         $clase = $namespace.$tabla;
         if($tabla === ''){
-            return $this->error->error(mensaje: 'Error tabla no puede venir vacio',data: $tabla,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error tabla no puede venir vacio',data: $tabla);
         }
         if(!class_exists($clase)){
-            return $this->error->error(mensaje: 'Error no existe la clase '.$clase,data: $clase,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error no existe la clase '.$clase,data: $clase);
+        }
+        return true;
+    }
+
+    /** Valida que un valor sea un numero
+     * @param mixed $value
+     * @return bool|array
+     */
+    public function valida_numeric(mixed $value): bool|array
+    {
+        if(!is_numeric($value)){
+            return $this->error->error(mensaje: 'Error el valor no es un numero',data: $value);
+        }
+        return true;
+    }
+
+    public function valida_numerics(array $keys, array|stdClass $row): bool|array
+    {
+        if(is_object($row)){
+            $row = (array)$row;
+        }
+        $valida_existe = $this->valida_existencia_keys(keys: $keys,registro: $row);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al validar registro', data: $valida_existe);
+        }
+        foreach ($keys as $key){
+            $valida = $this->valida_numeric(value: $row[$key]);
+            if(errores::$error){
+                return $this->error->error(mensaje: 'Error al validar registro['.$key.']', data: $valida);
+            }
         }
         return true;
     }
