@@ -831,25 +831,26 @@ class validacion {
      *
      * Funcion para validar la forma correcta de un id basada en un conjunto de keys para verificar dentro de un
      * registro
-     * @version 1.0.0
-     * @param array $registro Registro a validar
      * @param array $keys Keys a validar
      *
+     * @param array|object $registro Registro a validar
+     * @return array array con datos del registro y mensaje de exito
+     * @version 1.0.0
      * @example
      *      $registro['registro_id'] = 1;
      *      $keys = array('registro_id')
      *      $valida = $this->validacion->valida_ids($registro,$keys);
      *
-     * @return array array con datos del registro y mensaje de exito
-     * @throws errores si no existe key en registro a validar
-     * @throws errores si valor es vacio o null en registro a validar determinado en keys
-     * @throws errores si  key es menor 1
-     * @throws errores si  key eno cumple con patterns key
      */
-    public function valida_ids(array $keys, array $registro):array{
+    public function valida_ids(array $keys, array|object $registro):array{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
         }
+
+        if(is_object($registro)){
+            $registro = (array)$registro;
+        }
+
         foreach($keys as $key){
             if($key === ''){
                 return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro);
