@@ -438,8 +438,9 @@ class validacion {
     }
 
     /**
-     * FULL
+     *
      * Funcion que valida la existencia y forma de un modelo enviando un txt con el nombre del modelo a validar
+     * @version 1.0.0
      *
      * @param string $name_modelo txt con el nombre del modelo a validar
      * @example
