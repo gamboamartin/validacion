@@ -145,36 +145,30 @@ class validacion {
     /**
      * P ORDER P INT ERRORREV
      * Verifica los keys que existen dentro de data para ver que este cargada de manera correcta la fecha
-     * @param array $keys Keys a verificar
      * @param array $data arreglo donde se verificaran las fechas en base a los keys enviados
+     * @param array $keys Keys a verificar
+     * @param string $tipo_val El key debe ser el tipo val para la obtencion del regex de formato de fecha
+     * utiliza los patterns de las siguientes formas
+     *          fecha=yyyy-mm-dd
+     *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
+     *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
      * @return bool|array
      */
-    public function fechas_in_array(array $data, array $keys): bool|array
+    public function fechas_in_array(array $data, array $keys, string $tipo_val = 'fecha'): bool|array
     {
         foreach($keys as $key){
 
             if($key === ''){
-                return $this->error->error(mensaje: "Error key no puede venir vacio", data: $key,
-                    params: get_defined_vars());
+                return $this->error->error(mensaje: "Error key no puede venir vacio", data: $key);
             }
             $valida = $this->existe_key_data(arreglo: $data, key: $key);
             if(!$valida){
-                return $this->error->error(mensaje: "Error al validar existencia de key", data: $key,
-                    params: get_defined_vars());
+                return $this->error->error(mensaje: "Error al validar existencia de key", data: $key);
             }
-            /**
-             * El key debe ser el tipo val para la obtencion del regex de formato de fecha
-             * @param $key
-             *          utiliza los patterns de las siguientes formas
-             *          fecha=yyyy-mm-dd
-             *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
-             *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
-             *
-             */
-            $valida = $this->valida_fecha(fecha: $data[$key]);
+
+            $valida = $this->valida_fecha(fecha: $data[$key],tipo_val: $tipo_val);
             if(errores::$error){
-                return $this->error->error(mensaje: "Error al validar fecha: ".'$data['.$key.']', data: $valida,
-                    params: get_defined_vars());
+                return $this->error->error(mensaje: "Error al validar fecha: ".'$data['.$key.']', data: $valida);
             }
         }
         return true;
