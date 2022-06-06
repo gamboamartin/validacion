@@ -145,7 +145,7 @@ class validacion {
     /**
      * P ORDER P INT ERRORREV
      * Verifica los keys que existen dentro de data para ver que este cargada de manera correcta la fecha
-     * @param array $data arreglo donde se verificaran las fechas en base a los keys enviados
+     * @param array|stdClass $data arreglo donde se verificaran las fechas en base a los keys enviados
      * @param array $keys Keys a verificar
      * @param string $tipo_val El key debe ser el tipo val para la obtencion del regex de formato de fecha
      * utiliza los patterns de las siguientes formas
@@ -154,8 +154,11 @@ class validacion {
      *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
      * @return bool|array
      */
-    public function fechas_in_array(array $data, array $keys, string $tipo_val = 'fecha'): bool|array
+    public function fechas_in_array(array|stdClass $data, array $keys, string $tipo_val = 'fecha'): bool|array
     {
+        if(is_object($data)){
+            $data = (array)$data;
+        }
         foreach($keys as $key){
 
             if($key === ''){
