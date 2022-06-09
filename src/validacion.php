@@ -229,7 +229,9 @@ class validacion {
         $seccion = str_replace('models\\','',$seccion);
         $seccion = strtolower(trim($seccion));
         if(trim($seccion) === ''){
-            return  $this->error->error(mensaje: 'Error seccion  no puede ser vacio',data: $seccion);
+            $fix = 'La seccion debe ser un string no numerico y no vacio seccion=elemento_txt_no_numerico_ni_vacio';
+            $fix .= 'seccion=tabla';
+            return  $this->error->error(mensaje: 'Error seccion  no puede ser vacio',data: $seccion, fix: $fix);
         }
         return true;
     }
@@ -239,15 +241,24 @@ class validacion {
      * verifica los datos de una seccion y una accion sean correctos
      * @param string $seccion seccion basada en modelo
      * @param string $accion accion a ejecutar
+     * @example
+     * $seccion = 'menu';
+     * $accion = 'alta'
+     * $valida = (new validacion())->seccion_accion(accion:$accion, seccion:$seccion);
+     * $print_r($valida); // true|1 siempre
      * @return array|bool array si hay error bool true exito
      */
     public function seccion_accion(string $accion, string $seccion):array|bool{
         $valida = $this->seccion(seccion: $seccion);
         if(errores::$error){
-            return  $this->error->error('Error al validar seccion',$valida);
+            $fix = 'La seccion debe ser un string no numerico y no vacio seccion=elemento_txt_no_numerico_ni_vacio';
+            $fix .= 'seccion=tabla';
+            return  $this->error->error(mensaje: 'Error al validar seccion',data: $valida, fix: $fix);
         }
         if(trim($accion) === ''){
-            return  $this->error->error('Error accion  no puede ser vacio',$accion);
+            $fix = 'La accion debe ser un string no numerico y no vacio accion=elemento_txt_no_numerico_ni_vacio';
+            $fix .= 'seccion=lista';
+            return  $this->error->error(mensaje: 'Error accion  no puede ser vacio',data: $accion, fix: $fix);
         }
         return true;
     }
