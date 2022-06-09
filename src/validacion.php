@@ -227,13 +227,9 @@ class validacion {
      */
     private function seccion(string $seccion):array|bool{
         $seccion = str_replace('models\\','',$seccion);
-        $class_model = 'models\\'.$seccion;
         $seccion = strtolower(trim($seccion));
         if(trim($seccion) === ''){
             return  $this->error->error(mensaje: 'Error seccion  no puede ser vacio',data: $seccion);
-        }
-        if(!class_exists($class_model)){
-            return  $this->error->error(mensaje: 'Error no existe el modelo '.$class_model,data: $class_model);
         }
         return true;
     }

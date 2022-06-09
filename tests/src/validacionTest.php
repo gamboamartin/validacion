@@ -183,9 +183,9 @@ class validacionTest extends test {
         errores::$error = false;
         $seccion = 'a';
         $resultado = $val->seccion($seccion);
-        $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error no existe el modelo models\a', $resultado['mensaje']);
-        $this->assertTrue(errores::$error);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
 
