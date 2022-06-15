@@ -189,6 +189,41 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_seccion_accion(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $seccion = '';
+        $accion = '';
+        $resultado = $val->seccion_accion($accion, $seccion);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error al validar seccion', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+
+        $seccion = 'a';
+        $accion = '';
+        $resultado = $val->seccion_accion($accion, $seccion);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error accion  no puede ser vacio', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+
+        $seccion = 'a';
+        $accion = 'b';
+        $resultado = $val->seccion_accion($accion, $seccion);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_valida_campo_obligatorio(): void
     {
         errores::$error = false;
