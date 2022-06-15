@@ -908,7 +908,8 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT PROBADO ERROREV
+     * Valida que de un modelo exista tu clase
+     * @version 0.5.0
      * @param string $tabla
      * @return bool|array
      */
