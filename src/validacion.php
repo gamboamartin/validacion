@@ -135,7 +135,7 @@ class validacion {
      * @param array $arreglo arreglo donde se buscara la llave
      * @return bool
      */
-    private function existe_key_data(array $arreglo, string $key ):bool{
+    public function existe_key_data(array $arreglo, string $key ):bool{
         $r = true;
         if(!isset($arreglo[$key])){
             $r = false;
@@ -716,9 +716,9 @@ class validacion {
     }
 
     /**
-     * TODO
-     * Funcion para validar LA ESTRUCTURA DE UNA FECHA
      *
+     * Funcion para validar LA ESTRUCTURA DE UNA FECHA
+     * @version 0.7.1
      * @param string $fecha txt con fecha a validar
      * @param string $tipo_val
      *          utiliza los patterns de las siguientes formas
