@@ -120,6 +120,30 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_existe_key_data(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $val = new liberator($val);
+
+        $arreglo = array();
+        $key = '';
+        $resultado = $val->existe_key_data($arreglo, $key);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $arreglo = array();
+        $arreglo['a'] = 'a';
+        $key = 'a';
+        $resultado = $val->existe_key_data($arreglo, $key);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_letra_numero_espacio(): void{
         errores::$error = false;
         $val = new validacion();

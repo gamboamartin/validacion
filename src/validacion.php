@@ -128,13 +128,14 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT ERRORREV
+     *
      * Verifica si existe un elemento en un array
+     * @version 0.7.0
      * @param string $key Key a buscar en el arreglo
      * @param array $arreglo arreglo donde se buscara la llave
      * @return bool
      */
-    public function existe_key_data(array $arreglo, string $key ):bool{
+    private function existe_key_data(array $arreglo, string $key ):bool{
         $r = true;
         if(!isset($arreglo[$key])){
             $r = false;
