@@ -179,9 +179,9 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
-     * Funcion para validar la forma correcta de un id
      *
+     * Funcion para validar la forma correcta de un id
+     * @version 0.8.1
      * @param int|string|null $txt valor a validar
      *
      * @return bool true si cumple con pattern false si no cumple
@@ -191,7 +191,7 @@ class validacion {
      *
      */
     public function id(int|string|null $txt):bool{
-        return $this->valida_pattern('id',$txt);
+        return $this->valida_pattern(key:'id', txt:$txt);
     }
 
     /**

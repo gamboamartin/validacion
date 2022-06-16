@@ -144,6 +144,27 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_id(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $txt = '';
+        $resultado = $val->id($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $txt = '111';
+        $resultado = $val->id($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_letra_numero_espacio(): void{
         errores::$error = false;
         $val = new validacion();
