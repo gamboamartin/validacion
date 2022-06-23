@@ -385,9 +385,8 @@ class validacionTest extends test {
         $tabla = 'a';
         $columnas[] = 'a';
         $resultado = $val->valida_estructura_input_base($columnas, $tabla);
-        $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error modelo no existe', $resultado['mensaje']);
-        $this->assertTrue(errores::$error);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
 
         errores::$error = false;
         $columnas = array();

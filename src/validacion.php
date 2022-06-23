@@ -594,9 +594,9 @@ class validacion {
     }
 
     /**
-     * FULL
-     * Funcion para validar la estructura de los parametros de un input basico
      *
+     * Funcion para validar la estructura de los parametros de un input basico
+     * @version 0.10.1
      * @param array $columnas Columnas a mostrar en select
      *
      * @param string $tabla Tabla - estructura modelo sistema
@@ -608,18 +608,14 @@ class validacion {
     public function valida_estructura_input_base(array $columnas, string $tabla):array|bool{
         $namespace = 'models\\';
         $tabla = str_replace($namespace,'',$tabla);
-        $clase = $namespace.$tabla;
+
         if(count($columnas) === 0){
-            return $this->error->error(mensaje: 'Error deben existir columnas',data: $columnas,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error deben existir columnas',data: $columnas);
         }
         if($tabla === ''){
-            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia',data: $tabla,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia',data: $tabla);
         }
-        if(!class_exists($clase)){
-            return $this->error->error(mensaje: 'Error modelo no existe',data: $clase, params: get_defined_vars());
-        }
+
         return true;
     }
 
