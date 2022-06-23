@@ -347,9 +347,8 @@ class validacionTest extends test {
         errores::$error = false;
         $name_modelo = 'z';
         $resultado = $val->valida_data_modelo($name_modelo);
-        $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error modelo', $resultado['mensaje']);
-        $this->assertTrue(errores::$error);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
 
         errores::$error = false;
         $name_modelo = 'prueba';

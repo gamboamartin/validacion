@@ -462,16 +462,13 @@ class validacion {
     public function valida_data_modelo(string $name_modelo):array|bool{
         $name_modelo = trim($name_modelo);
         $name_modelo = str_replace('models\\','',$name_modelo);
-        $class = 'models\\'.$name_modelo;
         if(trim($name_modelo) ===''){
-            return $this->error->error(mensaje: "Error modelo vacio",data: $name_modelo, params: get_defined_vars());
+            return $this->error->error(mensaje: "Error modelo vacio",data: $name_modelo);
         }
         if(is_numeric($name_modelo)){
-            return $this->error->error(mensaje:"Error modelo",data:$name_modelo, params: get_defined_vars());
+            return $this->error->error(mensaje:"Error modelo",data:$name_modelo);
         }
-        if(!class_exists($class)){
-            return $this->error->error(mensaje:"Error modelo",data:$class, params: get_defined_vars());
-        }
+
 
         return true;
 
