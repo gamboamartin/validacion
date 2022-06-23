@@ -930,7 +930,8 @@ class validacion {
     }
 
     /** Valida que un valor sea un numero
-     * @param mixed $value
+     * @version 0.9.1
+     * @param mixed $value Valor a verificar
      * @return bool|array
      */
     public function valida_numeric(mixed $value): bool|array

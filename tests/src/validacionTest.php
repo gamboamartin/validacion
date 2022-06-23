@@ -743,6 +743,44 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_numeric(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $value = '';
+        $resultado = $val->valida_numeric($value);
+
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error el valor no es un numero',$resultado['mensaje']);
+
+        errores::$error = false;
+        $value = 'a';
+        $resultado = $val->valida_numeric($value);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error el valor no es un numero',$resultado['mensaje']);
+
+        errores::$error = false;
+        $value = '1';
+        $resultado = $val->valida_numeric($value);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+        $value = '1.1';
+        $resultado = $val->valida_numeric($value);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+    }
+
     public function test_valida_pattern(): void{
         errores::$error = false;
         $val = new validacion();
