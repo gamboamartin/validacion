@@ -6,9 +6,6 @@ use gamboamartin\test\liberator;
 use gamboamartin\test\test;
 use gamboamartin\validacion\validacion;
 
-
-
-
 class validacionTest extends test {
     public errores $errores;
     public function __construct(?string $name = null, array $data = [], $dataName = '')
@@ -358,7 +355,6 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
 
     }
-
 
     public function test_valida_estructura_input_base(){
         errores::$error = false;
@@ -776,6 +772,52 @@ class validacionTest extends test {
         $this->assertIsBool($resultado);
         $this->assertTrue($resultado);
 
+        errores::$error = false;
+    }
+
+    public function test_valida_numerics(){
+        errores::$error = false;
+        $val = new validacion();
+        $keys = array();
+        $row = array();
+        $resultado = $val->valida_numerics($keys, $row);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $keys = array();
+        $row = array();
+        $keys[] = 'a';
+        $resultado = $val->valida_numerics($keys, $row);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error al validar registro',$resultado['mensaje']);
+
+        errores::$error = false;
+
+        $keys = array();
+        $row = array();
+        $keys[] = 'a';
+        $row['a'] = 'x';
+        $resultado = $val->valida_numerics($keys, $row);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error al validar registro[a]',$resultado['mensaje']);
+
+        errores::$error = false;
+
+        $keys = array();
+        $row = array();
+        $keys[] = 'a';
+        $row['a'] = '1';
+        $resultado = $val->valida_numerics($keys, $row);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
 

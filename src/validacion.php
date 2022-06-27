@@ -935,6 +935,13 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida un conjunto de datos sean numeros
+     * @version 0.12.1
+     * @param array $keys Keys a verificar
+     * @param array|stdClass $row Registro a verificar
+     * @return bool|array
+     */
     public function valida_numerics(array $keys, array|stdClass $row): bool|array
     {
         if(is_object($row)){
