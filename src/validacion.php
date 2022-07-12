@@ -306,8 +306,8 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT PROBADO ERRORREV
      * Funcion que valida los campos obligatorios para una transaccion
+     * @version 0.13.1
      * @param array $campos_obligatorios
      * @param array $registro
      * @param string $tabla
@@ -320,16 +320,16 @@ class validacion {
             $campo_obligatorio = trim($campo_obligatorio);
             if(!array_key_exists($campo_obligatorio,$registro)){
                 return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' debe existir en el registro de '.$tabla,
-                    data: array($registro,$campos_obligatorios), params: get_defined_vars());
+                    data: array($registro,$campos_obligatorios));
 
             }
             if(is_array($registro[$campo_obligatorio])){
                 return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' no puede ser un array',
-                    data: array($registro,$campos_obligatorios), params: get_defined_vars());
+                    data: array($registro,$campos_obligatorios));
             }
             if((string)$registro[$campo_obligatorio] === ''){
                 return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' no puede venir vacio',
-                    data: array($registro,$campos_obligatorios), params: get_defined_vars());
+                    data: array($registro,$campos_obligatorios));
             }
         }
 
