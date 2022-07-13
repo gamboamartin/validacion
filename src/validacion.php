@@ -724,8 +724,11 @@ class validacion {
      * @example
      *      $valida_fecha = $this->validaciones->valida_fecha($fecha);
      */
-    public function valida_fecha(string $fecha, string $tipo_val = 'fecha'): array|bool
+    public function valida_fecha(mixed $fecha, string $tipo_val = 'fecha'): array|bool
     {
+        if(!is_string($fecha)){
+            return $this->error->error(mensaje: 'Error la fecha debe ser un texto', data: $fecha);
+        }
         $fecha = trim($fecha);
         if($fecha === ''){
             return $this->error->error(mensaje: 'Error la fecha esta vacia', data: $fecha);
