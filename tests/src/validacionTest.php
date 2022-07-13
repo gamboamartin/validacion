@@ -5,6 +5,7 @@ use gamboamartin\errores\errores;
 use gamboamartin\test\liberator;
 use gamboamartin\test\test;
 use gamboamartin\validacion\validacion;
+use stdClass;
 
 class validacionTest extends test {
     public errores $errores;
@@ -208,6 +209,23 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
 
+        errores::$error = false;
+    }
+
+    public function test_fechas_in_array(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+        $class = '';
+        $data = new stdClass();
+        $keys = array();
+        $keys[] = 'a';
+        $data->a = '2020-01-01';
+        $resultado = $val->fechas_in_array($data, $keys);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
 
