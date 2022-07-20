@@ -15,6 +15,8 @@ class validacionTest extends test {
         $this->errores = new errores();
     }
 
+
+
     public function test_btn_base(): void
     {
         errores::$error = false;
