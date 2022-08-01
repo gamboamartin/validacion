@@ -196,7 +196,7 @@ class validacion {
     }
 
     /**
-     *  P ORDER P INT
+     *  Obtiene los keys de un registro documento
      * @return string[]
      */
     private function keys_documentos(): array
@@ -205,7 +205,7 @@ class validacion {
     }
 
     /**
-     * PROBADO-PARAMS ORDER P INT
+     *
      * Funcion para validar letra numero espacio
      *
      * @param  string $txt valor a validar
@@ -215,6 +215,10 @@ class validacion {
      *      $this->validacion->letra_numero_espacio($etiqueta);
      *
      * @return bool true si cumple con pattern false si no cumple
+     * @version 0.16.1
+     * @verfuncion 0.1.0
+     * @author mgamboa
+     * @fecha 2022-08-01 13:42
      */
     public function letra_numero_espacio(string $txt):bool{
         return $this->valida_pattern(key: 'letra_numero_espacio',txt: $txt);

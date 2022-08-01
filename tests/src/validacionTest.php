@@ -229,6 +229,8 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+
+
     public function test_seccion(): void{
         errores::$error = false;
         $val = new validacion();
