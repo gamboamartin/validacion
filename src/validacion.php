@@ -26,7 +26,9 @@ class validacion {
         $this->patterns['fecha_hora_min_sec_t'] = "/^$fecha".'T'."$hora_min_sec$/";
         $this->patterns['double'] = '/^[0-9]*.[0-9]*$/';
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
-        $this->patterns['correo'] = "/^[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/";
+        $this->patterns['correo_html5'] = "[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
+        $this->patterns['correo'] = '/^'.$this->patterns["correo_html5"].'/';
+
         $this->patterns['telefono_mx'] = "/^[1-9]{1}[0-9]{9}$/";
 
         $this->patterns['funcion'] = "/^$funcion$/";
