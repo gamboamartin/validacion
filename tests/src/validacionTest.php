@@ -378,6 +378,100 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_double_mayor_0(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $value = '0.0001';
+        $resultado = $val->valida_double_mayor_0($value);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+
+        $value = '0.000';
+        $resultado = $val->valida_double_mayor_0($value);
+        $this->assertIsArray( $resultado);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
+    public function test_valida_double_mayores_0(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $keys = array();
+        $registro = array();
+
+        $resultado = $val->valida_double_mayores_0($keys, $registro);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+
+        $keys = array();
+        $registro = array();
+
+        $keys[] = 'a';
+        $resultado = $val->valida_double_mayores_0($keys, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $keys = array();
+        $registro = array();
+
+        $keys[] = 'a';
+        $registro['a'] = '0';
+        $resultado = $val->valida_double_mayores_0($keys, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $keys = array();
+        $registro = array();
+
+        $keys[] = 'a';
+        $registro['a'] = 'x';
+        $resultado = $val->valida_double_mayores_0($keys, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $keys = array();
+        $registro = array();
+
+        $keys[] = 'a';
+        $registro['a'] = '1';
+        $resultado = $val->valida_double_mayores_0($keys, $registro);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+
+        $keys = array();
+        $registro = new stdClass();
+
+        $keys[] = 'a';
+        $registro->a = '1';
+        $resultado = $val->valida_double_mayores_0($keys, $registro);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+
+
+        errores::$error = false;
+    }
+
     public function test_valida_estructura_input_base(){
         errores::$error = false;
         $val = new validacion();

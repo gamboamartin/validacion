@@ -482,33 +482,30 @@ class validacion {
     }
 
     /**
-     * ERROR
+     * Valida un numero sea double mayor a 0
      * @param string $value valor a validar
-     * @return array con exito y valor
-     * @throws errores (string)$value === ''
-     * @throws errores (float)$value <= 0.0
-     * @throws errores pattern de double
+     * @return array|bool con exito y valor
      * @example
      *      $valida = $this->valida_double_mayor_0($registro[$key]);
-     * @uses validacion
-     * @uses entrada_producto
-     * @uses producto
      * @internal  $this->valida_pattern('double',$value)
+     * @version 0.17.1
      */
-    public function valida_double_mayor_0(string $value):array{
+    public function valida_double_mayor_0(mixed $value):array|bool{
         if($value === ''){
-            return $this->error->error(mensaje: 'Error esta vacio '.$value,data: $value, params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error esta vacio '.$value,data: $value);
         }
         if((float)$value <= 0.0){
-            return $this->error->error(mensaje: 'Error el '.$value.' debe ser mayor a 0',data: $value,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error el '.$value.' debe ser mayor a 0',data: $value);
+        }
+        if(is_numeric($value)){
+            return true;
         }
 
         if(! $this->valida_pattern(key: 'double',txt: $value)){
-            return $this->error->error(mensaje: 'Error valor vacio['.$value.']',data: $value, params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error valor vacio['.$value.']',data: $value);
         }
 
-        return array('mensaje'=>'exito',$value);
+        return  true;
     }
 
     /**
@@ -545,35 +542,33 @@ class validacion {
     }
 
     /**
-     * PHPUNIT
+     *
      * Valida que un conjunto de  numeros sea mayor a 0 y no este vacio
-     * @param array  $registro valores a validar
-     * @param array  $keys keys de registros a validar
-     * @return array con exito y registro
-     * @throws errores definidos en internals
+     * @param array $keys keys de registros a validar
+     * @param array|stdClass $registro valores a validar
+     * @return array|bool con exito y registro
      * @example
      *       $valida = $this->validacion->valida_double_mayores_0($_POST, $keys);
-     * @uses controlador_traspaso
-     * @uses entrada_producto
-     * @uses producto
-     * @uses traspaso_producto
      * @internal  $this->valida_existencia_keys($registro,$keys);
      * @internal  $this->valida_double_mayor_0($registro[$key]);
+     * @version 1.17.1
      */
-    public function valida_double_mayores_0(array $registro, array $keys):array{
+    public function valida_double_mayores_0(array $keys, array|stdClass $registro):array|bool{
+        if(is_object($registro)){
+            $registro = (array)$registro;
+        }
         $valida = $this->valida_existencia_keys(keys: $keys, registro: $registro,);
         if(errores::$error){
-            return $this->error->error(mensaje: 'Error al validar $registro no existe un key ',data: $valida,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error al validar $registro no existe un key ',data: $valida);
         }
 
         foreach($keys as $key){
-            $valida = $this->valida_double_mayor_0($registro[$key]);
+            $valida = $this->valida_double_mayor_0(value:$registro[$key]);
             if(errores::$error){
-                return$this->error->error(mensaje: 'Error $registro['.$key.']',data: $valida, params: get_defined_vars());
+                return$this->error->error(mensaje: 'Error $registro['.$key.']',data: $valida);
             }
         }
-        return array('mensaje'=>'exito',$registro);
+        return true;
     }
 
     /**
