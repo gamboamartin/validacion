@@ -28,6 +28,7 @@ class validacion {
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
         $this->patterns['correo_html5'] = "[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
         $this->patterns['correo'] = '/^'.$this->patterns["correo_html5"].'/';
+        $this->patterns['url'] = "/http(s)?:\/\/(([a-z])+.)+([a-z])+/";
 
         $this->patterns['telefono_mx'] = "/^[1-9]{1}[0-9]{9}$/";
 
@@ -310,6 +311,22 @@ class validacion {
                 break;
         }
         return $this->error->error($mensajeInformativo,$codigo);
+    }
+
+    /**
+     * @param int|string|null $url
+     * @return bool|array
+     */
+    private function url(int|string|null $url):bool|array{
+        $url = trim($url);
+        if($url === ''){
+            return $this->error->error(mensaje: 'Error la url esta vacia', data:$url,params: get_defined_vars());
+        }
+        $valida = $this->valida_pattern(key: 'url',txt: $url);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error verificar regex', data:$valida,params: get_defined_vars());
+        }
+        return $valida;
     }
 
     /**

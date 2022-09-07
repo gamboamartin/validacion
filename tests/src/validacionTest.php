@@ -288,6 +288,44 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_url(): void{
+        errores::$error = false;
+        $validacion = new validacion();
+        $validacion = new liberator($validacion);
+
+        $url = '';
+        $resultado = $validacion->url($url);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error la url esta vacia', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $url = 'abc';
+        $resultado = $validacion->url($url);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $url = 'https://www.abc.com.mx';
+        $resultado = $validacion->url($url);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $url = 'http://www.abc.com.mx';
+        $resultado = $validacion->url($url);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_valida_campo_obligatorio(): void
     {
         errores::$error = false;
