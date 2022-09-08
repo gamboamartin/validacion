@@ -1101,6 +1101,25 @@ class validacion {
         return array('mensaje'=>'exito',$registro);
     }
 
+    /**
+     * @param string $url
+     * @return bool|array
+     */
+
+    public function valida_url(string $url): bool|array
+    {
+        $valida = $this->url(url: $url);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error la url es valida',data:  $valida,
+                params: get_defined_vars());
+        }
+        if(!$valida){
+            return $this->error->error(mensaje: 'Error la url es invalida',data:  $url,
+                params: get_defined_vars());
+        }
+        return true;
+    }
+
 
 
 }
