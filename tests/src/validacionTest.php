@@ -322,33 +322,36 @@ class validacionTest extends test {
         $class = '';
         $tabla = 'a';
         $resultado = $val->valida_class(class: $class, tabla: $tabla);
+
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error CLASE no existe models', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error $class no puede venir vacia', $resultado['mensaje']);
+
         $this->assertTrue(errores::$error);
 
         errores::$error = false;
         $class = 'a';
         $tabla = 'a';
         $resultado = $val->valida_class(class: $class, tabla: $tabla);
-        $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error CLASE no existe models', $resultado['mensaje']);
-        $this->assertTrue(errores::$error);
+
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
 
         errores::$error = false;
         $class = 'a';
         $tabla = 'seccion';
         $resultado = $val->valida_class(class: $class, tabla: $tabla);
-        $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error CLASE no existe models', $resultado['mensaje']);
-        $this->assertTrue(errores::$error);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
 
         errores::$error = false;
         $class = 'seccion';
         $tabla = 'seccion';
         $resultado = $val->valida_class(class: $class, tabla: $tabla);
-        $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error CLASE no existe models', $resultado['mensaje']);
-        $this->assertTrue(errores::$error);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
         errores::$error = false;
 
     }
@@ -891,16 +894,17 @@ class validacionTest extends test {
 
         $tabla = 'a';
         $resultado = $validacion->valida_modelo($tabla);
-        $this->assertTrue(errores::$error);
-        $this->assertIsArray($resultado);
-        $this->assertArrayHasKey('data',$resultado);
-        $this->assertStringContainsStringIgnoringCase('Error al validar a',$resultado['mensaje']);
+
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
 
         errores::$error = false;
 
 
         $tabla = 'prueba';
         $resultado = $validacion->valida_modelo($tabla);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
         errores::$error = false;
     }
 

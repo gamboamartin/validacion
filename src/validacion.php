@@ -353,8 +353,6 @@ class validacion {
      */
     private function valida_class(string $class, string $tabla): bool|array
     {
-        $class = str_replace('models\\','',$class);
-        $class = 'models\\'.$class;
 
         if($tabla === ''){
             return $this->error->error(mensaje: 'Error tabla no puede venir vacia',data: $tabla);
@@ -362,9 +360,7 @@ class validacion {
         if($class === ''){
             return $this->error->error(mensaje:'Error $class no puede venir vacia',data: $class);
         }
-        if(!class_exists($class)){
-            return $this->error->error(mensaje:'Error CLASE no existe '.$class,data: $tabla);
-        }
+
         return true;
     }
 
