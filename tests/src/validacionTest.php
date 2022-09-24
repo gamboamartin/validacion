@@ -120,6 +120,27 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_cod_3_letras_mayusc()
+    {
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $data_boton = '';
+        $resultado = $validacion->cod_3_letras_mayusc($data_boton);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $data_boton = 'ADD';
+        $resultado = $validacion->cod_3_letras_mayusc($data_boton);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_existe_key_data(): void{
         errores::$error = false;
         $val = new validacion();
@@ -829,7 +850,7 @@ class validacionTest extends test {
         $registro = array();
         $resultado = $val->valida_id(key: $key, registro: $registro);
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error key no puede venir vacio', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error al validar', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
 
         errores::$error = false;
@@ -837,7 +858,7 @@ class validacionTest extends test {
         $registro = array();
         $resultado = $val->valida_id(key: $key, registro: $registro);
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error no existe a', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error al validar', $resultado['mensaje']);
 
         errores::$error = false;
         $key = 'a';
@@ -845,7 +866,7 @@ class validacionTest extends test {
         $registro['a'] = 'z';
         $resultado = $val->valida_id(key: $key, registro: $registro);
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error el a debe ser mayor a 0', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error al validar', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
 
 
