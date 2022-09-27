@@ -94,6 +94,7 @@ class validacion {
      * Valida regex codigos tres letras con mayusculas A
      * @param int|string|null $txt valor a verificar
      * @return bool
+     * @version 0.23.1
      */
     public function cod_1_letras_mayusc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_1_letras_mayusc', txt:$txt);

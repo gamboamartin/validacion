@@ -120,6 +120,19 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_cod_1_letras_mayusc(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        $txt = 'A';
+
+        $resultado = $val->cod_1_letras_mayusc($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_cod_3_letras_mayusc()
     {
 
@@ -140,6 +153,8 @@ class validacionTest extends test {
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
+
+
 
     public function test_existe_key_data(): void{
         errores::$error = false;
