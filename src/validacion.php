@@ -19,6 +19,7 @@ class validacion {
         $fecha_hms_punto = "$fecha\.$hora_min_sec";
 
         $this->patterns['cod_3_letras_mayusc'] = '/^[A-Z]{3}$/';
+        $this->patterns['cod_1_letras_mayusc'] = '/^[A-Z]$/';
         $this->patterns['correo_html5'] = "[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
         $this->patterns['correo'] = '/^'.$this->patterns["correo_html5"].'/';
         $this->patterns['double'] = '/^[0-9]*.[0-9]*$/';
@@ -86,6 +87,15 @@ class validacion {
             return $this->error->error(mensaje: 'Error class no puede venir vacio',data: $data_boton['class']);
         }
         return true;
+    }
+
+    /**
+     * Valida regex codigos tres letras con mayusculas A
+     * @param int|string|null $txt valor a verificar
+     * @return bool
+     */
+    public function cod_1_letras_mayusc(int|string|null $txt):bool{
+        return $this->valida_pattern(key:'cod_1_letras_mayusc', txt:$txt);
     }
 
     /**
@@ -404,6 +414,20 @@ class validacion {
         }
         if($class === ''){
             return $this->error->error(mensaje:'Error $class no puede venir vacia',data: $class);
+        }
+
+        return true;
+    }
+
+    public function valida_cod_1_letras_mayusc(string $key, array $registro): bool|array{
+
+        $valida = $this->valida_base(key: $key, registro: $registro);
+        if(errores::$error){
+            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+        }
+
+        if(!$this->cod_1_letras_mayusc(txt:$registro[$key])){
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
         }
 
         return true;
