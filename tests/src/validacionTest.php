@@ -362,6 +362,44 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_base(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $val = new liberator($val);
+
+        $key = '';
+        $registro = array();
+        $resultado = $val->valida_base($key, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error key no puede venir vacio', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $val = new validacion();
+        $val = new liberator($val);
+
+        $key = 'a';
+        $registro = new stdClass();
+
+        $resultado = $val->valida_base($key, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error no existe en registro el key a', $resultado['mensaje']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+
+        $key = 'a';
+        $registro = new stdClass();
+        $registro->a = 'a';
+
+        $resultado = $val->valida_base($key, $registro, false);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_valida_campo_obligatorio(): void
     {
         errores::$error = false;

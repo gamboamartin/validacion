@@ -32,6 +32,7 @@ class validacion {
         $this->patterns['hora_min_sec'] = "/^$hora_min_sec$/";
         $this->patterns['letra_numero_espacio'] = '/^(([a-zA-Z áéíóúÁÉÍÓÚñÑ]+[1-9]*)+(\s)?)+([a-zA-Z áéíóúÁÉÍÓÚñÑ]+[1-9]*)*$/';
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
+        $this->patterns['rfc'] = "/^[A-Z]{3,4}[0-9]{6}([A-Z]|[0-9]){3}$/";
         $this->patterns['url'] = "/http(s)?:\/\/(([a-z])+.)+([a-z])+/";
         $this->patterns['telefono_mx'] = "/^[1-9]{1}[0-9]{9}$/";
         $this->patterns['funcion'] = "/^$funcion$/";
@@ -257,6 +258,10 @@ class validacion {
         return $this->valida_pattern(key: 'letra_numero_espacio',txt: $txt);
     }
 
+    public function rfc(int|string|null $txt):bool{
+        return $this->valida_pattern(key:'rfc', txt:$txt);
+    }
+
     /**
      * Funcion que valida el dato de una seccion corresponda con la existencia de un modelo
      * @version 1.0.0
@@ -359,20 +364,35 @@ class validacion {
         return $valida;
     }
 
-    private function valida_base(string $key, array $registro): bool|array
+    /**
+     * Aplica validacion base de keys
+     * @param string $key Key a verificar
+     * @param array|stdClass $registro Registro a verificar
+     * @param bool $valida_int Si valida int valida que el numero sea mayor a 0
+     * @return bool|array
+     * @version 0.25.1
+     */
+    private function valida_base(string $key, array|stdClass $registro, bool $valida_int = true): bool|array
     {
         $key = trim($key);
         if($key === ''){
             return $this->error->error(mensaje: 'Error key no puede venir vacio '.$key,data: $registro);
         }
+
+        if(is_object($registro)){
+            $registro = (array) $registro;
+        }
+
         if(!isset($registro[$key])){
-            return $this->error->error(mensaje:'Error no existe '.$key,data:$registro);
+            return $this->error->error(mensaje:'Error no existe en registro el key '.$key,data:$registro);
         }
         if((string)$registro[$key] === ''){
             return $this->error->error(mensaje:'Error esta vacio '.$key,data:$registro);
         }
-        if((int)$registro[$key] <= 0){
-            return $this->error->error(mensaje:'Error el '.$key.' debe ser mayor a 0',data:$registro);
+        if($valida_int) {
+            if ((int)$registro[$key] <= 0) {
+                return $this->error->error(mensaje: 'Error el ' . $key . ' debe ser mayor a 0', data: $registro);
+            }
         }
 
         return true;
@@ -571,7 +591,7 @@ class validacion {
         $keys = array('colonia_id');
         $valida = $this->valida_ids(keys: $keys, registro: $registro);
         if (errores::$error) {
-            return $this->error->error(mensaje: 'Error al validar registro', data: $valida, params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error al validar registro', data: $valida);
         }
         return true;
     }
@@ -1214,6 +1234,44 @@ class validacion {
                 data:$fechas, params: get_defined_vars());
         }
         return $valida;
+    }
+
+    public function valida_rfc(string $key, array $registro): bool|array{
+
+        $valida = $this->valida_base(key: $key, registro: $registro, valida_int: false);
+        if(errores::$error){
+            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+        }
+
+        if(!$this->rfc(txt:$registro[$key])){
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+        }
+
+        return true;
+    }
+
+    public function valida_rfcs(array $keys, array|object $registro):array|bool{
+        if(count($keys) === 0){
+            return $this->error->error(mensaje: "Error keys vacios",data: $keys);
+        }
+
+        if(is_object($registro)){
+            $registro = (array)$registro;
+        }
+
+        foreach($keys as $key){
+            if($key === ''){
+                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro);
+            }
+            if(!isset($registro[$key])){
+                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro);
+            }
+            $id_valido = $this->valida_rfc(key: $key, registro: $registro);
+            if(errores::$error){
+                return  $this->error->error(mensaje:'Error '.$key.' Invalido',data:$id_valido);
+            }
+        }
+        return true;
     }
 
     /**
