@@ -154,7 +154,19 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_cod_int_0_numbers()
+    {
 
+        errores::$error = false;
+        $validacion = new validacion();
+
+        $txt = '0145874';
+        $resultado = $validacion->cod_int_0_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
 
     public function test_existe_key_data(): void{
         errores::$error = false;
@@ -200,6 +212,8 @@ class validacionTest extends test {
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
+
+
 
     public function test_letra_numero_espacio(): void{
         errores::$error = false;
@@ -266,8 +280,6 @@ class validacionTest extends test {
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
-
-
 
     public function test_seccion(): void{
         errores::$error = false;
