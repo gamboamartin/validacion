@@ -1424,5 +1424,16 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_url(){
+
+        errores::$error = false;
+        $validacion = new validacion();
+
+        $url = 'http://a.com';
+        $resultado = $validacion->valida_url($url);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
+        $this->assertTrue($resultado);
+    }
 
 }
