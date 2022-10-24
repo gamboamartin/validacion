@@ -1388,16 +1388,17 @@ class validacion {
     /**
      * P ORDER P INT
      * Funcion que valida que un campo de status sea valido
-     * @param array $registro registro a validar campos
      * @param array $keys keys del registro a validar campos
-     * @return array resultado de la validacion
-     * @throws errores si valor es diferente de activo inactivo
+     * @param array|stdClass $registro registro a validar campos
+     * @return array|bool resultado de la validacion
      * @example
      *       $valida = $this->validaciones->valida_statuses($entrada_producto,array('producto_es_inventariable'));
      * @internal $this->valida_existencia_keys($registro,$keys);
-
      */
-    public function valida_statuses(array $keys, array $registro):array{
+    public function valida_statuses(array $keys, array|stdClass $registro):array|bool{
+        if(is_object($registro)){
+            $registro = (array)$registro;
+        }
         $valida_existencias = $this->valida_existencia_keys(keys: $keys, registro: $registro);
         if(errores::$error){
             return $this->error->error('Error status invalido',$valida_existencias);
@@ -1407,7 +1408,7 @@ class validacion {
                 return $this->error->error('Error '.$key.' debe ser activo o inactivo',$registro);
             }
         }
-        return array('mensaje'=>'exito',$registro);
+        return true;
     }
 
     /**
