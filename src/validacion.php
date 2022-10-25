@@ -1386,7 +1386,7 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
+     *
      * Funcion que valida que un campo de status sea valido
      * @param array $keys keys del registro a validar campos
      * @param array|stdClass $registro registro a validar campos
@@ -1401,11 +1401,11 @@ class validacion {
         }
         $valida_existencias = $this->valida_existencia_keys(keys: $keys, registro: $registro);
         if(errores::$error){
-            return $this->error->error('Error status invalido',$valida_existencias);
+            return $this->error->error(mensaje: 'Error status invalido',data: $valida_existencias);
         }
         foreach ($keys as $key){
             if($registro[$key] !== 'activo' && $registro[$key]!=='inactivo'){
-                return $this->error->error('Error '.$key.' debe ser activo o inactivo',$registro);
+                return $this->error->error(mensaje: 'Error '.$key.' debe ser activo o inactivo',data: $registro);
             }
         }
         return true;

@@ -1436,6 +1436,48 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_statuses()
+    {
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $keys = array();
+        $registro = array();
+        $resultado = $validacion->valida_statuses($keys, $registro);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $keys = array();
+        $registro = array();
+        $keys[] = 'a';
+        $resultado = $validacion->valida_statuses($keys, $registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error status invalido',$resultado['mensaje']);
+
+        errores::$error = false;
+        $keys = array();
+        $registro = array();
+        $keys[] = 'a';
+        $registro['a'] = 'a';
+        $resultado = $validacion->valida_statuses($keys, $registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertArrayHasKey('data',$resultado);
+        $this->assertStringContainsStringIgnoringCase('Error a debe ser activo o inactivo',$resultado['mensaje']);
+
+        errores::$error = false;
+        $keys = array();
+        $registro = array();
+        $keys[] = 'a';
+        $registro['a'] = 'activo';
+        $resultado = $validacion->valida_statuses($keys, $registro);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_valida_url(){
 
         errores::$error = false;
