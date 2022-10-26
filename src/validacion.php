@@ -17,6 +17,7 @@ class validacion {
         $filtro = "$funcion\.$funcion(\.$funcion)*";
         $file_php = "$filtro\.php";
         $fecha_hms_punto = "$fecha\.$hora_min_sec";
+        $telefono_mx = "[1-9]{1}[0-9]{9}";
 
         $this->patterns['cod_3_letras_mayusc'] = '/^[A-Z]{3}$/';
         $this->patterns['cod_1_letras_mayusc'] = '/^[A-Z]$/';
@@ -36,7 +37,8 @@ class validacion {
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
         $this->patterns['rfc'] = "/^[A-Z]{3,4}[0-9]{6}([A-Z]|[0-9]){3}$/";
         $this->patterns['url'] = "/http(s)?:\/\/(([a-z])+.)+([a-z])+/";
-        $this->patterns['telefono_mx'] = "/^[1-9]{1}[0-9]{9}$/";
+        $this->patterns['telefono_mx'] = "/^$telefono_mx$/";
+        $this->patterns['telefono_mx_html'] = "$telefono_mx";
         $this->patterns['funcion'] = "/^$funcion$/";
         $this->patterns['filtro'] = "/^$filtro$/";
         $this->patterns['file_php'] = "/^$file_php$/";
