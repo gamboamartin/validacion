@@ -247,8 +247,9 @@ class validacion {
     }
 
     /**
-     *  Obtiene los keys de un registro documento
+     * Obtiene los keys de un registro documento
      * @return string[]
+     * @version 0.32.1
      */
     private function keys_documentos(): array
     {

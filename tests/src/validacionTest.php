@@ -213,6 +213,22 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_keys_documentos()
+    {
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $validacion = new liberator($validacion);
+
+        $resultado = $validacion->keys_documentos();
+        $this->assertIsArray( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertEquals('ruta', $resultado[0]);
+        $this->assertEquals('ruta_relativa', $resultado[1]);
+        $this->assertEquals('ruta_absoluta', $resultado[2]);
+        errores::$error = false;
+    }
+
 
 
     public function test_letra_numero_espacio(): void{
