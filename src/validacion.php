@@ -127,9 +127,16 @@ class validacion {
         return $this->valida_pattern(key:'cod_int_0_numbers', txt:$txt);
     }
 
+    /**
+     * Valida un elemento con 3 numeros
+     * @param int|string|null $txt
+     * @return bool
+     * @version 0.33.1
+     */
     public function cod_int_0_3_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_3_numbers', txt:$txt);
     }
+
     public function cod_int_0_5_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_5_numbers', txt:$txt);
     }
@@ -1397,6 +1404,7 @@ class validacion {
      * @example
      *       $valida = $this->validaciones->valida_statuses($entrada_producto,array('producto_es_inventariable'));
      * @internal $this->valida_existencia_keys($registro,$keys);
+     * @version 0.33.1
      */
     public function valida_statuses(array $keys, array|stdClass $registro):array|bool{
         if(is_object($registro)){

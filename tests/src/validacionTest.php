@@ -168,6 +168,57 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_cod_int_0_3_numbers()
+    {
+
+        errores::$error = false;
+        $validacion = new validacion();
+
+        $txt = '';
+        $resultado = $validacion->cod_int_0_3_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+
+        $txt = '0';
+        $resultado = $validacion->cod_int_0_3_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+
+        $txt = '00';
+        $resultado = $validacion->cod_int_0_3_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+
+        $txt = '000';
+        $resultado = $validacion->cod_int_0_3_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+
+        $txt = '199';
+        $resultado = $validacion->cod_int_0_3_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_existe_key_data(): void{
         errores::$error = false;
         $val = new validacion();
