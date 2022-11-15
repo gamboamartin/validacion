@@ -397,6 +397,32 @@ class validacion {
         return $valida;
     }
 
+    public function valida_array(mixed $value): bool|array
+    {
+        if(!is_array($value)){
+            return $this->error->error(mensaje: 'Error el valor no es un array',data: $value);
+        }
+        return true;
+    }
+
+    public function valida_arrays(array $keys, array|stdClass $row): bool|array
+    {
+        if(is_object($row)){
+            $row = (array)$row;
+        }
+        $valida_existe = $this->valida_existencia_keys(keys: $keys,registro: $row);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al validar registro', data: $valida_existe);
+        }
+        foreach ($keys as $key){
+            $valida = $this->valida_array(value: $row[$key]);
+            if(errores::$error){
+                return $this->error->error(mensaje: 'Error al validar registro['.$key.']', data: $valida);
+            }
+        }
+        return true;
+    }
+
     /**
      * Aplica validacion base de keys
      * @param string $key Key a verificar
