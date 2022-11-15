@@ -611,6 +611,13 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida un numero con 6 digitos con 0 iniciales
+     * @param string $key Key de row a validar
+     * @param array $registro Registro a validar
+     * @return bool|array
+     * @version 0.37.1
+     */
     public function valida_cod_int_0_6_numbers(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
@@ -743,6 +750,18 @@ class validacion {
             }
         }
         return array('mensaje'=>'ids validos',$registro,$keys);
+    }
+
+    public function valida_cols_css(string $cols): bool|array{
+
+        if($cols <= 0){
+            return $this->error->error(mensaje: 'Error cols debe ser mayor a 0', data: $cols);
+        }
+        if($cols > 12){
+            return $this->error->error(mensaje: 'Error cols debe ser menor a 13', data: $cols);
+        }
+
+        return true;
     }
 
     protected function valida_cons_empresa(): bool|array

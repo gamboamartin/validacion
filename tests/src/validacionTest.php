@@ -621,6 +621,61 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_cod_int_0_6_numbers(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $key = 'a';
+        $registro = array();
+        $resultado = $val->valida_cod_int_0_6_numbers($key, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error al validar a', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $key = 'a';
+        $registro = array();
+        $registro['a'] = 'as';
+        $resultado = $val->valida_cod_int_0_6_numbers($key, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error al validar a', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $key = 'a';
+        $registro = array();
+        $registro['a'] = '0';
+        $resultado = $val->valida_cod_int_0_6_numbers($key, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error al validar a', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $key = 'a';
+        $registro = array();
+        $registro['a'] = '0125456';
+        $resultado = $val->valida_cod_int_0_6_numbers($key, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error el a es invalido', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $key = 'a';
+        $registro = array();
+        $registro['a'] = '000254';
+        $resultado = $val->valida_cod_int_0_6_numbers($key, $registro);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_valida_class(): void
     {
         errores::$error = false;
