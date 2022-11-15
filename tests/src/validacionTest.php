@@ -281,6 +281,68 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_cod_int_0_6_numbers(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $txt = '';
+        $resultado = $val->cod_int_0_6_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $txt = '1';
+        $resultado = $val->cod_int_0_6_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $txt = '01';
+        $resultado = $val->cod_int_0_6_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $txt = '013';
+        $resultado = $val->cod_int_0_6_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $txt = '01345';
+        $resultado = $val->cod_int_0_6_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $txt = '013435';
+        $resultado = $val->cod_int_0_6_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $txt = '013d5';
+        $resultado = $val->cod_int_0_6_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_existe_key_data(): void{
         errores::$error = false;
         $val = new validacion();

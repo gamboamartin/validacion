@@ -147,6 +147,12 @@ class validacion {
         return $this->valida_pattern(key:'cod_int_0_5_numbers', txt:$txt);
     }
 
+    /**
+     * Valida un codigo con 6 digitos
+     * @param int|string|null $txt Texto a verificar
+     * @return bool
+     * @version 0.34.1
+     */
     public function cod_int_0_6_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_6_numbers', txt:$txt);
     }
