@@ -137,9 +137,16 @@ class validacion {
         return $this->valida_pattern(key:'cod_int_0_3_numbers', txt:$txt);
     }
 
+    /**
+     * Valida un codigo con 5 digitos
+     * @param int|string|null $txt Texto a verificar
+     * @return bool
+     * @version 0.34.1
+     */
     public function cod_int_0_5_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_5_numbers', txt:$txt);
     }
+
     public function cod_int_0_6_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_6_numbers', txt:$txt);
     }
@@ -424,6 +431,32 @@ class validacion {
         return true;
     }
 
+    public function valida_bool(mixed $value): bool|array
+    {
+        if(!is_bool($value)){
+            return $this->error->error(mensaje: 'Error el valor no es un booleano',data: $value);
+        }
+        return true;
+    }
+
+    public function valida_bools(array $keys, array|stdClass $row): bool|array
+    {
+        if(is_object($row)){
+            $row = (array)$row;
+        }
+        $valida_existe = $this->valida_existencia_keys(keys: $keys,registro: $row);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al validar registro', data: $valida_existe);
+        }
+        foreach ($keys as $key){
+            $valida = $this->valida_bool(value: $row[$key]);
+            if(errores::$error){
+                return $this->error->error(mensaje: 'Error al validar registro['.$key.']', data: $valida);
+            }
+        }
+        return true;
+    }
+
     /**
      * Funcion que valida los campos obligatorios para una transaccion
      * @version 0.13.1
@@ -678,24 +711,6 @@ class validacion {
             }
         }
         return array('mensaje'=>'ids validos',$registro,$keys);
-    }
-
-
-
-    /**
-     * P INT P ORDER ERROR
-     * Funcion para verificar que dentro de un registro exista de manera correcta colonia_id
-     * @param array $registro Registro a validar
-     * @return bool|array array si hay error
-     */
-    public function valida_colonia(array $registro): bool|array
-    {
-        $keys = array('colonia_id');
-        $valida = $this->valida_ids(keys: $keys, registro: $registro);
-        if (errores::$error) {
-            return $this->error->error(mensaje: 'Error al validar registro', data: $valida);
-        }
-        return true;
     }
 
     protected function valida_cons_empresa(): bool|array
