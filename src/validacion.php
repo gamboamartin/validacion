@@ -1192,8 +1192,9 @@ class validacion {
     }
 
     /**
-     * PROBADO
+     * Valida que exista filtros en POST
      * @return bool|array
+     * @version 0.39.1
      */
     public function valida_filtros(): bool|array
     {
@@ -1235,16 +1236,19 @@ class validacion {
      * registro
      * @param array $keys Keys a validar
      *
-     * @param array|object $registro Registro a validar
+     * @param array|object|string $registro Registro a validar
      * @return array array con datos del registro y mensaje de exito
      * @version 1.0.0
      * @example
      *      $registro['registro_id'] = 1;
      *      $keys = array('registro_id')
      *      $valida = $this->validacion->valida_ids($registro,$keys);
-     *
      */
-    public function valida_ids(array $keys, array|object $registro):array{
+    public function valida_ids(array $keys, array|object|string $registro):array{
+        if(is_string($registro)){
+            return $this->error->error(mensaje: "Error registro debe ser un array",data: $keys);
+        }
+
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
         }
