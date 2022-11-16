@@ -565,6 +565,29 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_array(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+
+        $value = '';
+        $resultado = $val->valida_array($value);
+        $this->assertIsArray( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $value = array();
+        $resultado = $val->valida_array($value);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_valida_base(): void{
         errores::$error = false;
         $val = new validacion();

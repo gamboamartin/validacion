@@ -9,6 +9,7 @@ class validacion {
     public array $patterns = array();
     protected errores $error;
     private array $regex_fecha = array();
+    public array $styles_css = array();
     #[Pure] public function __construct(){
         $this->error = new errores();
         $fecha = "[1-2][0-9]{3}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3)[0-1])";
@@ -49,6 +50,8 @@ class validacion {
         $this->regex_fecha[] = 'fecha';
         $this->regex_fecha[] = 'fecha_hora_min_sec_esp';
         $this->regex_fecha[] = 'fecha_hora_min_sec_t';
+
+        $this->styles_css = array('danger','dark','info','light','link','primary','secondary','success','warning');
     }
 
     /**
@@ -347,7 +350,7 @@ class validacion {
     }
 
     /**
-     * PRUEBAS FINALIZADAS
+     *
      * @param $codigo
      * @return bool|array
      */
@@ -403,6 +406,12 @@ class validacion {
         return $valida;
     }
 
+    /**
+     * Valida que un elemento sea un array
+     * @param mixed $value Valor a validar
+     * @return bool|array
+     * @version 0.38.1
+     */
     public function valida_array(mixed $value): bool|array
     {
         if(!is_array($value)){
@@ -968,6 +977,26 @@ class validacion {
             }
         }
         return true;
+    }
+
+    public function valida_estilo_css(mixed $style):array|bool{
+        if(!is_string($style)){
+            return $this->error->error(mensaje: 'Error style debe ser un texto ',data: $style);
+        }
+        $style = trim($style);
+        if($style === ''){
+            return $this->error->error(mensaje: 'Error style esta vacio ',data: $style);
+        }
+
+        if(is_numeric($style)){
+            return $this->error->error(mensaje: 'Error style debe ser un texto ',data: $style);
+        }
+
+        if(!in_array($style, $this->styles_css)){
+            return $this->error->error(mensaje: 'Error style invalido '.$style,data: $this->styles_css);
+        }
+
+        return  true;
     }
 
     /**
