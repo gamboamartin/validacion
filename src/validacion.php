@@ -979,6 +979,12 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida que un estilo css sea valido
+     * @param mixed $style Valor a revisar
+     * @return array|bool
+     * @version 0.40.1
+     */
     public function valida_estilo_css(mixed $style):array|bool{
         if(!is_string($style)){
             return $this->error->error(mensaje: 'Error style debe ser un texto ',data: $style);
@@ -997,6 +1003,24 @@ class validacion {
         }
 
         return  true;
+    }
+
+    public function valida_estilos_css(array $keys, array|stdClass $row): bool|array
+    {
+        if(is_object($row)){
+            $row = (array)$row;
+        }
+        $valida_existe = $this->valida_existencia_keys(keys: $keys,registro: $row);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al validar registro', data: $valida_existe);
+        }
+        foreach ($keys as $key){
+            $valida = $this->valida_estilo_css(style: $row[$key]);
+            if(errores::$error){
+                return $this->error->error(mensaje: 'Error al validar registro['.$key.']', data: $valida);
+            }
+        }
+        return true;
     }
 
     /**

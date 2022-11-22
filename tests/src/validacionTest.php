@@ -941,6 +941,38 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_estilo_css(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+
+        $value = '';
+        $resultado = $val->valida_estilo_css($value);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error style esta vacio', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $value = 'a';
+        $resultado = $val->valida_estilo_css($value);
+        $this->assertIsArray( $resultado);
+        $this->assertStringContainsStringIgnoringCase('Error style invalido a', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $value = 'success';
+        $resultado = $val->valida_estilo_css($value);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+    }
+
     public function test_valida_estructura_input_base(){
         errores::$error = false;
         $val = new validacion();
@@ -1746,6 +1778,8 @@ class validacionTest extends test {
 
         errores::$error = false;
     }
+
+
 
     public function test_valida_url(){
 
