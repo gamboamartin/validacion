@@ -203,6 +203,7 @@ class validacionTest extends test {
 
         $txt = '000';
         $resultado = $validacion->cod_int_0_3_numbers($txt);
+
         $this->assertIsBool( $resultado);
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);

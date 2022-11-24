@@ -55,7 +55,33 @@ class validacion {
         $this->regex_fecha[] = 'fecha_hora_min_sec_t';
 
         $this->styles_css = array('danger','dark','info','light','link','primary','secondary','success','warning');
+
+
+        $regex = $this->base_regex_0_numbers(max_long: 20);
+        if(errores::$error){
+            $error = $this->error->error(mensaje: 'Error al inicializar regex', data: $regex);
+            print_r($error);
+            exit;
+        }
+
+
     }
+
+    private function base_regex_0_numbers(int $max_long): array
+    {
+        $longitud_cod_0_n_numbers = 1;
+        $patterns = array();
+        while($longitud_cod_0_n_numbers <= $max_long){
+            $regex = $this->init_cod_int_0_n_numbers(longitud: $longitud_cod_0_n_numbers);
+            if(errores::$error){
+                return $this->error->error(mensaje: 'Error al inicializar regex', data: $regex);
+            }
+            $patterns[] = $regex;
+            $longitud_cod_0_n_numbers++;
+        }
+        return $patterns;
+    }
+
 
     /**
      * Verifica los datos minimos necesarios para la creacion de un boton en html
@@ -283,6 +309,13 @@ class validacion {
      */
     public function id(int|string|null $txt):bool{
         return $this->valida_pattern(key:'id', txt:$txt);
+    }
+
+    private function init_cod_int_0_n_numbers(int $longitud): string
+    {
+        $key = 'cod_int_0_'.$longitud.'_numbers';
+        $this->patterns[$key] = '/^[0-9]{'.$longitud.'}$/';
+        return $this->patterns[$key];
     }
 
     /**
