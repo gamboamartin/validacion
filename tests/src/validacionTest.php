@@ -405,8 +405,6 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
-
-
     public function test_letra_numero_espacio(): void{
         errores::$error = false;
         $val = new validacion();
@@ -697,6 +695,36 @@ class validacionTest extends test {
         $this->assertIsBool( $resultado);
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
+    public function test_valida_cols_css(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $cols = -1;
+        $resultado = $val->valida_cols_css($cols);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error cols debe ser mayor a 0', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $cols = 13;
+        $resultado = $val->valida_cols_css($cols);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error cols debe ser menor a 13', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $cols = 7;
+        $resultado = $val->valida_cols_css($cols);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
         errores::$error = false;
     }
 

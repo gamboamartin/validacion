@@ -886,6 +886,12 @@ class validacion {
         return array('mensaje'=>'ids validos',$registro,$keys);
     }
 
+    /**
+     * Valida que las columnas de css sean correctas
+     * @param string $cols n columnas css
+     * @return bool|array
+     * @version 0.44.1
+     */
     public function valida_cols_css(string $cols): bool|array{
 
         if($cols <= 0){
