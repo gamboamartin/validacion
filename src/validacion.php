@@ -521,6 +521,12 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida un elemento sea bool
+     * @param mixed $value Valor a verificar
+     * @return bool|array
+     * @version 0.45.1
+     */
     public function valida_bool(mixed $value): bool|array
     {
         if(!is_bool($value)){

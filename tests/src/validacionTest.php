@@ -625,6 +625,49 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_bool(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $value = '';
+        $resultado = $val->valida_bool($value);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error el valor no es un booleano',$resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+        errores::$error = false;
+
+
+        $value = 1;
+        $resultado = $val->valida_bool($value);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error el valor no es un booleano',$resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+        errores::$error = false;
+
+        $value = -1;
+        $resultado = $val->valida_bool($value);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error el valor no es un booleano',$resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+        errores::$error = false;
+
+        $value = null;
+        $resultado = $val->valida_bool($value);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error el valor no es un booleano',$resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+        errores::$error = false;
+
+        $value = false;
+        $resultado = $val->valida_bool($value);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+    }
+
     public function test_valida_campo_obligatorio(): void
     {
         errores::$error = false;
