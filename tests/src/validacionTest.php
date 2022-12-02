@@ -668,6 +668,18 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_bools(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $keys = array();
+        $row = array();
+        $resultado = $val->valida_bools($keys, $row);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_valida_campo_obligatorio(): void
     {
         errores::$error = false;

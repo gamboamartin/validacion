@@ -535,6 +535,13 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida un conjunto de valores booleanos
+     * @param array $keys keys a validar en el objeto o array
+     * @param array|stdClass $row registro a validar
+     * @return bool|array
+     * @version 0.45.1
+     */
     public function valida_bools(array $keys, array|stdClass $row): bool|array
     {
         if(is_object($row)){
