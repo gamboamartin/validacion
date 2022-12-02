@@ -20,8 +20,10 @@ class validacion {
         $fecha_hms_punto = "$fecha\.$hora_min_sec";
         $telefono_mx = "[1-9]{1}[0-9]{9}";
 
-        $this->patterns['cod_3_letras_mayusc'] = '/^[A-Z]{3}$/';
         $this->patterns['cod_1_letras_mayusc'] = '/^[A-Z]$/';
+        $this->patterns['cod_1_2_letras_mayusc'] = '/^[A-Z]{1,2}$/';
+        $this->patterns['cod_3_letras_mayusc'] = '/^[A-Z]{3}$/';
+
         $this->patterns['cod_int_0_numbers'] = '/^[0-9]{5,7}$/';
         $this->patterns['cod_int_0_2_numbers'] = '/^[0-9]{2}$/';
         $this->patterns['cod_int_0_3_numbers'] = '/^[0-9]{3}$/';
