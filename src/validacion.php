@@ -313,6 +313,11 @@ class validacion {
         return $this->valida_pattern(key:'id', txt:$txt);
     }
 
+    /**
+     * Integra una expresion regular del 0 al 9 repitiendo los numeros n veces = a la longittud
+     * @param int $longitud Longitud de la cadena permitida de numeros
+     * @return string
+     */
     private function init_cod_int_0_n_numbers(int $longitud): string
     {
         $key = 'cod_int_0_'.$longitud.'_numbers';
