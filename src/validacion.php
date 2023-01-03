@@ -69,6 +69,11 @@ class validacion {
 
     }
 
+    /**
+     * Integra a validacion->patterns los regex numericos la veces que este el max_long definido
+     * @param int $max_long N veces que se ejecutara la funcion init_cod_int_0_n_numbers
+     * @return array
+     */
     private function base_regex_0_numbers(int $max_long): array
     {
         $longitud_cod_0_n_numbers = 1;
