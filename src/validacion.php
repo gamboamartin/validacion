@@ -19,6 +19,7 @@ class validacion {
         $file_php = "$filtro\.php";
         $fecha_hms_punto = "$fecha\.$hora_min_sec";
         $telefono_mx = "[1-9]{1}[0-9]{9}";
+        $entero_positivo = "[1-9]+[0-9]*";
 
         $this->patterns['cod_1_letras_mayusc'] = '/^[A-Z]$/';
         $this->patterns['cod_1_2_letras_mayusc'] = '/^[A-Z]{1,2}$/';
@@ -34,7 +35,7 @@ class validacion {
         $this->patterns['correo_html5'] = "[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
         $this->patterns['correo'] = '/^'.$this->patterns["correo_html5"].'/';
         $this->patterns['double'] = '/^[0-9]*.[0-9]*$/';
-        $this->patterns['id'] = '/^[1-9]+[0-9]*$/';
+        $this->patterns['id'] = "/^$entero_positivo$/";
         $this->patterns['fecha'] = "/^$fecha$/";
         $this->patterns['fecha_hora_min_sec_esp'] = "/^$fecha $hora_min_sec$/";
         $this->patterns['fecha_hora_min_sec_t'] = "/^$fecha".'T'."$hora_min_sec$/";
@@ -45,6 +46,7 @@ class validacion {
         $this->patterns['url'] = "/http(s)?:\/\/(([a-z])+.)+([a-z])+/";
         $this->patterns['telefono_mx'] = "/^$telefono_mx$/";
         $this->patterns['telefono_mx_html'] = "$telefono_mx";
+        $this->patterns['entero_positivo_html'] = "$entero_positivo";
         $this->patterns['funcion'] = "/^$funcion$/";
         $this->patterns['filtro'] = "/^$filtro$/";
         $this->patterns['file_php'] = "/^$file_php$/";
