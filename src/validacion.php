@@ -121,7 +121,7 @@ class validacion {
      * @param array $data_boton Datos de boton
      * @return bool|array true si son validos los datos
      */
-    public function btn_second(array $data_boton): bool|array
+    final public function btn_second(array $data_boton): bool|array
     {
         if(!isset($data_boton['etiqueta'])){
             return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton);
@@ -479,7 +479,7 @@ class validacion {
      * @return bool|array
      * @version 0.38.1
      */
-    public function valida_array(mixed $value): bool|array
+    final public function valida_array(mixed $value): bool|array
     {
         if(!is_array($value)){
             return $this->error->error(mensaje: 'Error el valor no es un array',data: $value);
@@ -487,7 +487,7 @@ class validacion {
         return true;
     }
 
-    public function valida_arrays(array $keys, array|stdClass $row): bool|array
+    final public function valida_arrays(array $keys, array|stdClass $row): bool|array
     {
         if(is_object($row)){
             $row = (array)$row;
@@ -1269,7 +1269,7 @@ class validacion {
      * return $this->errores->error('Error al validar $datos_formulario',$valida);
      * }
      */
-    public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|bool{
+    final public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|bool{
 
         if(is_object($registro)){
             $registro = (array)$registro;
