@@ -98,7 +98,7 @@ class validacion {
      * @param array $data_boton datos['filtro'=>array(),'id', 'etiqueta]
      * @return bool|array Bool true si es exito
      */
-    public function btn_base(array $data_boton): bool|array
+    final public function btn_base(array $data_boton): bool|array
     {
         if(!isset($data_boton['filtro'])){
             return $this->error->error(mensaje: 'Error $data_boton[filtro] debe existir',data: $data_boton);
