@@ -1565,7 +1565,7 @@ class validacion {
      * @return bool true si cumple con pattern false si no cumple
      * @uses validacion
      */
-    public function valida_pattern(string $key, string $txt):bool{
+    final public function valida_pattern(string $key, string $txt):bool{
         if($key === ''){
             return false;
         }
