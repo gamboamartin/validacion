@@ -154,7 +154,7 @@ class validacion {
      * @return bool
      * @version 0.20.1
      */
-    public function cod_3_letras_mayusc(int|string|null $txt):bool{
+    final public function cod_3_letras_mayusc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_3_letras_mayusc', txt:$txt);
     }
 
@@ -401,7 +401,7 @@ class validacion {
      * $print_r($valida); // true|1 siempre
      * @return array|bool array si hay error bool true exito
      */
-    public function seccion_accion(string $accion, string $seccion):array|bool{
+    final public function seccion_accion(string $accion, string $seccion):array|bool{
         $valida = $this->seccion(seccion: $seccion);
         if(errores::$error){
             $fix = 'La seccion debe ser un string no numerico y no vacio seccion=elemento_txt_no_numerico_ni_vacio';
@@ -644,7 +644,7 @@ class validacion {
         return true;
     }
 
-    public function valida_cod_3_letras_mayusc(string $key, array $registro): bool|array{
+    final public function valida_cod_3_letras_mayusc(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
@@ -749,7 +749,7 @@ class validacion {
         return true;
     }
 
-    public function valida_codigos_3_letras_mayusc(array $keys, array|object $registro):array{
+    final public function valida_codigos_3_letras_mayusc(array $keys, array|object $registro):array{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
         }
