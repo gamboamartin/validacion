@@ -144,7 +144,7 @@ class validacion {
      * @return bool
      * @version 0.23.1
      */
-    public function cod_1_letras_mayusc(int|string|null $txt):bool{
+    final public function cod_1_letras_mayusc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_1_letras_mayusc', txt:$txt);
     }
 
@@ -630,7 +630,7 @@ class validacion {
         return true;
     }
 
-    public function valida_cod_1_letras_mayusc(string $key, array $registro): bool|array{
+    final public function valida_cod_1_letras_mayusc(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
@@ -1013,7 +1013,7 @@ class validacion {
      * @uses modelo_basico->asigna_registros_hijo
      * @uses modelo_basico->genera_modelo
      */
-    public function valida_data_modelo(string $name_modelo):array|bool{
+    final public function valida_data_modelo(string $name_modelo):array|bool{
         $name_modelo = trim($name_modelo);
         $name_modelo = str_replace('models\\','',$name_modelo);
         if(trim($name_modelo) ===''){
