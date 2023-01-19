@@ -1404,7 +1404,7 @@ class validacion {
      *      $key = 'registro_id';
      *      $id_valido = $this->valida_id($registro, $key);
      */
-    public function valida_id(string $key, array $registro): bool|array{
+    final public function valida_id(string $key, array $registro): bool|array{
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
             return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
@@ -1430,7 +1430,7 @@ class validacion {
      *      $keys = array('registro_id')
      *      $valida = $this->validacion->valida_ids($registro,$keys);
      */
-    public function valida_ids(array $keys, array|object|string $registro):array{
+    final public function valida_ids(array $keys, array|object|string $registro):array{
         if(is_string($registro)){
             return $this->error->error(mensaje: "Error registro debe ser un array",data: $keys);
         }
