@@ -168,7 +168,7 @@ class validacion {
         return $this->valida_pattern(key:'cod_int_0_numbers', txt:$txt);
     }
 
-    public function cod_int_0_2_numbers(int|string|null $txt):bool{
+    final public function cod_int_0_2_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_2_numbers', txt:$txt);
     }
 
