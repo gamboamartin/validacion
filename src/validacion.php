@@ -198,7 +198,7 @@ class validacion {
      * @return bool
      * @version 0.34.1
      */
-    public function cod_int_0_6_numbers(int|string|null $txt):bool{
+    final public function cod_int_0_6_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_6_numbers', txt:$txt);
     }
 
@@ -721,7 +721,7 @@ class validacion {
      * @return bool|array
      * @version 0.37.1
      */
-    public function valida_cod_int_0_6_numbers(string $key, array $registro): bool|array{
+    final public function valida_cod_int_0_6_numbers(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
@@ -869,7 +869,7 @@ class validacion {
         return array('mensaje'=>'ids validos',$registro,$keys);
     }
 
-    public function valida_codigos_int_0_6_numbers(array $keys, array|object $registro):array{
+    final public function valida_codigos_int_0_6_numbers(array $keys, array|object $registro):array{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
         }
@@ -923,7 +923,7 @@ class validacion {
      * @return bool|array
      * @version 0.44.1
      */
-    public function valida_cols_css(string $cols): bool|array{
+    final public function valida_cols_css(string $cols): bool|array{
 
         if($cols <= 0){
             return $this->error->error(mensaje: 'Error cols debe ser mayor a 0', data: $cols);
