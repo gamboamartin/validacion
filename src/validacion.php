@@ -202,7 +202,7 @@ class validacion {
         return $this->valida_pattern(key:'cod_int_0_6_numbers', txt:$txt);
     }
 
-    public function cod_int_0_n_numbers(int $longitud, int|string|null $txt): bool
+    final public function cod_int_0_n_numbers(int $longitud, int|string|null $txt): bool
     {
         $key = 'cod_int_0_'.$longitud.'_numbers';
         $this->patterns[$key] = "/^[0-9]{$longitud}$/";
@@ -735,7 +735,7 @@ class validacion {
         return true;
     }
 
-    public function valida_cod_int_0_n_numbers(string $key, int $longitud, array $registro): bool|array{
+    final public function valida_cod_int_0_n_numbers(string $key, int $longitud, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
@@ -893,7 +893,7 @@ class validacion {
         return array('mensaje'=>'ids validos',$registro,$keys);
     }
 
-    public function valida_codigos_int_0_n_numbers(array $keys, int $longitud, array|object $registro):array{
+    final public function valida_codigos_int_0_n_numbers(array $keys, int $longitud, array|object $registro):array{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
         }
