@@ -178,7 +178,7 @@ class validacion {
      * @return bool
      * @version 0.33.1
      */
-    public function cod_int_0_3_numbers(int|string|null $txt):bool{
+    final public function cod_int_0_3_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_3_numbers', txt:$txt);
     }
 
@@ -672,7 +672,7 @@ class validacion {
         return true;
     }
 
-    public function valida_cod_int_0_2_numbers(string $key, array $registro): bool|array{
+    final public function valida_cod_int_0_2_numbers(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
@@ -797,7 +797,7 @@ class validacion {
         return array('mensaje'=>'ids validos',$registro,$keys);
     }
 
-    public function valida_codigos_int_0_2_numbers(array $keys, array|object $registro):array{
+    final public function valida_codigos_int_0_2_numbers(array $keys, array|object $registro):array{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
         }
