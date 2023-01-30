@@ -1520,7 +1520,7 @@ class validacion {
      * @param mixed $value Valor a verificar
      * @return bool|array
      */
-    public function valida_numeric(mixed $value): bool|array
+    final public function valida_numeric(mixed $value): bool|array
     {
         if(!is_numeric($value)){
             return $this->error->error(mensaje: 'Error el valor no es un numero',data: $value);
@@ -1535,7 +1535,7 @@ class validacion {
      * @param array|stdClass $row Registro a verificar
      * @return bool|array
      */
-    public function valida_numerics(array $keys, array|stdClass $row): bool|array
+    final public function valida_numerics(array $keys, array|stdClass $row): bool|array
     {
         if(is_object($row)){
             $row = (array)$row;
