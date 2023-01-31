@@ -421,7 +421,7 @@ class validacion {
      * @param $codigo
      * @return bool|array
      */
-    public function upload($codigo): bool|array
+    final public function upload($codigo): bool|array
     {
         switch ($codigo)
         {
@@ -589,7 +589,7 @@ class validacion {
      * @example
      *     $valida_campo_obligatorio = $this->valida_campo_obligatorio();
      */
-    public function valida_campo_obligatorio(array $campos_obligatorios, array $registro, string $tabla):array{
+    final public function valida_campo_obligatorio(array $campos_obligatorios, array $registro, string $tabla):array{
         foreach($campos_obligatorios as $campo_obligatorio){
             $campo_obligatorio = trim($campo_obligatorio);
             if(!array_key_exists($campo_obligatorio,$registro)){
