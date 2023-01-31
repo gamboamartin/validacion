@@ -544,8 +544,9 @@ class validacion {
      * @param mixed $value Valor a verificar
      * @return bool|array
      * @version 0.45.1
+     *
      */
-    public function valida_bool(mixed $value): bool|array
+    final public function valida_bool(mixed $value): bool|array
     {
         if(!is_bool($value)){
             return $this->error->error(mensaje: 'Error el valor no es un booleano',data: $value);
@@ -560,7 +561,7 @@ class validacion {
      * @return bool|array
      * @version 0.45.1
      */
-    public function valida_bools(array $keys, array|stdClass $row): bool|array
+    final public function valida_bools(array $keys, array|stdClass $row): bool|array
     {
         if(is_object($row)){
             $row = (array)$row;
