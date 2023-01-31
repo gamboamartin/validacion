@@ -366,7 +366,7 @@ class validacion {
         return $this->valida_pattern(key: 'letra_numero_espacio',txt: $txt);
     }
 
-    public function rfc(int|string|null $txt):bool{
+    final public function rfc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'rfc', txt:$txt);
     }
 
@@ -1624,7 +1624,7 @@ class validacion {
         return $valida;
     }
 
-    public function valida_rfc(string $key, array $registro): bool|array{
+    final public function valida_rfc(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro, valida_int: false);
         if(errores::$error){
@@ -1638,7 +1638,7 @@ class validacion {
         return true;
     }
 
-    public function valida_rfcs(array $keys, array|object $registro):array|bool{
+    final public function valida_rfcs(array $keys, array|object $registro):array|bool{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
         }
