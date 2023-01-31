@@ -362,7 +362,7 @@ class validacion {
      * @author mgamboa
      * @fecha 2022-08-01 13:42
      */
-    public function letra_numero_espacio(string $txt):bool{
+    final public function letra_numero_espacio(string $txt):bool{
         return $this->valida_pattern(key: 'letra_numero_espacio',txt: $txt);
     }
 
@@ -1692,7 +1692,7 @@ class validacion {
      * @internal $this->valida_existencia_keys($registro,$keys);
      * @version 0.33.1
      */
-    public function valida_statuses(array $keys, array|stdClass $registro):array|bool{
+    final public function valida_statuses(array $keys, array|stdClass $registro):array|bool{
         if(is_object($registro)){
             $registro = (array)$registro;
         }
