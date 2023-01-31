@@ -316,7 +316,7 @@ class validacion {
      *      $id_valido = $this->validacion->id($registro['registro_id']);
      *
      */
-    public function id(int|string|null $txt):bool{
+    final public function id(int|string|null $txt):bool{
         return $this->valida_pattern(key:'id', txt:$txt);
     }
 
