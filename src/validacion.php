@@ -260,7 +260,7 @@ class validacion {
      * @param array $arreglo arreglo donde se buscara la llave
      * @return bool
      */
-    public function existe_key_data(array $arreglo, string $key ):bool{
+    final public function existe_key_data(array $arreglo, string $key ):bool{
         $r = true;
         if(!isset($arreglo[$key])){
             $r = false;
@@ -281,7 +281,7 @@ class validacion {
      *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
      * @return bool|array
      */
-    public function fechas_in_array(array|stdClass $data, array $keys, string $tipo_val = 'fecha'): bool|array
+    final public function fechas_in_array(array|stdClass $data, array $keys, string $tipo_val = 'fecha'): bool|array
     {
         if(is_object($data)){
             $data = (array)$data;
@@ -1318,7 +1318,7 @@ class validacion {
      * @example
      *      $valida_fecha = $this->validaciones->valida_fecha($fecha);
      */
-    public function valida_fecha(mixed $fecha, string $tipo_val = 'fecha'): array|bool
+    final public function valida_fecha(mixed $fecha, string $tipo_val = 'fecha'): array|bool
     {
         if(!is_string($fecha)){
             return $this->error->error(mensaje: 'Error la fecha debe ser un texto', data: $fecha);
