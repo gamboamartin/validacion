@@ -1053,7 +1053,7 @@ class validacion {
      * @internal  $this->valida_pattern('double',$value)
      * @version 0.18.1
      */
-    public function valida_double_mayor_igual_0(mixed $value): array|bool
+    final public function valida_double_mayor_igual_0(mixed $value): array|bool
     {
 
         if($value === ''){
@@ -1110,7 +1110,7 @@ class validacion {
      * @return array|bool
      * @version 0.18.1
      */
-    public function valida_double_mayores_igual_0(array $keys, array|stdClass $registro):array|bool{
+    final public function valida_double_mayores_igual_0(array $keys, array|stdClass $registro):array|bool{
         if(is_object($registro)){
             $registro = (array)$registro;
         }
