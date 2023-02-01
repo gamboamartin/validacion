@@ -1226,7 +1226,7 @@ class validacion {
      *        $valida = $this->valida_estructura_seccion_accion($seccion,$accion);
      * @uses directivas
      */
-    public function valida_estructura_seccion_accion(string $accion, string $seccion):array|bool{ //FIN PROT
+    final public function valida_estructura_seccion_accion(string $accion, string $seccion):array|bool{ //FIN PROT
         $seccion = str_replace('models\\','',$seccion);
         $class_model = 'models\\'.$seccion;
         if($seccion === ''){
@@ -1281,7 +1281,7 @@ class validacion {
      * @param string $path ruta del documento de dropbox
      * @return bool|array
      */
-    public function valida_extension_doc(string $path): bool|array
+    final public function valida_extension_doc(string $path): bool|array
     {
         $extension_origen = pathinfo($path, PATHINFO_EXTENSION);
         if(!$extension_origen){
@@ -1348,7 +1348,7 @@ class validacion {
      *
      * @uses modelo_basico->obten_filtro_especial
      */
-    public function valida_filtro_especial(string $campo, array $filtro):array|bool{ //DOC //DEBUG
+    final public function valida_filtro_especial(string $campo, array $filtro):array|bool{ //DOC //DEBUG
         if(!isset($filtro['operador'])){
             return $this->error->error("Error operador no existe",$filtro);
         }
@@ -1369,7 +1369,7 @@ class validacion {
      * @return bool|array
      * @version 0.39.1
      */
-    public function valida_filtros(): bool|array
+    final public function valida_filtros(): bool|array
     {
         if(!isset($_POST['filtros'])){
             return $this->error->error('Error filtros debe existir por POST',$_GET);
@@ -1450,7 +1450,7 @@ class validacion {
      * @param array $registro
      * @return array
      */
-    protected function valida_keys_documento(array $registro): array
+    final protected function valida_keys_documento(array $registro): array
     {
         $keys = $this->keys_documentos();
         if(errores::$error){
@@ -1469,7 +1469,7 @@ class validacion {
      * @param string $tabla Tabla o estructura de la base de datos y modelo
      * @return bool|array verdadero si es correcta la entrada
      */
-    public function valida_modelo(string $tabla): bool|array
+    final public function valida_modelo(string $tabla): bool|array
     {
         $class = $this->class_depurada(tabla: $tabla);
         if(errores::$error){
@@ -1488,7 +1488,7 @@ class validacion {
      * @param string $tabla
      * @return bool|array
      */
-    public function valida_name_clase(string $tabla): bool|array
+    final public function valida_name_clase(string $tabla): bool|array
     {
         $namespace = 'models\\';
         $tabla = str_replace($namespace,'',$tabla);
@@ -1577,7 +1577,7 @@ class validacion {
      *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
      * @return array|bool true si no hay error
      */
-    public function valida_rango_fecha(array $fechas, string $tipo_val = 'fecha'): array|bool
+    final public function valida_rango_fecha(array $fechas, string $tipo_val = 'fecha'): array|bool
     {
         $keys = array('fecha_inicial','fecha_final');
         $valida = $this->valida_existencia_keys(keys:$keys, registro: $fechas);
@@ -1653,7 +1653,7 @@ class validacion {
      * @param string $seccion
      * @return array
      */
-    public function valida_seccion_base( string $seccion): array
+    final public function valida_seccion_base( string $seccion): array
     {
         $namespace = 'models\\';
         $seccion = str_replace($namespace,'',$seccion);
@@ -1700,7 +1700,7 @@ class validacion {
      * @version 0.26.1
      */
 
-    public function valida_url(string $url): bool|array
+    final public function valida_url(string $url): bool|array
     {
         $valida = $this->url(url: $url);
         if(errores::$error){
