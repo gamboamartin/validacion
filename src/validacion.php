@@ -936,33 +936,20 @@ class validacion {
         return true;
     }
 
-    protected function valida_cons_empresa(): bool|array
-    {
-        if(!defined('EMPRESA_EJECUCION')){
-            return $this->error->error('Error no existe empresa en ejecucion', '');
-        }
-        if(!is_array(EMPRESA_EJECUCION)){
-            return $this->error->error('Error EMPRESA_EJECUCION debe ser un array', EMPRESA_EJECUCION);
-        }
-        return true;
-    }
-
     /**
      * PARAMS-ORDER P INT ERRREV DOC
      * Valida si un correo es valido
      * @param string $correo txt con correo a validar
      * @return bool|array bool true si es un correo valido, array si error
      */
-    public function valida_correo(string $correo): bool|array
+    final public function valida_correo(string $correo): bool|array
     {
         $valida = $this->correo(correo: $correo);
         if(errores::$error){
-            return $this->error->error(mensaje: 'Error el correo es invalido',data:  $valida,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error el correo es invalido',data:  $valida);
         }
         if(!$valida){
-            return $this->error->error(mensaje: 'Error el correo es invalido',data:  $correo,
-                params: get_defined_vars());
+            return $this->error->error(mensaje: 'Error el correo es invalido',data:  $correo);
         }
         return true;
     }
@@ -974,7 +961,7 @@ class validacion {
      * @param array $keys keys que se buscaran en el registro para aplicar validacion de correos
      * @return bool|array
      */
-    public function valida_correos( array $keys, array $registro): bool|array
+    final public function valida_correos( array $keys, array $registro): bool|array
     {
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
