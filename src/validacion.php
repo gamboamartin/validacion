@@ -1134,7 +1134,7 @@ class validacion {
      * @return array|bool
      * @version 0.40.1
      */
-    public function valida_estilo_css(mixed $style):array|bool{
+    final public function valida_estilo_css(mixed $style):array|bool{
         if(!is_string($style)){
             return $this->error->error(mensaje: 'Error style debe ser un texto ',data: $style);
         }
@@ -1154,7 +1154,7 @@ class validacion {
         return  true;
     }
 
-    public function valida_estilos_css(array $keys, array|stdClass $row): bool|array
+    final public function valida_estilos_css(array $keys, array|stdClass $row): bool|array
     {
         if(is_object($row)){
             $row = (array)$row;
@@ -1184,7 +1184,7 @@ class validacion {
      *      $valida = $this->validacion->valida_estructura_input_base($columnas,$tabla);
      *
      */
-    public function valida_estructura_input_base(array $columnas, string $tabla):array|bool{
+    final public function valida_estructura_input_base(array $columnas, string $tabla):array|bool{
         $namespace = 'models\\';
         $tabla = str_replace($namespace,'',$tabla);
 
@@ -1203,7 +1203,7 @@ class validacion {
      * @param int $menu_id Menu id a validar
      * @return array|bool
      */
-    public function valida_estructura_menu(int $menu_id):array|bool{
+    final public function valida_estructura_menu(int $menu_id):array|bool{
         if(!isset($_SESSION['grupo_id'])){
             return $this->error->error(mensaje: 'Error debe existir grupo_id',data: $_SESSION);
         }
