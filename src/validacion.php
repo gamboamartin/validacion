@@ -2,7 +2,6 @@
 namespace gamboamartin\validacion;
 
 use gamboamartin\errores\errores;
-use JetBrains\PhpStorm\Pure;
 use stdClass;
 
 class validacion {
@@ -1025,7 +1024,7 @@ class validacion {
      * @internal  $this->valida_pattern('double',$value)
      * @version 0.17.1
      */
-    public function valida_double_mayor_0(mixed $value):array|bool{
+    final public function valida_double_mayor_0(mixed $value):array|bool{
         if($value === ''){
             return $this->error->error(mensaje: 'Error esta vacio '.$value,data: $value);
         }
@@ -1086,7 +1085,7 @@ class validacion {
      * @internal  $this->valida_double_mayor_0($registro[$key]);
      * @version 1.17.1
      */
-    public function valida_double_mayores_0(array $keys, array|stdClass $registro):array|bool{
+    final public function valida_double_mayores_0(array $keys, array|stdClass $registro):array|bool{
         if(is_object($registro)){
             $registro = (array)$registro;
         }
