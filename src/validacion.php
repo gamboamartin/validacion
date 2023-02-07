@@ -1490,15 +1490,12 @@ class validacion {
      */
     final public function valida_name_clase(string $tabla): bool|array
     {
-        $namespace = 'models\\';
-        $tabla = str_replace($namespace,'',$tabla);
-        $clase = $namespace.$tabla;
+        $tabla = trim($tabla);
+
         if($tabla === ''){
             return $this->error->error(mensaje: 'Error tabla no puede venir vacio',data: $tabla);
         }
-        if(!class_exists($clase)){
-            return $this->error->error(mensaje: 'Error no existe la clase '.$clase,data: $clase);
-        }
+
         return true;
     }
 

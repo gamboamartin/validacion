@@ -1444,10 +1444,9 @@ class validacionTest extends test {
         errores::$error = false;
         $tabla = 'a';
         $resultado = $validacion->valida_name_clase($tabla);
-        $this->assertTrue(errores::$error);
-        $this->assertIsArray($resultado);
-        $this->assertArrayHasKey('data',$resultado);
-        $this->assertStringContainsStringIgnoringCase('Error no existe la clase models\a',$resultado['mensaje']);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
+
         errores::$error = false;
 
     }
