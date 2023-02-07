@@ -74,9 +74,13 @@ class validacion {
      * Integra a validacion->patterns los regex numericos la veces que este el max_long definido
      * @param int $max_long N veces que se ejecutara la funcion init_cod_int_0_n_numbers
      * @return array
+     * @version 2.27.0
      */
     private function base_regex_0_numbers(int $max_long): array
     {
+        if($max_long<=0){
+            return $this->error->error(mensaje: 'Error max_long debe ser mayor a 0', data: $max_long);
+        }
         $longitud_cod_0_n_numbers = 1;
         $patterns = array();
         while($longitud_cod_0_n_numbers <= $max_long){

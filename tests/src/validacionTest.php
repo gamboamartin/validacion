@@ -16,6 +16,23 @@ class validacionTest extends test {
     }
 
 
+    public function test_base_regex_0_numbers(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        $val = new liberator($val);
+
+        $max_long = 5;
+        $resultado = $val->base_regex_0_numbers($max_long);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals("/^[0-9]{1}$/", $resultado[0]);
+        $this->assertEquals("/^[0-9]{2}$/", $resultado[1]);
+        $this->assertEquals("/^[0-9]{3}$/", $resultado[2]);
+        $this->assertEquals("/^[0-9]{4}$/", $resultado[3]);
+        $this->assertEquals("/^[0-9]{5}$/", $resultado[4]);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
 
     public function test_btn_base(): void
     {
