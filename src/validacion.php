@@ -4,6 +4,9 @@ namespace gamboamartin\validacion;
 use gamboamartin\errores\errores;
 use stdClass;
 
+/**
+ * @final rev
+ */
 class validacion {
     public array $patterns = array();
     protected errores $error;
@@ -490,6 +493,12 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida que un elemento sea un arreglo
+     * @param array $keys Conjunto de elementos a verificar
+     * @param array|stdClass $row Registro en proceso
+     * @return bool|array
+     */
     final public function valida_arrays(array $keys, array|stdClass $row): bool|array
     {
         if(is_object($row)){
