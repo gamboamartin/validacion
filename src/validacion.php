@@ -1565,12 +1565,11 @@ class validacion {
             return $this->error->error(mensaje: 'Error al validar txt', data: $valida);
         }
         if(!$valida){
-            if(errores::$error){
-                return $this->error->error(mensaje: 'Error el txt ex invalido',
-                    data: $this->patterns['params_json_parentesis']);
-            }
+            return $this->error->error(mensaje: 'Error el txt ex invalido',
+                data: $this->patterns['params_json_parentesis']);
+
         }
-        return $valida;
+        return true;
     }
 
     /**
@@ -1727,18 +1726,21 @@ class validacion {
         return true;
     }
 
-    final public function valida_texto_pep_8(string $txt){
+    /**
+     * @param string $txt
+     * @return array|true
+     */
+    final public function valida_texto_pep_8(string $txt): bool|array
+    {
         $valida = $this->valida_pattern(key: 'texto_pep_8', txt: $txt);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error al validar txt', data: $valida);
         }
         if(!$valida){
-            if(errores::$error){
-                return $this->error->error(mensaje: 'Error el txt ex invalido',
-                    data: $this->patterns['texto_pep_8']);
-            }
+            return $this->error->error(mensaje: 'Error el txt ex invalido', data: $this->patterns['texto_pep_8']);
+
         }
-        return $valida;
+        return true;
     }
 
     /**
