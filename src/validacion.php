@@ -386,6 +386,11 @@ class validacion {
         return $this->valida_pattern(key: 'letra_numero_espacio',txt: $txt);
     }
 
+    /**
+     * Valida que un rfc
+     * @param int|string|null $txt texto a validar
+     * @return bool
+     */
     final public function rfc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'rfc', txt:$txt);
     }
