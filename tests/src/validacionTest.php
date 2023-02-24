@@ -1552,6 +1552,19 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_params_json_parentesis(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $txt = '{a_a_h_jikjkjkj_l:a_l}';
+        $resultado = $val->valida_params_json_parentesis($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+       
+    }
+
+
     public function test_valida_pattern(): void{
         errores::$error = false;
         $val = new validacion();

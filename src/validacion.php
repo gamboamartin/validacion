@@ -1574,6 +1574,7 @@ class validacion {
      * @param string $txt texto a validar
      * @return array|true
      * @example {a:a,b:b}
+     * @version 2.37.0
      *
      */
     final public function valida_params_json_parentesis(string $txt): bool|array
