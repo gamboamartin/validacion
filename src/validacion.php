@@ -1569,7 +1569,15 @@ class validacion {
         return true;
     }
 
-    final public function valida_params_json_parentesis(string $txt){
+    /**
+     * Valida que sea la estructura correcta un json base
+     * @param string $txt texto a validar
+     * @return array|true
+     * @example {a:a,b:b}
+     *
+     */
+    final public function valida_params_json_parentesis(string $txt): bool|array
+    {
         $valida = $this->valida_pattern(key: 'params_json_parentesis', txt: $txt);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error al validar txt', data: $valida);
