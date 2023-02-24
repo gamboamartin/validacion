@@ -1801,6 +1801,88 @@ class validacionTest extends test {
 
 
         errores::$error = false;
+        $key = 'texto_pep_8';
+        $txt = 'a_';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'texto_pep_8';
+        $txt = 'a_a';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'params_json';
+        $txt = 'a_a:a';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'params_json';
+        $txt = 'a_a:a_a';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'params_json';
+        $txt = 'aa:a_a';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'params_json';
+        $txt = 'aa :   a_a';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'params_json';
+        $txt = 'aa :   a_a,a:s';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'params_json';
+        $txt = 'aa :   a_a,a:s  ,a:  a_k';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'params_json_parentesis';
+        $txt = '{ aa:a_a,a:s,a:a_k }';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $key = 'params_json_parentesis';
+        $txt = '  { aa:a_a, a: s, a:  a_k }';
+        $resultado = $val->valida_pattern($key, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+
+
+        errores::$error = false;
 
 
     }
@@ -1905,5 +1987,7 @@ class validacionTest extends test {
         $this->assertIsBool($resultado);
         $this->assertTrue($resultado);
     }
+
+
 
 }

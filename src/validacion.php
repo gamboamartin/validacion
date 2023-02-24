@@ -22,10 +22,19 @@ class validacion {
         $fecha_hms_punto = "$fecha\.$hora_min_sec";
         $telefono_mx = "[1-9]{1}[0-9]{9}";
         $entero_positivo = "[1-9]+[0-9]*";
+        $texto_pep_8 = "[a-z]+(_?[a-z]+)*";
+        $param_json = "($texto_pep_8)\s*:\s*($texto_pep_8)";
+        $params_json = "($param_json)+(\s*,\s*$param_json)*";
+        $params_json_parentesis = "\s*\{\s*$params_json\s*\}\s*";
 
         $this->patterns['cod_1_letras_mayusc'] = '/^[A-Z]$/';
         $this->patterns['cod_1_2_letras_mayusc'] = '/^[A-Z]{1,2}$/';
         $this->patterns['cod_3_letras_mayusc'] = '/^[A-Z]{3}$/';
+        $this->patterns['texto_pep_8'] = "/^$texto_pep_8$/";
+        $this->patterns['param_json'] = "/^$param_json$/";
+        $this->patterns['params_json'] = "/^$params_json$/";
+        $this->patterns['params_json_parentesis'] = "/^$params_json_parentesis$/";
+
 
         $this->patterns['cod_int_0_numbers'] = '/^[0-9]{5,7}$/';
         $this->patterns['cod_int_0_2_numbers'] = '/^[0-9]{2}$/';
@@ -1548,6 +1557,20 @@ class validacion {
             }
         }
         return true;
+    }
+
+    final public function valida_params_json_parentesis(string $txt){
+        $valida = $this->valida_pattern(key: 'params_json_parentesis', txt: $txt);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al validar txt', data: $valida);
+        }
+        if(!$valida){
+            if(errores::$error){
+                return $this->error->error(mensaje: 'Error el txt ex invalido',
+                    data: $this->patterns['params_json_parentesis']);
+            }
+        }
+        return $valida;
     }
 
     /**
