@@ -1727,8 +1727,10 @@ class validacion {
     }
 
     /**
-     * @param string $txt
+     * Valida que un texto sea valido conforme pep_8
+     * @param string $txt Texto a validar
      * @return array|true
+     * @example var_a
      */
     final public function valida_texto_pep_8(string $txt): bool|array
     {
