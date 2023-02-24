@@ -1727,6 +1727,20 @@ class validacion {
         return true;
     }
 
+    final public function valida_texto_pep_8(string $txt){
+        $valida = $this->valida_pattern(key: 'texto_pep_8', txt: $txt);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al validar txt', data: $valida);
+        }
+        if(!$valida){
+            if(errores::$error){
+                return $this->error->error(mensaje: 'Error el txt ex invalido',
+                    data: $this->patterns['texto_pep_8']);
+            }
+        }
+        return $valida;
+    }
+
     /**
      * @param string $url Liga a validar
      * @return bool|array
