@@ -1974,6 +1974,16 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_texto_pep_8(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $txt = 'a_a_h_jikjkjkj_l';
+        $resultado = $val->valida_texto_pep_8($txt);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+    }
+
 
 
     public function test_valida_url(){

@@ -1731,6 +1731,7 @@ class validacion {
      * @param string $txt Texto a validar
      * @return array|true
      * @example var_a
+     * @version 2.33.0
      */
     final public function valida_texto_pep_8(string $txt): bool|array
     {
