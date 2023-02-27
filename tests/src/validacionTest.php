@@ -1561,7 +1561,7 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
-       
+
     }
 
 

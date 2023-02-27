@@ -1478,8 +1478,8 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
-     * @param array $registro
+     * Verifica que los keys de tipo documento esten correctamente asignados
+     * @param array $registro Registro en proceso
      * @return array
      */
     final protected function valida_keys_documento(array $registro): array
