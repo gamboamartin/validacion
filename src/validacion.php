@@ -1700,8 +1700,8 @@ class validacion {
     }
 
     /**
-     * P ORDER P INT
-     * @param string $seccion
+     * Valida una seccion
+     * @param string $seccion Nombre de la seccion a validar
      * @return array
      */
     final public function valida_seccion_base( string $seccion): array
