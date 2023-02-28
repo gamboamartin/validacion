@@ -1416,6 +1416,51 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_keys_documento(): void{
+        errores::$error = false;
+        $val = new validacion();
+        $val = new liberator($val);
+        $registro = array();
+        $resultado = $val->valida_keys_documento($registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertEquals('Error al validar registro',$resultado['mensaje_limpio']);
+        errores::$error = false;
+
+        $registro = array();
+        $registro['ruta'] = 'a';
+
+        $resultado = $val->valida_keys_documento($registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertEquals('Error al validar registro',$resultado['mensaje_limpio']);
+        errores::$error = false;
+
+
+
+        $registro = array();
+        $registro['ruta'] = 'a';
+        $registro['ruta_relativa'] = 'a';
+
+        $resultado = $val->valida_keys_documento($registro);
+        $this->assertTrue(errores::$error);
+        $this->assertIsArray($resultado);
+        $this->assertEquals('Error al validar registro',$resultado['mensaje_limpio']);
+        errores::$error = false;
+
+        $registro = array();
+        $registro['ruta'] = 'a';
+        $registro['ruta_relativa'] = 'a';
+        $registro['ruta_absoluta'] = 'a';
+
+        $resultado = $val->valida_keys_documento($registro);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
+
+        errores::$error = false;
+
+    }
+
     public function test_valida_modelo(){
 
         errores::$error = false;

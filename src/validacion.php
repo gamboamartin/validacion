@@ -1480,9 +1480,10 @@ class validacion {
     /**
      * Verifica que los keys de tipo documento esten correctamente asignados
      * @param array $registro Registro en proceso
-     * @return array
+     * @return array|bool
+     * @version 2.40.0
      */
-    final protected function valida_keys_documento(array $registro): array
+    final protected function valida_keys_documento(array $registro): array|bool
     {
         $keys = $this->keys_documentos();
         if(errores::$error){
