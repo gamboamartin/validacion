@@ -44,6 +44,7 @@ class validacion {
         $this->patterns['cod_int_0_6_numbers'] = '/^[0-9]{6}$/';
         $this->patterns['cod_int_0_8_numbers'] = '/^[0-9]{8}$/';
         $this->patterns['correo_html5'] = "[a-z0-9!#$%&'*+=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
+        $this->patterns['correo_html_base'] = "[^@\s]+@[^@\s]+[^.\s]";
         $this->patterns['correo'] = '/^'.$this->patterns["correo_html5"].'/';
         $this->patterns['double'] = '/^[0-9]*.[0-9]*$/';
         $this->patterns['id'] = "/^$entero_positivo$/";
