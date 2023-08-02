@@ -518,11 +518,15 @@ class validacion {
      * @param array $keys Conjunto de elementos a verificar
      * @param array|stdClass $row Registro en proceso
      * @return bool|array
+     * @version 2.42.0
      */
     final public function valida_arrays(array $keys, array|stdClass $row): bool|array
     {
         if(is_object($row)){
             $row = (array)$row;
+        }
+        if(count($keys) === 0){
+            return $this->error->error(mensaje: 'Error keys esta vacio', data: $keys);
         }
         $valida_existe = $this->valida_existencia_keys(keys: $keys,registro: $row);
         if(errores::$error){
