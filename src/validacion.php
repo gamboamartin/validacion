@@ -188,6 +188,7 @@ class validacion {
      * Valida que un codigo sea numero y con 0 iniciales
      * @param int|string|null $txt Texto a validar
      * @return bool
+     * @version 2.43.0
      */
     final public function cod_int_0_2_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_2_numbers', txt:$txt);

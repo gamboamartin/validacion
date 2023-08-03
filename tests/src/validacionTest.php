@@ -185,6 +185,38 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_cod_int_0_2_numbers(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+
+        $txt = '22';
+        $resultado = $val->cod_int_0_2_numbers($txt);
+
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+
+        $txt = '00';
+        $resultado = $val->cod_int_0_2_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+
+
+
+        $txt = '21';
+        $resultado = $val->cod_int_0_2_numbers($txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_cod_int_0_3_numbers()
     {
 
