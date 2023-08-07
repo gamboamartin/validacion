@@ -715,6 +715,7 @@ class validacion {
      * @param string $key Key a verificar en el registro
      * @param array|stdClass $registro Registro en proceso
      * @return bool|array
+     * @version 2.46.0
      */
     final public function valida_cod_int_0_2_numbers(string $key, array|stdClass $registro): bool|array{
 
@@ -847,6 +848,12 @@ class validacion {
         return array('mensaje'=>'ids validos',$registro,$keys);
     }
 
+    /**
+     * Valida que un conjunto de keys cumplan con la validacion de codigos del tipo 01,02,0n donde n sea del 1-9
+     * @param array $keys Keys a validar
+     * @param array|object $registro Registro a validar
+     * @return array
+     */
     final public function valida_codigos_int_0_2_numbers(array $keys, array|object $registro):array{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
