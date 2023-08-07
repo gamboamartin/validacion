@@ -696,7 +696,7 @@ class validacion {
         return true;
     }
 
-    final public function valida_cod_int_0_numbers(string $key, array $registro): bool|array{
+    final public function valida_cod_int_0_numbers(string $key, array|stdClass $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
@@ -710,8 +710,28 @@ class validacion {
         return true;
     }
 
-    final public function valida_cod_int_0_2_numbers(string $key, array $registro): bool|array{
+    final public function valida_cod_int_0_2_numbers(string $key, array|stdClass $registro): bool|array{
 
+        if(is_object($registro)){
+            $registro = (array) $registro;
+        }
+        $valida = $this->valida_base(key: $key, registro: $registro);
+        if(errores::$error){
+            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+        }
+
+        if(!$this->cod_int_0_2_numbers(txt:$registro[$key])){
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+        }
+
+        return true;
+    }
+
+    final public function valida_cod_int_0_3_numbers(string $key, array|stdClass $registro): bool|array{
+
+        if(is_object($registro)){
+            $registro = (array) $registro;
+        }
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
             return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
@@ -724,21 +744,7 @@ class validacion {
         return true;
     }
 
-    final public function valida_cod_int_0_3_numbers(string $key, array $registro): bool|array{
-
-        $valida = $this->valida_base(key: $key, registro: $registro);
-        if(errores::$error){
-            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
-        }
-
-        if(!$this->cod_int_0_3_numbers(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
-        }
-
-        return true;
-    }
-
-    final public function valida_cod_int_0_5_numbers(string $key, array $registro): bool|array{
+    final public function valida_cod_int_0_5_numbers(string $key, array|stdClass $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
@@ -759,7 +765,7 @@ class validacion {
      * @return bool|array
      * @version 0.37.1
      */
-    final public function valida_cod_int_0_6_numbers(string $key, array $registro): bool|array{
+    final public function valida_cod_int_0_6_numbers(string $key, array|stdClass $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
@@ -773,7 +779,7 @@ class validacion {
         return true;
     }
 
-    final public function valida_cod_int_0_n_numbers(string $key, int $longitud, array $registro): bool|array{
+    final public function valida_cod_int_0_n_numbers(string $key, int $longitud, array|stdClass $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
