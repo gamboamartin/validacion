@@ -853,6 +853,7 @@ class validacion {
      * @param array $keys Keys a validar
      * @param array|object $registro Registro a validar
      * @return array
+     * @version 2.47.0
      */
     final public function valida_codigos_int_0_2_numbers(array $keys, array|object $registro):array{
         if(count($keys) === 0){
@@ -865,7 +866,7 @@ class validacion {
 
         foreach($keys as $key){
             if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro);
+                return $this->error->error(mensaje:'Error '.$key.' Invalido esta vacio',data:$registro);
             }
             if(!isset($registro[$key])){
                 return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro);

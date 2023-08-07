@@ -830,6 +830,23 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_codigos_int_0_2_numbers(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+
+        $keys = array();
+        $registro = array();
+        $keys[] = 'a';
+        $registro['a'] = '10';
+        $resultado = $val->valida_codigos_int_0_2_numbers($keys, $registro);
+        $this->assertIsArray( $resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+
+    }
+
     public function test_valida_cols_css(): void{
         errores::$error = false;
         $val = new validacion();
