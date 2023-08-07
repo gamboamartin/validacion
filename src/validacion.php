@@ -801,6 +801,13 @@ class validacion {
         return true;
     }
 
+    /**
+     * Se integra validacion cd 0 to n number con prefijos 0
+     * @param string $key Key a validar
+     * @param int $longitud Longitud
+     * @param array|stdClass $registro Registro
+     * @return bool|array
+     */
     final public function valida_cod_int_0_n_numbers(string $key, int $longitud, array|stdClass $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
