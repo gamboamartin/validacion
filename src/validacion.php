@@ -228,12 +228,21 @@ class validacion {
      * Valida un regex con 0 inicial minimo
      * @param int $longitud Longitud de cadena con ceros
      * @param int|string|null $txt Texto a verificar
-     * @return bool
+     * @return bool|array
+     * @version 2.49.0
      */
-    final public function cod_int_0_n_numbers(int $longitud, int|string|null $txt): bool
+    final public function cod_int_0_n_numbers(int $longitud, int|string|null $txt): bool|array
     {
+        if($longitud<=0){
+            return $this->error->error(mensaje: 'Error longitud debe ser mayor a 0', data: $longitud);
+        }
+        $txt = trim($txt);
+        if($txt === ''){
+            return $this->error->error(mensaje: 'Error txt esta vacio', data: $txt);
+        }
         $key = 'cod_int_0_'.$longitud.'_numbers';
-        $this->patterns[$key] = "/^[0-9]{$longitud}$/";
+        $this->patterns[$key] = "/^[0-9]{".$longitud."}$/";
+
 
         return $this->valida_pattern(key:$key, txt:$txt);
 

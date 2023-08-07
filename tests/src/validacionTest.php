@@ -503,6 +503,29 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_cod_int_0_n_numbers(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $longitud = 1;
+        $txt = 'a';
+        $resultado = $val->cod_int_0_n_numbers($longitud, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+        $longitud = 1;
+        $txt = '0';
+        $resultado = $val->cod_int_0_n_numbers($longitud, $txt);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+    }
+
     public function test_fechas_in_array(): void
     {
         errores::$error = false;
