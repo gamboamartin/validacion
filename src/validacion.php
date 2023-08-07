@@ -710,6 +710,12 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida un entero de forma 01,02,03,0n donde n es cualquier numero del 0-9
+     * @param string $key Key a verificar en el registro
+     * @param array|stdClass $registro Registro en proceso
+     * @return bool|array
+     */
     final public function valida_cod_int_0_2_numbers(string $key, array|stdClass $registro): bool|array{
 
         if(is_object($registro)){
