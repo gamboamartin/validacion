@@ -224,6 +224,12 @@ class validacion {
         return $this->valida_pattern(key:'cod_int_0_6_numbers', txt:$txt);
     }
 
+    /**
+     * Valida un regex con 0 inicial minimo
+     * @param int $longitud Longitud de cadena con ceros
+     * @param int|string|null $txt Texto a verificar
+     * @return bool
+     */
     final public function cod_int_0_n_numbers(int $longitud, int|string|null $txt): bool
     {
         $key = 'cod_int_0_'.$longitud.'_numbers';
