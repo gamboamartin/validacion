@@ -65,7 +65,10 @@ class validacion {
         $this->patterns['file_service_lock'] = "/^$file_php\.lock$/";
         $this->patterns['file_service_info'] = "/^$file_php\.$fecha_hms_punto\.info$/";
         $this->patterns['status'] = "/^activo|inactivo$/";
-        $this->patterns['lada'] = "/^[0-9]{2,3}$/";
+
+        $lada_html = "[0-9]{2,3}";
+        $this->patterns['lada_html'] = $lada_html;
+        $this->patterns['lada'] = "/^$lada_html$/";
 
         $this->regex_fecha[] = 'fecha';
         $this->regex_fecha[] = 'fecha_hora_min_sec_esp';
