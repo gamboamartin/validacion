@@ -70,6 +70,10 @@ class validacion {
         $this->patterns['lada_html'] = $lada_html;
         $this->patterns['lada'] = "/^$lada_html$/";
 
+        $tel_sin_lada_html = "[0-9]{7,8}";
+        $this->patterns['tel_sin_lada_html'] = $tel_sin_lada_html;
+        $this->patterns['tel_sin_lada'] = "/^$tel_sin_lada_html$/";
+
         $this->regex_fecha[] = 'fecha';
         $this->regex_fecha[] = 'fecha_hora_min_sec_esp';
         $this->regex_fecha[] = 'fecha_hora_min_sec_t';
@@ -701,6 +705,12 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida los codigos con 3 letras en mayusculas
+     * @param string $key Key a validar
+     * @param array $registro Registro donde se enuentra el campo
+     * @return bool|array
+     */
     final public function valida_cod_3_letras_mayusc(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
