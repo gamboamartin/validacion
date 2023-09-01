@@ -77,7 +77,7 @@ class validacion {
         $curp_html = "([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)";
         $curp = "/^$curp_html$/";
 
-        $this->patterns['curp_html'] = $tel_sin_lada_html;
+        $this->patterns['curp_html'] = $curp_html;
         $this->patterns['curp'] = $curp;
 
 
@@ -476,10 +476,11 @@ class validacion {
 
     /**
      *
-     * @param $codigo
+     * Conjunto de errores de FILES
+     * @param int|string $codigo Codigo de error de FILES
      * @return bool|array
      */
-    final public function upload($codigo): bool|array
+    final public function upload(int|string $codigo): bool|array
     {
         switch ($codigo)
         {
@@ -487,7 +488,7 @@ class validacion {
                 //$mensajeInformativo = 'El fichero se ha subido correctamente (no se ha producido errores).';
                 return true;
             case UPLOAD_ERR_INI_SIZE: //1
-                $mensajeInformativo = 'El archivo que se ha intentado subir sobrepasa el límite de tamaño permitido. Revisad la directiva de php.ini UPLOAD_MAX_FILSIZE. ';
+                $mensajeInformativo = 'El archivo que se ha intentado subir sobrepasa el límite de tamaño permitido. Revisar la directiva de php.ini UPLOAD_MAX_FILSIZE. ';
                 break;
             case UPLOAD_ERR_FORM_SIZE: //2
                 $mensajeInformativo = 'El fichero subido excede la directiva MAX_FILE_SIZE especificada en el formulario HTML. Revisa la directiva de php.ini MAX_FILE_SIZE.';
