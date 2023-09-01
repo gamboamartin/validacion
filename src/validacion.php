@@ -74,6 +74,13 @@ class validacion {
         $this->patterns['tel_sin_lada_html'] = $tel_sin_lada_html;
         $this->patterns['tel_sin_lada'] = "/^$tel_sin_lada_html$/";
 
+        $curp_html = "([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)";
+        $curp = "/^$curp_html$/";
+
+        $this->patterns['curp_html'] = $tel_sin_lada_html;
+        $this->patterns['curp'] = $curp;
+
+
         $this->regex_fecha[] = 'fecha';
         $this->regex_fecha[] = 'fecha_hora_min_sec_esp';
         $this->regex_fecha[] = 'fecha_hora_min_sec_t';
@@ -415,6 +422,7 @@ class validacion {
      * Valida que un rfc
      * @param int|string|null $txt texto a validar
      * @return bool
+     * @version 2.54.0
      */
     final public function rfc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'rfc', txt:$txt);
