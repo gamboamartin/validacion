@@ -543,18 +543,7 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
-    public function test_init_cod_int_0_n_numbers(): void{
-        errores::$error = false;
-        $val = new validacion();
-        $val = new liberator($val);
 
-        $longitud = 1;
-        $resultado = $val->init_cod_int_0_n_numbers($longitud);
-        $this->assertIsString( $resultado);
-        $this->assertEquals("/^[0-9]{1}$/", $resultado);
-        $this->assertNotTrue(errores::$error);
-        errores::$error = false;
-    }
 
     public function test_seccion(): void{
         errores::$error = false;

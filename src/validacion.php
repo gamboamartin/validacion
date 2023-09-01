@@ -54,6 +54,7 @@ class validacion {
         $this->patterns['hora_min_sec'] = "/^$hora_min_sec$/";
         $this->patterns['letra_numero_espacio'] = '/^(([a-zA-Z áéíóúÁÉÍÓÚñÑ]+[1-9]*)+(\s)?)+([a-zA-Z áéíóúÁÉÍÓÚñÑ]+[1-9]*)*$/';
         $this->patterns['nomina_antiguedad'] = "/^P[0-9]+W$/";
+        $this->patterns['rfc_html'] = "[A-Z]{3,4}[0-9]{6}([A-Z]|[0-9]){3}";
         $this->patterns['rfc'] = "/^[A-Z]{3,4}[0-9]{6}([A-Z]|[0-9]){3}$/";
         $this->patterns['url'] = "/http(s)?:\/\/(([a-z])+.)+([a-z])+/";
         $this->patterns['telefono_mx'] = "/^$telefono_mx$/";
@@ -116,7 +117,8 @@ class validacion {
         $longitud_cod_0_n_numbers = 1;
         $patterns = array();
         while($longitud_cod_0_n_numbers <= $max_long){
-            $regex = $this->init_cod_int_0_n_numbers(longitud: $longitud_cod_0_n_numbers);
+            $regex = (new _codigos())->init_cod_int_0_n_numbers(
+                longitud: $longitud_cod_0_n_numbers,patterns: $this->patterns);
             if(errores::$error){
                 return $this->error->error(mensaje: 'Error al inicializar regex', data: $regex);
             }
@@ -376,21 +378,7 @@ class validacion {
         return $this->valida_pattern(key:'id', txt:$txt);
     }
 
-    /**
-     * Integra una expresion regular del 0 al 9 repitiendo los numeros n veces = a la longittud
-     * @param int $longitud Longitud de la cadena permitida de numeros
-     * @return string|array
-     * @version 1.4.0
-     */
-    private function init_cod_int_0_n_numbers(int $longitud): string|array
-    {
-        if($longitud<=0){
-            return  $this->error->error(mensaje: 'Error longitud debe ser mayor a 0',data: $longitud);
-        }
-        $key = 'cod_int_0_'.$longitud.'_numbers';
-        $this->patterns[$key] = '/^[0-9]{'.$longitud.'}$/';
-        return $this->patterns[$key];
-    }
+
 
     /**
      * Obtiene los keys de un registro documento
@@ -483,7 +471,7 @@ class validacion {
      * Conjunto de errores de FILES
      * @param int|string $codigo Codigo de error de FILES
      * @return bool|array
-     * @version
+     * @version 2.57.0
      */
     final public function upload(int|string $codigo): bool|array
     {
@@ -706,8 +694,9 @@ class validacion {
     }
 
     /**
-     * @param string $key
-     * @param array $registro
+     * Valida que in elemento que sea de una sola letra y sea mayuscula
+     * @param string $key Key de array a verificar
+     * @param array $registro Registro a verificar
      * @return bool|array
      */
     final public function valida_cod_1_letras_mayusc(string $key, array $registro): bool|array{
