@@ -80,6 +80,10 @@ class validacion {
         $this->patterns['curp_html'] = $curp_html;
         $this->patterns['curp'] = $curp;
 
+        $nss_html = "(\d{2})(\d{2})(\d{2})\d{5}";
+        $this->patterns['nss_html'] = $nss_html;
+        $this->patterns['nss'] = "/^$nss_html$/";;
+
 
         $this->regex_fecha[] = 'fecha';
         $this->regex_fecha[] = 'fecha_hora_min_sec_esp';
@@ -479,6 +483,7 @@ class validacion {
      * Conjunto de errores de FILES
      * @param int|string $codigo Codigo de error de FILES
      * @return bool|array
+     * @version
      */
     final public function upload(int|string $codigo): bool|array
     {
@@ -700,6 +705,11 @@ class validacion {
         return true;
     }
 
+    /**
+     * @param string $key
+     * @param array $registro
+     * @return bool|array
+     */
     final public function valida_cod_1_letras_mayusc(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
@@ -717,7 +727,7 @@ class validacion {
     /**
      * Valida los codigos con 3 letras en mayusculas
      * @param string $key Key a validar
-     * @param array $registro Registro donde se enuentra el campo
+     * @param array $registro Registro donde se encuentra el campo
      * @return bool|array
      */
     final public function valida_cod_3_letras_mayusc(string $key, array $registro): bool|array{
@@ -806,7 +816,7 @@ class validacion {
     /**
      * Valida un numero con 6 digitos con 0 iniciales
      * @param string $key Key de row a validar
-     * @param array $registro Registro a validar
+     * @param array|stdClass $registro Registro a validar
      * @return bool|array
      * @version 0.37.1
      */

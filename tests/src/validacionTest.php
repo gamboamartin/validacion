@@ -611,6 +611,27 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_upload()
+    {
+
+        errores::$error = false;
+        $validacion = new validacion();
+
+        $codigo = '';
+        $resultado = $validacion->upload($codigo);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error sin identificar.', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+        $codigo = UPLOAD_ERR_INI_SIZE;
+        $resultado = $validacion->upload($codigo);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('El archivo que se ha intentado subir sobrepasa el límite de tamaño permitido. Revisar la directiva de php.ini UPLOAD_MAX_FILSIZE.', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_url(): void{
         errores::$error = false;
         $validacion = new validacion();
