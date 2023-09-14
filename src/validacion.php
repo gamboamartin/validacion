@@ -1667,6 +1667,11 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida un numero telefonico sin lada mexicano 7 a 8 numeros
+     * @param string $tel Telefono a validar
+     * @return bool|array
+     */
     final public function valida_numero_sin_lada(string $tel): bool|array
     {
         $tel = trim($tel);
