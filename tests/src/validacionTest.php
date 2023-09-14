@@ -543,8 +543,6 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
-
-
     public function test_seccion(): void{
         errores::$error = false;
         $val = new validacion();
@@ -876,6 +874,19 @@ class validacionTest extends test {
         $this->assertIsBool( $resultado);
         $this->assertNotTrue(errores::$error);
         $this->assertTrue($resultado);
+        errores::$error = false;
+    }
+
+    public function test_valida_cod_3_letras_mayusc(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+        $key = 'a';
+        $registro = array();
+        $registro['a'] = 'AAA';
+        $resultado = $val->valida_cod_3_letras_mayusc($key, $registro);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
 

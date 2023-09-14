@@ -722,10 +722,11 @@ class validacion {
      * @param string $key Key a validar
      * @param array $registro Registro donde se encuentra el campo
      * @return bool|array
+     * @version 2.64.0
      */
     final public function valida_cod_3_letras_mayusc(string $key, array $registro): bool|array{
 
-        $valida = $this->valida_base(key: $key, registro: $registro);
+        $valida = $this->valida_base(key: $key, registro: $registro,valida_int: false);
         if(errores::$error){
             return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
         }
