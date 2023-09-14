@@ -1570,6 +1570,12 @@ class validacion {
         return $valida;
     }
 
+    /**
+     * Valida que una lada sea correcta con formato de mexico de 2 a 3 numeros
+     * @param string $lada Lada a validar
+     * @return bool|array
+     * @version 2.60.0
+     */
     final public function valida_lada(string $lada): bool|array
     {
         $lada = trim($lada);
