@@ -1724,6 +1724,18 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_numero_sin_lada(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+        $tel = '12345678';
+        $resultado = $val->valida_numero_sin_lada($tel);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+    }
+
     public function test_valida_params_json_parentesis(): void{
         errores::$error = false;
         $val = new validacion();
