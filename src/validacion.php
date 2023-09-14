@@ -849,6 +849,12 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida que los codigos de un conjunto de campos de un arreglo sean validos conforme a 3 letras mayusculas
+     * @param array $keys Keys de campos a validar
+     * @param array|object $registro Registro a validar
+     * @return array
+     */
     final public function valida_codigos_3_letras_mayusc(array $keys, array|object $registro):array{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);
