@@ -1573,6 +1573,13 @@ class validacion {
     final public function valida_lada(string $lada): bool|array
     {
         $lada = trim($lada);
+        if($lada === ''){
+            return $this->error->error(mensaje: 'Error lada vacia',data:  $this->patterns['lada']);
+        }
+        if(!is_numeric($lada)){
+            return $this->error->error(mensaje: 'Error lada debe ser un numero',data:  $this->patterns['lada']);
+        }
+
         $es_valida = $this->valida_pattern(key: 'lada',txt:  $lada);
         if(!$es_valida){
             return $this->error->error(mensaje: 'Error lada invalida',data:  $this->patterns['lada']);

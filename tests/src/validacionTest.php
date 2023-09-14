@@ -1574,6 +1574,20 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_lada(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+
+        $lada = '012';
+        $resultado = $val->valida_lada($lada);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+    }
+
     public function test_valida_modelo(){
 
         errores::$error = false;
