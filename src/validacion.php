@@ -1670,6 +1670,13 @@ class validacion {
     final public function valida_numero_sin_lada(string $tel): bool|array
     {
         $tel = trim($tel);
+        if($tel === ''){
+            return $this->error->error(mensaje: 'Error tel vacia',data:  $this->patterns['tel_sin_lada']);
+        }
+        if(!is_numeric($tel)){
+            return $this->error->error(mensaje: 'Error tel debe ser un numero',data:  $this->patterns['tel_sin_lada']);
+        }
+
         $es_valida = $this->valida_pattern(key: 'tel_sin_lada',txt:  $tel);
         if(!$es_valida){
             return $this->error->error(mensaje: 'Error telefono invalido',data:  $this->patterns['tel_sin_lada']);
