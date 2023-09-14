@@ -696,12 +696,16 @@ class validacion {
     /**
      * Valida que in elemento que sea de una sola letra y sea mayuscula
      * @param string $key Key de array a verificar
-     * @param array $registro Registro a verificar
+     * @param array|object $registro Registro a verificar
      * @return bool|array
+     * @version 2.58.0
      */
-    final public function valida_cod_1_letras_mayusc(string $key, array $registro): bool|array{
+    final public function valida_cod_1_letras_mayusc(string $key, array|object $registro): bool|array{
 
-        $valida = $this->valida_base(key: $key, registro: $registro);
+        if(is_object($registro)){
+            $registro = (array)$registro;
+        }
+        $valida = $this->valida_base(key: $key, registro: $registro,valida_int: false);
         if(errores::$error){
             return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
         }
@@ -1566,6 +1570,16 @@ class validacion {
         return $valida;
     }
 
+    final public function valida_lada(string $lada): bool|array
+    {
+        $lada = trim($lada);
+        $es_valida = $this->valida_pattern(key: 'lada',txt:  $lada);
+        if(!$es_valida){
+            return $this->error->error(mensaje: 'Error lada invalida',data:  $this->patterns['lada']);
+        }
+        return true;
+    }
+
     /**
      * Se valida que la tabla sea un modelo valido
      * @version 1.0.0
@@ -1636,6 +1650,16 @@ class validacion {
             if(errores::$error){
                 return $this->error->error(mensaje: 'Error al validar registro['.$key.']', data: $valida);
             }
+        }
+        return true;
+    }
+
+    final public function valida_numero_sin_lada(string $tel): bool|array
+    {
+        $tel = trim($tel);
+        $es_valida = $this->valida_pattern(key: 'tel_sin_lada',txt:  $tel);
+        if(!$es_valida){
+            return $this->error->error(mensaje: 'Error telefono invalido',data:  $this->patterns['tel_sin_lada']);
         }
         return true;
     }

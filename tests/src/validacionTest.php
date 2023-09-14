@@ -863,6 +863,22 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_cod_1_letras_mayusc(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $registro = array();
+        $key = 'a';
+        $registro['a'] = 'Z';
+        $resultado = $val->valida_cod_1_letras_mayusc($key, $registro);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+    }
+
     public function test_valida_codigos_int_0_2_numbers(): void{
         errores::$error = false;
         $val = new validacion();
