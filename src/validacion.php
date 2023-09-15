@@ -1315,10 +1315,11 @@ class validacion {
      * Funcion que valida los campos necesarios para la aplicacion de menu
      * @param int $menu_id Menu id a validar
      * @return array|bool
+     * @version 2.70.0
      */
     final public function valida_estructura_menu(int $menu_id):array|bool{
         if(!isset($_SESSION['grupo_id'])){
-            return $this->error->error(mensaje: 'Error debe existir grupo_id',data: $_SESSION);
+            return $this->error->error(mensaje: 'Error debe existir grupo_id en SESSION',data: $menu_id);
         }
         if((int)$_SESSION['grupo_id']<=0){
             return $this->error->error(mensaje: 'Error grupo_id debe ser mayor a 0',data: $_SESSION);

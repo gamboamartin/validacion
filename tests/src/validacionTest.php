@@ -1275,6 +1275,19 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_estructura_menu()
+    {
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $menu_id = 1;
+        $_SESSION['grupo_id'] = 2;
+        $resultado = $validacion->valida_estructura_menu($menu_id);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+    }
+
     public function test_valida_existencia_key(): void
     {
         errores::$error = false;
