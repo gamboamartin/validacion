@@ -1330,7 +1330,7 @@ class validacion {
     }
 
     /**
-     * P INT  P ORDER
+     *
      * Valida la estructura
      * @param string $seccion
      * @param string $accion
@@ -1339,17 +1339,17 @@ class validacion {
      *        $valida = $this->valida_estructura_seccion_accion($seccion,$accion);
      * @uses directivas
      */
-    final public function valida_estructura_seccion_accion(string $accion, string $seccion):array|bool{ //FIN PROT
+    final public function valida_estructura_seccion_accion(string $accion, string $seccion):array|bool{
         $seccion = str_replace('models\\','',$seccion);
         $class_model = 'models\\'.$seccion;
         if($seccion === ''){
-            return   $this->error->error('$seccion no puede venir vacia', $seccion);
+            return   $this->error->error(mensaje: '$seccion no puede venir vacia', data: $seccion);
         }
         if($accion === ''){
-            return   $this->error->error('$accion no puede venir vacia', $accion);
+            return   $this->error->error(mensaje: '$accion no puede venir vacia',data:  $accion);
         }
         if(!class_exists($class_model)){
-            return   $this->error->error('no existe la clase '.$seccion, $seccion);
+            return   $this->error->error(mensaje: 'no existe la clase '.$seccion,data:  $seccion);
         }
         return true;
     }
@@ -1393,12 +1393,17 @@ class validacion {
      * Valida que un doc tenga extension
      * @param string $path ruta del documento de dropbox
      * @return bool|array
+     * @version 2.69.0
      */
     final public function valida_extension_doc(string $path): bool|array
     {
+        $path = trim($path);
+        if($path === ''){
+            return $this->error->error(mensaje: 'Error el $path esta vacio',data:  $path);
+        }
         $extension_origen = pathinfo($path, PATHINFO_EXTENSION);
         if(!$extension_origen){
-            return $this->error->error('Error el $path no tiene extension', $path);
+            return $this->error->error(mensaje: 'Error el $path no tiene extension',data:  $path);
         }
         return true;
     }

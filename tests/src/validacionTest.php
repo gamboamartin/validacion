@@ -1329,6 +1329,20 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_extension_doc(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $path = 'a.a';
+        $resultado = $val->valida_extension_doc($path);
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+    }
+
     public function test_valida_fecha()
     {
 
