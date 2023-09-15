@@ -2180,6 +2180,22 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_rfcs(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+        $keys = array('a');
+        $registro = array();
+        $registro['a'] = 'ACDD120987265';
+
+        $resultado = $val->valida_rfcs($keys, $registro);
+        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+    }
+
 
 
     public function test_valida_statuses()

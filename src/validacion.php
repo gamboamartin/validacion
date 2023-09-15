@@ -1815,6 +1815,7 @@ class validacion {
      * @param array $keys Keys a validar
      * @param array|object $registro Registro a validar
      * @return array|bool
+     * @version 2.67.0
      */
     final public function valida_rfcs(array $keys, array|object $registro):array|bool{
         if(count($keys) === 0){
