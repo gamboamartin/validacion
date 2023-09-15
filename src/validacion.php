@@ -1390,7 +1390,7 @@ class validacion {
     }
 
     /**
-     *
+     * Valida que un doc tenga extension
      * @param string $path ruta del documento de dropbox
      * @return bool|array
      */
@@ -1444,7 +1444,7 @@ class validacion {
     }
 
     /**
-     * P INT P ORDER PROBADO
+     *
      * Valida los datos de entrada para un filtro especial
      *
      * @param string $campo campo de una tabla tabla.campo
@@ -1458,21 +1458,21 @@ class validacion {
      *      $filtro = array('operador'=>'x','valor'=>'x');
      *      $resultado = valida_filtro_especial($campo, $filtro);
      *      $resultado = array('operador'=>'x','valor'=>'x');
+     * @version 2.67.0
      *
-     * @uses modelo_basico->obten_filtro_especial
      */
     final public function valida_filtro_especial(string $campo, array $filtro):array|bool{ //DOC //DEBUG
         if(!isset($filtro['operador'])){
-            return $this->error->error("Error operador no existe",$filtro);
+            return $this->error->error(mensaje: "Error operador no existe",data: $filtro);
         }
         if(!isset($filtro['valor_es_campo']) &&is_numeric($campo)){
-            return $this->error->error("Error campo invalido",$filtro);
+            return $this->error->error(mensaje: "Error campo invalido",data: $filtro);
         }
         if(!isset($filtro['valor'])){
-            return $this->error->error("Error valor no existe",$filtro);
+            return $this->error->error(mensaje: "Error valor no existe",data: $filtro);
         }
         if($campo === ''){
-            return $this->error->error("Error campo vacio",$campo);
+            return $this->error->error(mensaje: "Error campo vacio",data: $campo);
         }
         return true;
     }
@@ -1747,7 +1747,7 @@ class validacion {
     }
 
     /**
-     * TODO Valida un rango de fechas
+     * Valida un rango de fechas
      * @param array $fechas conjunto de fechas fechas['fecha_inicial'], fechas['fecha_final']
      * @param string $tipo_val
      *          utiliza los patterns de las siguientes formas
@@ -1755,6 +1755,7 @@ class validacion {
      *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
      *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
      * @return array|bool true si no hay error
+     * @version 2.68.0
      */
     final public function valida_rango_fecha(array $fechas, string $tipo_val = 'fecha'): array|bool
     {
