@@ -1789,6 +1789,13 @@ class validacion {
         return $valida;
     }
 
+    /**
+     * Valida que la estructura de un rfc sea valida
+     * @param string $key Key a validar
+     * @param array $registro Registro en proceso
+     * @return bool|array
+     * @version 2.66.0
+     */
     final public function valida_rfc(string $key, array $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro, valida_int: false);
@@ -1803,6 +1810,12 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida los rfc contenidos en un array
+     * @param array $keys Keys a validar
+     * @param array|object $registro Registro a validar
+     * @return array|bool
+     */
     final public function valida_rfcs(array $keys, array|object $registro):array|bool{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys);

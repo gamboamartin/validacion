@@ -543,6 +543,31 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_rfc(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $txt = 'a';
+        $resultado = $val->rfc($txt);
+        $this->assertNotTrue(errores::$error);
+        $this->assertNotTrue($resultado);
+
+        errores::$error = false;
+        $txt = 'AAAA830930A45';
+        $resultado = $val->rfc($txt);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+
+        errores::$error = false;
+        $txt = 'AAA010101AAA';
+        $resultado = $val->rfc($txt);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+    }
+
+
     public function test_seccion(): void{
         errores::$error = false;
         $val = new validacion();
@@ -2140,29 +2165,22 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
-    public function test_rfc(): void{
+    public function test_valida_rfc(): void
+    {
         errores::$error = false;
         $val = new validacion();
         //$val = new liberator($val);
-
-        $txt = 'a';
-        $resultado = $val->rfc($txt);
+        $key = 'a';
+        $registro = array();
+        $registro['a']  ='AAA010101BBB';
+        $resultado = $val->valida_rfc($key, $registro);
         $this->assertNotTrue(errores::$error);
-        $this->assertNotTrue($resultado);
-
-        errores::$error = false;
-        $txt = 'AAAA830930A45';
-        $resultado = $val->rfc($txt);
-        $this->assertNotTrue(errores::$error);
-        $this->assertTrue($resultado);
-
-        errores::$error = false;
-        $txt = 'AAA010101AAA';
-        $resultado = $val->rfc($txt);
-        $this->assertNotTrue(errores::$error);
+        $this->assertIsBool($resultado);
         $this->assertTrue($resultado);
         errores::$error = false;
     }
+
+
 
     public function test_valida_statuses()
     {
