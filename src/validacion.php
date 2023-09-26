@@ -738,6 +738,12 @@ class validacion {
         return true;
     }
 
+    /**
+     * Valida un codigo de 3 digitos permisibles con 0 derecha
+     * @param string $key Key a validar
+     * @param array|stdClass $registro Registro donde se ubica campo a verificar
+     * @return bool|array
+     */
     final public function valida_cod_int_0_numbers(string $key, array|stdClass $registro): bool|array{
 
         $valida = $this->valida_base(key: $key, registro: $registro);
@@ -1676,6 +1682,28 @@ class validacion {
             if(errores::$error){
                 return $this->error->error(mensaje: 'Error al validar registro['.$key.']', data: $valida);
             }
+        }
+        return true;
+    }
+
+    /**
+     * Valida un numero telefonico  mexicano a 10 numeros
+     * @param string $tel Telefono a validar
+     * @return bool|array
+     */
+    final public function valida_numero_tel_mx(string $tel): bool|array
+    {
+        $tel = trim($tel);
+        if($tel === ''){
+            return $this->error->error(mensaje: 'Error tel vacia',data:  $this->patterns['telefono_mx']);
+        }
+        if(!is_numeric($tel)){
+            return $this->error->error(mensaje: 'Error tel debe ser un numero',data:  $this->patterns['telefono_mx']);
+        }
+
+        $es_valida = $this->valida_pattern(key: 'telefono_mx',txt:  $tel);
+        if(!$es_valida){
+            return $this->error->error(mensaje: 'Error telefono invalido',data:  $this->patterns['telefono_mx']);
         }
         return true;
     }
