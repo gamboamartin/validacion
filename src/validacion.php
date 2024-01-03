@@ -529,7 +529,6 @@ class validacion {
      * Valida que un elemento sea un array
      * @param mixed $value Valor a validar
      * @return bool|array
-     * @version 0.38.1
      */
     final public function valida_array(mixed $value): bool|array
     {
@@ -544,7 +543,6 @@ class validacion {
      * @param array $keys Conjunto de elementos a verificar
      * @param array|stdClass $row Registro en proceso
      * @return bool|array
-     * @version 2.42.0
      */
     final public function valida_arrays(array $keys, array|stdClass $row): bool|array
     {
@@ -1364,7 +1362,6 @@ class validacion {
     /**
      *
      * Funcion para validar que exista o no sea vacia una llave dentro de un arreglo
-     * @version 1.0.0
      * @param array $keys Keys a validar
      * @param array|stdClass $registro Registro a validar
      * @param bool $valida_vacio Si es true verificara el key sea vacio si es false solo valida que existe el key
