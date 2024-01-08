@@ -1360,20 +1360,18 @@ class validacion {
     }
 
     /**
+     * Valida la existencia de varias claves en un registro dado.
      *
-     * Funcion para validar que exista o no sea vacia una llave dentro de un arreglo
-     * @param array $keys Keys a validar
-     * @param array|stdClass $registro Registro a validar
-     * @param bool $valida_vacio Si es true verificara el key sea vacio si es false solo valida que existe el key
-     * @return array|bool array con datos del registro
-     * @example
-     *      $keys = array('clase','sub_clase','producto','unidad');
-     * $valida = $this->validacion->valida_existencia_keys($datos_formulario,$keys);
-     * if(isset($valida['error'])){
-     * return $this->errores->error('Error al validar $datos_formulario',$valida);
-     * }
+     * @param array $keys          Las claves que se van a validar en el registro.
+     * @param mixed $registro      El registro en el que se va a buscar las claves.
+     * @param bool  $valida_vacio  Controla si se debería validar la existencia de claves vacías.
+     *
+     * @return array|true  Retorna un array  si ocurre un error y true si todo está bien.
+     * @version 3.2.0
+     * @por_documentar_wiki
+     *
      */
-    final public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|bool{
+    final public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|true{
 
         if(is_object($registro)){
             $registro = (array)$registro;
