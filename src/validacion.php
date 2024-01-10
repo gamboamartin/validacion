@@ -526,9 +526,12 @@ class validacion {
     }
 
     /**
-     * Valida que un elemento sea un array
-     * @param mixed $value Valor a validar
-     * @return bool|array
+     * Verifica si el valor proporcionado es un array.
+     *
+     * @param mixed $value El valor a verificar.
+     *
+     * @return bool|array Retorna true si el valor es un array.
+     *                    En caso contrario, retorna un array con información del error.
      */
     final public function valida_array(mixed $value): bool|array
     {
