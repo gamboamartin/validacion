@@ -534,7 +534,7 @@ class validacion {
      *                    En caso contrario, retorna un array con información del error.
      *
      * @version 3.4.0
-     * @por_documentar_wiki 
+     * @por_documentar_wiki
      */
     final public function valida_array(mixed $value): bool|array
     {
@@ -545,12 +545,18 @@ class validacion {
     }
 
     /**
-     * Valida que un elemento sea un arreglo
-     * @param array $keys Conjunto de elementos a verificar
-     * @param array|stdClass $row Registro en proceso
-     * @return bool|array
+     * Valida la existencia de un conjunto de claves en un array o en un objeto y luego valida todos los elementos de las claves proporcionadas usando el método valida_array.
+     *
+     * @param array $keys El array que contiene las claves a verificar.
+     * @param array|stdClass $row El array u objeto en el que se buscarán las cl.keys.
+     *
+     * @return true|array Retorna verdadero si la validación es exitosa.
+     * Si hay un error, retorna un array con los detalles del error.
+     * @version 3.5.0
+     * @por_documentar_wiki 
+     *
      */
-    final public function valida_arrays(array $keys, array|stdClass $row): bool|array
+    final public function valida_arrays(array $keys, array|stdClass $row): true|array
     {
         if(is_object($row)){
             $row = (array)$row;
