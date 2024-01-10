@@ -532,6 +532,9 @@ class validacion {
      *
      * @return bool|array Retorna true si el valor es un array.
      *                    En caso contrario, retorna un array con información del error.
+     *
+     * @version 3.4.0
+     * @por_documentar_wiki 
      */
     final public function valida_array(mixed $value): bool|array
     {
