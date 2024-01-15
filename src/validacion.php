@@ -545,6 +545,7 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI
      * Valida la existencia de un conjunto de claves en un array o en un objeto y luego valida todos los elementos de las claves proporcionadas usando el método valida_array.
      *
      * @param array $keys El array que contiene las claves a verificar.
@@ -553,7 +554,6 @@ class validacion {
      * @return true|array Retorna verdadero si la validación es exitosa.
      * Si hay un error, retorna un array con los detalles del error.
      * @version 3.5.0
-     * @por_documentar_wiki 
      *
      */
     final public function valida_arrays(array $keys, array|stdClass $row): true|array
@@ -1372,6 +1372,7 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI
      * Valida la existencia de varias claves en un registro dado.
      *
      * @param array $keys          Las claves que se van a validar en el registro.
@@ -1380,7 +1381,6 @@ class validacion {
      *
      * @return array|true  Retorna un array  si ocurre un error y true si todo está bien.
      * @version 3.2.0
-     * @por_documentar_wiki
      *
      */
     final public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|true{
