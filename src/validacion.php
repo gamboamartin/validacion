@@ -26,6 +26,7 @@ class validacion {
         $param_json = "($texto_pep_8)\s*:\s*($texto_pep_8)";
         $params_json = "($param_json)+(\s*,\s*$param_json)*";
         $params_json_parentesis = "\s*\{\s*$params_json\s*\}\s*";
+        $key_id = "([a-z]+_[a-z]+)+_id";
 
         $this->patterns['cod_1_letras_mayusc'] = '/^[A-Z]$/';
         $this->patterns['cod_1_2_letras_mayusc'] = '/^[A-Z]{1,2}$/';
@@ -34,6 +35,7 @@ class validacion {
         $this->patterns['param_json'] = "/^$param_json$/";
         $this->patterns['params_json'] = "/^$params_json$/";
         $this->patterns['params_json_parentesis'] = "/^$params_json_parentesis$/";
+        $this->patterns['key_id'] = "/^$key_id$/";
 
 
         $this->patterns['cod_int_0_numbers'] = '/^[0-9]{5,7}$/';
@@ -374,7 +376,9 @@ class validacion {
         return $this->valida_pattern(key:'id', txt:$txt);
     }
 
-
+    final public function key_id(string $txt):bool{
+        return $this->valida_pattern(key:'key_id', txt:$txt);
+    }
 
     /**
      * Obtiene los keys de un registro documento
@@ -1573,6 +1577,14 @@ class validacion {
         return array('mensaje'=>'ids validos',$registro,$keys);
     }
 
+    final public function valida_key_id(string $value): bool|array{
+        if(!$this->key_id(txt:$value)){
+            return $this->error->error(mensaje:'Error al validar key id'.$value ,data:$value);
+        }
+
+        return true;
+    }
+
     /**
      * Verifica que los keys de tipo documento esten correctamente asignados
      * @param array $registro Registro en proceso
@@ -1757,15 +1769,14 @@ class validacion {
     }
 
     /**
-     * Funcion que revisa si una expresion regular es valida declarada con this->patterns
-     * @param  string $key key definido para obtener de this->patterns
-     * @param  string $txt valor a comparar
+     * POR DOCUMENTAR EN WIKI
+     * Función para validar una cadena de texto según un patrón regex predefinido.
      *
-     * @example
-     *      return $this->valida_pattern('letra_numero_espacio',$txt);
+     * @param string $key La llave del patrón predefinido a utilizar para la validación.
+     * @param string $txt La cadena de texto a validar.
      *
-     * @return bool true si cumple con pattern false si no cumple
-     * @uses validacion
+     * @return bool Regresa verdadero si la cadena coincide con el patrón. Falso en caso contrario.
+     * @version 3.8.0
      */
     final public function valida_pattern(string $key, string $txt):bool{
         if($key === ''){
