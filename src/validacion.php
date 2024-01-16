@@ -376,6 +376,18 @@ class validacion {
         return $this->valida_pattern(key:'id', txt:$txt);
     }
 
+    /**
+     * Valida un patrón de ID de clave (key_id)
+     *
+     * Esta función toma un valor de entrada y verifica si corresponde a
+     * el patrón de ID de clave (key_id), que consiste en una secuencia de palabras
+     * separadas por guiones bajos (_) y termina con "_id".
+     *
+     * @param string $txt El valor de la entrada para validar.
+     * Puede ser una cadena de texto o nulo.
+     * @return bool Retorna 'true' si el valor de la entrada corresponde al patrón, y 'false' en caso contrario.
+     *
+     */
     final public function key_id(string $txt):bool{
         return $this->valida_pattern(key:'key_id', txt:$txt);
     }
