@@ -11,11 +11,16 @@ class _codigos{
     }
 
     /**
-     * Integra una expresion regular del 0 al 9 repitiendo los numeros n veces = a la longittud
-     * @param int $longitud Longitud de la cadena permitida de numeros
-     * @param array $patterns
-     * @return string|array
-     * @version 1.4.0
+     * POR DOCUMENTAR EN WIKI
+     * Esta función se utiliza para inicializar un código de longitud especificada
+     * con números enteros del 0.
+     *
+     * @param int $longitud Representa la longitud del código.
+     * @param array $patterns Un array que almacena patrones de búsqueda.
+     *
+     * @return string|array En caso de éxito, devuelve el patrón de búsqueda.
+     * Si falla, devuelve un mensaje de error.
+     * @version 3.7.0
      */
     final public function init_cod_int_0_n_numbers(int $longitud, array $patterns): string|array
     {

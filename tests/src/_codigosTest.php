@@ -20,7 +20,7 @@ class _codigosTest extends test {
     public function test_init_cod_int_0_n_numbers(): void{
         errores::$error = false;
         $val = new _codigos();
-        $val = new liberator($val);
+        //$val = new liberator($val);
 
         $longitud = 1;
         $resultado = $val->init_cod_int_0_n_numbers($longitud,array());

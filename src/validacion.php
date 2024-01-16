@@ -107,7 +107,6 @@ class validacion {
      * Integra a validacion->patterns los regex numericos la veces que este el max_long definido
      * @param int $max_long N veces que se ejecutara la funcion init_cod_int_0_n_numbers
      * @return array
-     * @version 2.27.0
      */
     private function base_regex_0_numbers(int $max_long): array
     {
@@ -131,7 +130,6 @@ class validacion {
 
     /**
      * Verifica los datos minimos necesarios para la creacion de un boton en html
-     * @version 1.0.0
      * @param array $data_boton datos['filtro'=>array(),'id', 'etiqueta]
      * @return bool|array Bool true si es exito
      */
@@ -154,7 +152,6 @@ class validacion {
 
     /**
      * Valida los datos para la emision de un boton
-     * @version 1.0.0
      * @param array $data_boton Datos de boton
      * @return bool|array true si son validos los datos
      */
@@ -179,7 +176,6 @@ class validacion {
      * Valida regex codigos tres letras con mayusculas A
      * @param int|string|null $txt valor a verificar
      * @return bool
-     * @version 0.23.1
      */
     final public function cod_1_letras_mayusc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_1_letras_mayusc', txt:$txt);
@@ -1762,7 +1758,6 @@ class validacion {
 
     /**
      * Funcion que revisa si una expresion regular es valida declarada con this->patterns
-     * @version 1.0.0
      * @param  string $key key definido para obtener de this->patterns
      * @param  string $txt valor a comparar
      *
