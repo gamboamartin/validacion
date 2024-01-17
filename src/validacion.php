@@ -1127,6 +1127,7 @@ class validacion {
 
     /**
      *
+     * POR DOCUMENTAR EN WIKI
      * Funcion que valida la existencia y forma de un modelo enviando un txt con el nombre del modelo a validar
      * @version 1.0.0
      *
@@ -1135,11 +1136,6 @@ class validacion {
      *     $valida = $this->valida_data_modelo($name_modelo);
      *
      * @return array|string $name_modelo
-     * @throws errores $name_modelo = vacio
-     * @throws errores $name_modelo = numero
-     * @throws errores $name_modelo no existe una clase con el nombre del modelo
-     * @uses modelo_basico->asigna_registros_hijo
-     * @uses modelo_basico->genera_modelo
      */
     final public function valida_data_modelo(string $name_modelo):array|bool{
         $name_modelo = trim($name_modelo);
