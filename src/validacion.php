@@ -377,6 +377,7 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI
      * Valida un patrón de ID de clave (key_id)
      *
      * Esta función toma un valor de entrada y verifica si corresponde a
@@ -386,6 +387,7 @@ class validacion {
      * @param string $txt El valor de la entrada para validar.
      * Puede ser una cadena de texto o nulo.
      * @return bool Retorna 'true' si el valor de la entrada corresponde al patrón, y 'false' en caso contrario.
+     * @version 3.11.0
      *
      */
     final public function key_id(string $txt):bool{

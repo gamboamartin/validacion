@@ -543,6 +543,29 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_key_id(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        $txt = '';
+        $resultado = $val->key_id($txt);
+        //print_r($resultado);exit;
+        $this->assertNotTrue(errores::$error);
+        $this->assertNotTrue($resultado);
+
+        $txt = 'a';
+        $resultado = $val->key_id($txt);
+        $this->assertNotTrue(errores::$error);
+        $this->assertNotTrue($resultado);
+
+        $txt = 'a_a_id';
+        $resultado = $val->key_id($txt);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+
+    }
+
     public function test_rfc(): void{
         errores::$error = false;
         $val = new validacion();
