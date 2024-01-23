@@ -592,14 +592,33 @@ class validacion {
     }
 
     /**
-     * Aplica validacion base de keys
-     * @param string $key Key a verificar
-     * @param array|stdClass $registro Registro a verificar
-     * @param bool $valida_int Si valida int valida que el numero sea mayor a 0
-     * @return bool|array
-     * @version 0.25.1
+     * POR DOCUMENTAR EN WIKI
+     * Este método se encarga de validar la existencia y el valor correcto de un
+     * índice dentro de un array o un objeto stdClass (que será convertido a array).
+     *
+     * @param string $key La llave que se quiere validar en el registro.
+     * @param array|stdClass $registro El array o el objeto stdClass que contiene el dato a validar.
+     * @param bool $valida_int Determina si se realiza una validación adicional en el caso
+     * que el valor sea un número entero. Por defecto es true, indicando que los valores
+     * integer deben ser mayores a 0 para ser considerados válidos.
+     *
+     * @return true|array Retorna true en caso de que todas las validaciones sean correctas.
+     * Si se llega a encontrar algún error, se retorna un array con información del error
+     * generado.
+     *
+     * @throws errores En caso de encontrar un error, se lanza una excepción con una
+     * descripción del mismo.
+     *
+     * Ejemplos de uso:
+     *
+     * valida_base('nombre', ['nombre' => 'Luis', 'edad'=> 24]);
+     * valida_base('numero', ['numero' => 123, 'edad'=> 24]);
+     * valida_base('nombre', (object)['nombre' => 'Luis', 'edad'=> 24], false);
+     *
+     * @author Martin Gamboa
+     * @version 3.12.0
      */
-    private function valida_base(string $key, array|stdClass $registro, bool $valida_int = true): bool|array
+    private function valida_base(string $key, array|stdClass $registro, bool $valida_int = true): true|array
     {
         $key = trim($key);
         if($key === ''){
@@ -722,7 +741,6 @@ class validacion {
      * @param string $key Key de array a verificar
      * @param array|object $registro Registro a verificar
      * @return bool|array
-     * @version 2.58.0
      */
     final public function valida_cod_1_letras_mayusc(string $key, array|object $registro): bool|array{
 
@@ -746,7 +764,6 @@ class validacion {
      * @param string $key Key a validar
      * @param array $registro Registro donde se encuentra el campo
      * @return bool|array
-     * @version 2.64.0
      */
     final public function valida_cod_3_letras_mayusc(string $key, array $registro): bool|array{
 
