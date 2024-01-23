@@ -175,9 +175,32 @@ class validacion {
     }
 
     /**
-     * Valida regex codigos tres letras con mayusculas A
-     * @param int|string|null $txt valor a verificar
-     * @return bool
+     * POR DOCUMENTAR EN WIKI
+     * Valida una entrada de texto $txt según el patrón 'cod_1_letras_mayusc'.
+     *
+     * Esta función acepta una entrada que puede ser un valor entero, una cadena de texto o null.
+     * Comprueba la validación utilizando el patrón con key 'cod_1_letras_mayusc'.
+     *
+     * @param int|string|null $txt La entrada a validar.
+     *
+     * @return bool Retorna verdadero si la entrada pasa la validación, falso en caso contrario.
+     *
+     * @example
+     * // Crear un nuevo objeto de validación
+     * $validador = new validacion();
+     *
+     * //Entrada del usuario
+     * $entrada = "ABCD";
+     *
+     * // Usar la entrada del usuario para verificar su validez
+     * $esValido = $validador->cod_1_letras_mayusc($entrada);
+     *
+     * if ($esValido) {
+     *     echo "La entrada es valida."
+     * } else {
+     *     echo "La entrada no es valida."
+     * }
+     * @version 15.13.0
      */
     final public function cod_1_letras_mayusc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_1_letras_mayusc', txt:$txt);
