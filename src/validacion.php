@@ -1627,7 +1627,22 @@ class validacion {
         return array('mensaje'=>'ids validos',$registro,$keys);
     }
 
-    final public function valida_key_id(string $value): bool|array{
+    /**
+     * POR DOCUMENTAR EN WIKI
+     * Valida la key_id proporcionada.
+     *
+     * @param string $value El valor key_id que necesita ser validado.
+     *
+     * @return true|array devuelve verdadero si el valor key_id es válido, de lo contrario devuelve un array con el error.
+     *
+     * @example
+     *
+     * valida_key_id('123456') -> Devolverá verdadero si '123456' es una key_id válida.
+     * valida_key_id('abc') -> Devolverá un array con el error si 'abc' no es una key_id válida.
+     *
+     * @version 3.14.0
+     */
+    final public function valida_key_id(string $value): true|array{
         if(!$this->key_id(txt:$value)){
             return $this->error->error(mensaje:'Error al validar key id'.$value ,data:$value);
         }

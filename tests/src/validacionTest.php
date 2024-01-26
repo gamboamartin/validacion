@@ -1615,6 +1615,20 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_key_id(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+
+        $value = 'a_aa_id_id';
+        $resultado = $val->valida_key_id($value);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+
+    }
+
     public function test_valida_keys_documento(): void{
         errores::$error = false;
         $val = new validacion();
