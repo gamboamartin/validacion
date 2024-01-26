@@ -386,16 +386,17 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI
+     * Valida el valor del ID proporcionado.
      *
-     * Funcion para validar la forma correcta de un id
-     * @version 0.8.1
-     * @param int|string|null $txt valor a validar
+     * Este método invoca a la función 'valida_pattern' con un patrón predefinido 'id'.
+     * Está diseñado para validar si el valor de entrada cumple con los criterios de un ID válido,
+     * que en este caso son números enteros positivos no nulos.
      *
-     * @return bool true si cumple con pattern false si no cumple
-     * @example
-     *      $registro['registro_id'] = 1;
-     *      $id_valido = $this->validacion->id($registro['registro_id']);
+     * @param int|string|null $txt El ID que se validará. Puede ser un entero, una cadena o null.
      *
+     * @return bool Devuelve true si $txt es un ID válido, false en caso contrario.
+     * @version 3.16.0
      */
     final public function id(int|string|null $txt):bool{
         return $this->valida_pattern(key:'id', txt:$txt);
@@ -1566,7 +1567,6 @@ class validacion {
 
     /**
      * Valida si un id es valido, en base a los keys a verificar
-     * @version 1.0.0
      * @param string $key Key a validar de tipo id
      * @param array $registro Registro a validar
      * @return bool|array array con datos del registro y mensaje de exito
@@ -1595,7 +1595,6 @@ class validacion {
      *
      * @param array|object|string $registro Registro a validar
      * @return array array con datos del registro y mensaje de exito
-     * @version 1.0.0
      * @example
      *      $registro['registro_id'] = 1;
      *      $keys = array('registro_id')
