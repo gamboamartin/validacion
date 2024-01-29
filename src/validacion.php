@@ -1566,16 +1566,32 @@ class validacion {
     }
 
     /**
-     * Valida si un id es valido, en base a los keys a verificar
-     * @param string $key Key a validar de tipo id
-     * @param array $registro Registro a validar
-     * @return bool|array array con datos del registro y mensaje de exito
+     * POR DOCUMENTAR EN WIKI
+     * Valida un identificador en PHP.
+     *
+     * Esta función toma como argumentos una clave $key y un array $registro y realiza una validación.
+     * Al principio, la función llama a 'valida_base' pasando la clave y el registro como parámetros.
+     * Si 'valida_base' devuelve un error, 'valida_id' devuelve el error.
+     * En el siguiente paso, comprueba si el valor del registro asociado con la clave es un identificador válido.
+     * Si no es un identificador válido, devuelve un error. De lo contrario, devuelve verdadero.
+     *
+     * @param string $key La clave a validar.
+     * @param array $registro Un array que contiene los registros a validar.
+     *
+     * @return true|array Si la verificación es correcta, se devuelve true. Si hay algún error, se devuelve un array con errores.
+     *
      * @example
-     *      $registro['registro_id'] = 1;
-     *      $key = 'registro_id';
-     *      $id_valido = $this->valida_id($registro, $key);
-     */
-    final public function valida_id(string $key, array $registro): bool|array{
+     * $validacion = new validacion();
+     * $idValido = $validacion->valida_id('id', ['id' => '12345']);
+     * if ($idValido === true) {
+     *   echo "El id es válido.";
+     * } else {
+     *   echo "Hubo un error en la validación. Errores: ";
+     *   print_r($idValido);
+     * }
+     * @version 3.17.0
+     **/
+    final public function valida_id(string $key, array $registro): true|array{
         $valida = $this->valida_base(key: $key, registro: $registro);
         if(errores::$error){
             return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
