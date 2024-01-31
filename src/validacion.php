@@ -1604,17 +1604,35 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI
+     * Valida las claves proporcionadas en los registros correspondientes.
      *
-     * Funcion para validar la forma correcta de un id basada en un conjunto de keys para verificar dentro de un
-     * registro
-     * @param array $keys Keys a validar
+     * @param array $keys Una matriz de claves para validar en el registro.
+     * @param array|object|string $registro El registro en el que se validarán las claves. Puede ser un array, un objeto o una cadena.
      *
-     * @param array|object|string $registro Registro a validar
-     * @return array array con datos del registro y mensaje de exito
+     * @return array Devuelve un array con los mensajes de estado y los registros válidos. En caso de error, devuelve
+     * el mensaje de error correspondiente con detalles.
+     *
+     * @throws errores Lanza una excepción en caso de que los registros sean de tipo string o las claves estén vacías.
+     *
      * @example
-     *      $registro['registro_id'] = 1;
-     *      $keys = array('registro_id')
-     *      $valida = $this->validacion->valida_ids($registro,$keys);
+     * Uso básico:
+     * ```php
+     * $validacion = new Validacion();
+     * $resultado = $validacion->valida_ids(['id1', 'id2'], ['id1' => '123', 'id2' => '456']);
+     * print_r($resultado);
+     * ```
+     *  Salida:
+     * ```php
+     * [
+     *     'mensaje' => 'ids validos',
+     *     ['id1' => '123', 'id2' => '456'],
+     *     ['id1', 'id2']
+     * ]
+     * ```
+     *
+     * @see valida_id() Donde cada identificador individual es validado.
+     * @version 3.18.0
      */
     final public function valida_ids(array $keys, array|object|string $registro):array{
         if(is_string($registro)){
