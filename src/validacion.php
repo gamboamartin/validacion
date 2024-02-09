@@ -2036,11 +2036,16 @@ class validacion {
     }
 
     /**
-     * Valida que un texto sea valido conforme pep_8
-     * @param string $txt Texto a validar
-     * @return array|true
-     * @example var_a
-     * @version 2.33.0
+     * POR DOCUMENTAR EN WIKI
+     * Función que valida si un texto dado cumple con el estándar PEP 8.
+     *
+     * @param string $txt El texto que se va a validar.
+     *
+     * @return bool|array Retorna true si el texto cumple con el estándar PEP 8.
+     *  En caso contrario, retorna una matriz con información sobre los errores encontrados.
+     *
+     * @throws errores Lanza una excepción si se produce un error durante la validación.
+     * @version 3.19.0
      */
     final public function valida_texto_pep_8(string $txt): bool|array
     {
