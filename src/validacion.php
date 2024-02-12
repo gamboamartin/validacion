@@ -242,7 +242,6 @@ class validacion {
      * Valida regex codigos tres letras con mayusculas 000
      * @param int|string|null $txt texto a validar
      * @return bool
-     * @version 0.27.1
      */
     final public function cod_int_0_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_numbers', txt:$txt);
