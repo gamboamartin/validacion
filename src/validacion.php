@@ -166,9 +166,18 @@ class validacion {
     }
 
     /**
-     * Valida los datos para la emision de un boton
-     * @param array $data_boton Datos de boton
-     * @return bool|array true si son validos los datos
+     * POR DOCUMENTAR EN WIKI
+     * Valida los datos proporcionados para un botón.
+     *
+     * @param array $data_boton Datos del botón a validar. Los elementos esperados son:
+     *     - 'etiqueta': Etiqueta del botón. Debe existir y no puede estar vacía.
+     *     - 'class': Clase del botón. Debe existir y no puede estar vacía.
+     *
+     * @return bool|array Retorna true si la validación es exitosa. Si hay errores, retorna un arreglo con detalles del error.
+     *
+     * @throws errores Si algún dato proporcionado no cumple los requerimientos de validación,
+     * se lanza una excepción con detalles del error.
+     * @version 3.21.0
      */
     final public function btn_second(array $data_boton): bool|array
     {
@@ -2065,8 +2074,8 @@ class validacion {
             return $this->error->error(mensaje: 'Error al validar txt', data: $valida);
         }
         if(!$valida){
-            return $this->error->error(mensaje: 'Error el txt ex invalido', data: $this->patterns['texto_pep_8']);
-
+            return $this->error->error(mensaje: 'Error el txt ex invalido',
+                data: array($this->patterns['texto_pep_8'],$txt));
         }
         return true;
     }
