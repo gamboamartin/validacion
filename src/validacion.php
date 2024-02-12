@@ -133,9 +133,20 @@ class validacion {
 
 
     /**
-     * Verifica los datos minimos necesarios para la creacion de un boton en html
-     * @param array $data_boton datos['filtro'=>array(),'id', 'etiqueta]
-     * @return bool|array Bool true si es exito
+     * POR DOCUMENTAR EN WIKI
+     * Verifica la validez y existencia de ciertos parámetros de un botón en una interfaz de usuario.
+     *
+     * @param array $data_boton Los datos del botón a validar. Este array debe contener las claves 'filtro', 'id' y 'etiqueta'.
+     *
+     * @return bool|array Devuelve TRUE si la validación es exitosa. En caso contrario, devuelve un array con detalles del error.
+     *
+     * @throws errores Si algún parámetro obligatorio no existe o no es válido, la función arroja una excepción de tipo ErrorException.
+     *
+     * Parámetros de $data_boton:
+     * - 'filtro' (obligatorio): Debe ser un array. Es el filtro que se aplica a los datos del botón.
+     * - 'id' (obligatorio): Es el identificador del botón
+     * - 'etiqueta' (obligatorio): Es la etiqueta que se mostrará en el botón.
+     * @version 3.20.0
      */
     final public function btn_base(array $data_boton): bool|array
     {
