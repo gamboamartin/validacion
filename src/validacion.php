@@ -1126,7 +1126,6 @@ class validacion {
      * Valida que las columnas de css sean correctas
      * @param string $cols n columnas css
      * @return bool|array
-     * @version 0.44.1
      */
     final public function valida_cols_css(string $cols): bool|array{
 
