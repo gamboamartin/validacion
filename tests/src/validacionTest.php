@@ -1687,7 +1687,6 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
         errores::$error = false;
     }
-
     public function test_valida_modelo(){
 
         errores::$error = false;
@@ -1718,7 +1717,6 @@ class validacionTest extends test {
         $this->assertIsBool($resultado);
         errores::$error = false;
     }
-
     public function test_valida_name_clase(){
 
         errores::$error = false;
@@ -1739,7 +1737,6 @@ class validacionTest extends test {
         errores::$error = false;
 
     }
-
     public function test_valida_numeric(): void{
         errores::$error = false;
         $val = new validacion();
@@ -1777,7 +1774,6 @@ class validacionTest extends test {
 
         errores::$error = false;
     }
-
     public function test_valida_numerics(){
         errores::$error = false;
         $val = new validacion();
@@ -1823,7 +1819,6 @@ class validacionTest extends test {
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
-
     public function test_valida_numero_sin_lada(): void{
         errores::$error = false;
         $val = new validacion();
@@ -1835,7 +1830,6 @@ class validacionTest extends test {
         $this->assertNotTrue(errores::$error);
         errores::$error = false;
     }
-
     public function test_valida_params_json_parentesis(): void{
         errores::$error = false;
         $val = new validacion();
@@ -1847,8 +1841,6 @@ class validacionTest extends test {
         errores::$error = false;
 
     }
-
-
     public function test_valida_pattern(): void{
         errores::$error = false;
         $val = new validacion();
@@ -2183,7 +2175,6 @@ class validacionTest extends test {
 
 
     }
-
     public function test_valida_rango_fecha(){
 
         errores::$error = false;
@@ -2228,7 +2219,6 @@ class validacionTest extends test {
         $this->assertStringContainsStringIgnoringCase('Error la fecha inicial no puede ser mayor a la final',$resultado['mensaje']);
         errores::$error = false;
     }
-
     public function test_valida_rfc(): void
     {
         errores::$error = false;
@@ -2243,7 +2233,6 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
         errores::$error = false;
     }
-
     public function test_valida_rfcs(): void
     {
         errores::$error = false;
@@ -2259,8 +2248,6 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
         errores::$error = false;
     }
-
-
 
     public function test_valida_statuses()
     {
@@ -2303,7 +2290,6 @@ class validacionTest extends test {
 
         errores::$error = false;
     }
-
     public function test_valida_texto_pep_8(): void{
         errores::$error = false;
         $val = new validacion();
@@ -2313,9 +2299,6 @@ class validacionTest extends test {
         $this->assertTrue($resultado);
         errores::$error = false;
     }
-
-
-
     public function test_valida_url(){
 
         errores::$error = false;

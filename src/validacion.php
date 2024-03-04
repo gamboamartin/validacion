@@ -2035,7 +2035,6 @@ class validacion {
      * @example
      *       $valida = $this->validaciones->valida_statuses($entrada_producto,array('producto_es_inventariable'));
      * @internal $this->valida_existencia_keys($registro,$keys);
-     * @version 0.33.1
      */
     final public function valida_statuses(array $keys, array|stdClass $registro):array|bool{
         if(is_object($registro)){
