@@ -1511,20 +1511,19 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI
+     * Valida una fecha.
      *
-     * Funcion para validar LA ESTRUCTURA DE UNA FECHA
-     * @param string $fecha txt con fecha a validar
-     * @param string $tipo_val
-     *          utiliza los patterns de las siguientes formas
-     *          fecha=yyyy-mm-dd
-     *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
-     *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
+     * @param mixed $fecha La fecha que se necesita validar. Debe ser una cadena de texto.
+     * @param string $tipo_val El tipo de validación que se realizará. Debe ser una de las fechas válidas predefinidas.
      *
-     * @return array|bool con resultado de validacion
-     * @example
-     *      $valida_fecha = $this->validaciones->valida_fecha($fecha);
+     * @return array|bool Retorna true si la fecha es válida.
+     * Si la fecha no es válida, retorna un array que contiene un mensaje de error y parte de datos proporcionados.
+     *
+     * @throws errores Si la fecha no es una cadena de texto o si el tipo de validación no es válido.
+     * @version 3.29.0
      */
-    final public function valida_fecha(mixed $fecha, string $tipo_val = 'fecha'): array|bool
+    final public function valida_fecha(mixed $fecha, string $tipo_val = 'fecha'): array|true
     {
         if(!is_string($fecha)){
             return $this->error->error(mensaje: 'Error la fecha debe ser un texto', data: $fecha);
