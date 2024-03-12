@@ -1513,7 +1513,6 @@ class validacion {
     /**
      *
      * Funcion para validar LA ESTRUCTURA DE UNA FECHA
-     * @version 0.7.1
      * @param string $fecha txt con fecha a validar
      * @param string $tipo_val
      *          utiliza los patterns de las siguientes formas
