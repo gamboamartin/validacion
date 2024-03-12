@@ -353,11 +353,30 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI
+     * Comprueba si una clave específica existe en un array.
      *
-     * Verifica si existe un elemento en un array
-     * @param string $key Key a buscar en el arreglo
-     * @param array $arreglo arreglo donde se buscara la llave
-     * @return bool
+     * La función 'existe_key_data' recibe dos parámetros: un array y una clave en forma de string.
+     * Verifica si la clave proporcionada existe en el array. Si la clave existe en el array, devuelve 'true',
+     * en caso contrario, devuelve 'false'.
+     *
+     * @param  array $arreglo El array en el que queremos buscar la clave.
+     * @param  string $key La clave que queremos comprobar si existe en el array.
+     * @return bool Devuelve 'true' si la clave existe en el array, 'false' en caso contrario.
+     *
+     * Ejemplo de uso:
+     *
+     * ```php
+     * $miArray = array(
+     *   "clave1" => "valor1",
+     *   "clave2" => "valor2"
+     * );
+     * $miClave = "clave1";
+     * $resultado = existe_key_data($miArray, $miClave);
+     * ```
+     * En este caso, `$resultado` será 'true' ya que "clave1" existe en `$miArray`.
+     *
+     * @version 3.27.0
      */
     final public function existe_key_data(array $arreglo, string $key ):bool{
         $r = true;
