@@ -396,7 +396,7 @@ class validacionTest extends test {
     public function test_existe_key_data(): void{
         errores::$error = false;
         $val = new validacion();
-        $val = new liberator($val);
+        //$val = new liberator($val);
 
         $arreglo = array();
         $key = '';
