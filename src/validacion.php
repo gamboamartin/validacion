@@ -387,7 +387,7 @@ class validacion {
     }
 
     /**
-     *
+     * POR DOCUMENTAR EN WIKI
      * Verifica los keys que existen dentro de data para ver que este cargada de manera correcta la fecha
      * @param array|stdClass $data arreglo donde se verificaran las fechas en base a los keys enviados
      * @param array $keys Keys a verificar
@@ -396,9 +396,11 @@ class validacion {
      *          fecha=yyyy-mm-dd
      *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
      *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
-     * @return bool|array
+     * @return true|array
+     *
+     * @version 3.30.0
      */
-    final public function fechas_in_array(array|stdClass $data, array $keys, string $tipo_val = 'fecha'): bool|array
+    final public function fechas_in_array(array|stdClass $data, array $keys, string $tipo_val = 'fecha'): true|array
     {
         if(is_object($data)){
             $data = (array)$data;
