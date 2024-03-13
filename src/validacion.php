@@ -232,7 +232,6 @@ class validacion {
      * Valida regex codigos tres letras con mayusculas AAA
      * @param int|string|null $txt valor a verificar
      * @return bool
-     * @version 0.20.1
      */
     final public function cod_3_letras_mayusc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_3_letras_mayusc', txt:$txt);
