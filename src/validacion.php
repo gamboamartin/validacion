@@ -264,7 +264,6 @@ class validacion {
      * Valida que un codigo sea numero y con 0 iniciales
      * @param int|string|null $txt Texto a validar
      * @return bool
-     * @version 2.43.0
      */
     final public function cod_int_0_2_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_2_numbers', txt:$txt);
@@ -900,7 +899,6 @@ class validacion {
      * @param string $key Key a verificar en el registro
      * @param array|stdClass $registro Registro en proceso
      * @return bool|array
-     * @version 2.46.0
      */
     final public function valida_cod_int_0_2_numbers(string $key, array|stdClass $registro): bool|array{
 
@@ -1051,7 +1049,6 @@ class validacion {
      * @param array $keys Keys a validar
      * @param array|object $registro Registro a validar
      * @return array
-     * @version 2.47.0
      */
     final public function valida_codigos_int_0_2_numbers(array $keys, array|object $registro):array{
         if(count($keys) === 0){
