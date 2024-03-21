@@ -279,7 +279,6 @@ class validacion {
      * Valida un elemento con 3 numeros
      * @param int|string|null $txt
      * @return bool
-     * @version 0.33.1
      */
     final public function cod_int_0_3_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_3_numbers', txt:$txt);
@@ -798,7 +797,26 @@ class validacion {
 
     }
 
-    final public function valida_celda_calc(string $celda)
+    /**
+     * POR DOCUMENTAR EN WIKI
+     * Verifica si una celda dada es válida.
+     *
+     * Esta función toma una cadena, que representa una celda,
+     * luego verifica si está vacío y si coincide con el patrón 'celda_calc'.
+     * En caso de encontrar algún error, este será registrado y retornado.
+     *
+     * @param string $celda La celda que se va a validar.
+     *
+     * @return array|true Retorna verdadero si la celda es válida, de lo contrario
+     * retorna los detalles del error.
+     *
+     *
+     * @final Esta función es final y no puede ser sobrescrita.
+     *
+     * @access public Esta función es accesible públicamente.
+     * @version 4.6.0
+     */
+    final public function valida_celda_calc(string $celda):array|true
     {
         $celda = trim($celda);
         if($celda === ''){
