@@ -261,9 +261,15 @@ class validacion {
     }
 
     /**
-     * Valida que un codigo sea numero y con 0 iniciales
-     * @param int|string|null $txt Texto a validar
-     * @return bool
+     * POR DOCUMENTAR EN WIKI
+     * Comprueba si el texto proporcionado coincide con el patrón determinado.
+     *
+     * Esta función es útil para verificar si una cadena de texto cumple con el patrón 'cod_int_0_2_numbers'.
+     * Para realizar esta verificación, utiliza la función auxiliar `valida_pattern`.
+     *
+     * @param int|string|null $txt El texto a verificar. Puede ser un número entero, una cadena de texto, o nulo.
+     * @return bool Retorna verdadero si el texto coincided con el patrón. Falso, en caso contrario.
+     * @version 4.5.0
      */
     final public function cod_int_0_2_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_2_numbers', txt:$txt);
