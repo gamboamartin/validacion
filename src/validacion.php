@@ -537,7 +537,6 @@ class validacion {
     /**
      *
      * verifica los datos de una seccion y una accion sean correctos
-     * @version 0.6.0
      * @param string $seccion seccion basada en modelo
      * @param string $accion accion a ejecutar
      * @example
