@@ -854,6 +854,47 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_celda_calc(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $celda = '';
+        $resultado = $val->valida_celda_calc($celda);
+        //print_r($resultado);exit;
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error el celda esta vacia', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $celda = 'A';
+        $resultado = $val->valida_celda_calc($celda);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error la celda es invalida', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+        $celda = 'ABCFG784';
+        $resultado = $val->valida_celda_calc($celda);
+        $this->assertIsBool( $resultado);
+        $this->assertTrue($resultado);
+        $this->assertNotTrue(errores::$error);
+
+        errores::$error = false;
+
+        $celda = 'ABCFG784C';
+        $resultado = $val->valida_celda_calc($celda);
+        $this->assertIsArray( $resultado);
+        $this->assertEquals('Error la celda es invalida', $resultado['mensaje_limpio']);
+        $this->assertTrue(errores::$error);
+
+        errores::$error = false;
+
+
+    }
+
     public function test_valida_cod_int_0_6_numbers(): void
     {
         errores::$error = false;

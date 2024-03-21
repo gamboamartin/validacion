@@ -27,7 +27,9 @@ class validacion {
         $params_json = "($param_json)+(\s*,\s*$param_json)*";
         $params_json_parentesis = "\s*\{\s*$params_json\s*\}\s*";
         $key_id = "([a-z]+_[a-z]+)+_id";
+        $celda_calc = '[A-Z]+[0-9]+';
 
+        $this->patterns['celda_calc'] = "/^$celda_calc$/";
         $this->patterns['cod_1_letras_mayusc'] = '/^[A-Z]$/';
         $this->patterns['cod_1_2_letras_mayusc'] = '/^[A-Z]{1,2}$/';
         $this->patterns['cod_3_letras_mayusc'] = '/^[A-Z]{3}$/';
@@ -776,6 +778,25 @@ class validacion {
         }
 
         return $campos_obligatorios;
+
+    }
+
+    final public function valida_celda_calc(string $celda)
+    {
+        $celda = trim($celda);
+        if($celda === ''){
+            return $this->error->error(mensaje: 'Error el celda esta vacia', data: $celda);
+        }
+
+        $es_celda = $this->valida_pattern(key:'celda_calc', txt:$celda);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error validar regex celda', data: $es_celda);
+        }
+
+        if(!$es_celda){
+            return $this->error->error(mensaje: 'Error la celda es invalida', data: $this->patterns['celda_calc']);
+        }
+        return true;
 
     }
 
