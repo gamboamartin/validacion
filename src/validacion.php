@@ -231,9 +231,15 @@ class validacion {
     }
 
     /**
-     * Valida regex codigos tres letras con mayusculas AAA
-     * @param int|string|null $txt valor a verificar
-     * @return bool
+     * POR DOCUMENTAR EN WIKI
+     * Detecta si el texto proporcionado cumple con un patrón específico.
+     *
+     * Esta función es útil para verificar si una cadena de texto proporcionada cumple con el patrón 'cod_3_letras_mayusc'.
+     * Realiza su labor utilizando la función auxiliar `valida_pattern`.
+     *
+     * @param int|string|null $txt El texto a verificar. Este puede ser un entero, una cadena de texto o incluso nulo.
+     * @return bool Retorno verdadero si el texto coincide con el patrón, falso en caso contrario.
+     * @version 4.2.0
      */
     final public function cod_3_letras_mayusc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_3_letras_mayusc', txt:$txt);
