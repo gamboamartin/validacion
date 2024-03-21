@@ -516,10 +516,11 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI
      * Funcion que valida el dato de una seccion corresponda con la existencia de un modelo
-     * @version 1.0.0
-     * @param string $seccion
+     * @param string $seccion Seccion a validar
      * @return array|bool
+     * @version 4.7.0
      *
      */
     private function seccion(string $seccion):array|bool{
