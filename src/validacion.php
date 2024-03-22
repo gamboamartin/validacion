@@ -628,6 +628,7 @@ class validacion {
     }
 
     /**
+     * FINAL REV
      * Verifica si el valor proporcionado es un array.
      *
      * @param mixed $value El valor a verificar.
@@ -641,14 +642,15 @@ class validacion {
     final public function valida_array(mixed $value): bool|array
     {
         if(!is_array($value)){
-            return $this->error->error(mensaje: 'Error el valor no es un array',data: $value);
+            return $this->error->error(mensaje: 'Error el valor no es un array',data: $value,es_final: true);
         }
         return true;
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
-     * Valida la existencia de un conjunto de claves en un array o en un objeto y luego valida todos los elementos de las claves proporcionadas usando el método valida_array.
+     * POR DOCUMENTAR EN WIKI FINAL REV
+     * Valida la existencia de un conjunto de claves en un array o en un objeto y luego valida todos los
+     * elementos de las claves proporcionadas usando el método valida_array.
      *
      * @param array $keys El array que contiene las claves a verificar.
      * @param array|stdClass $row El array u objeto en el que se buscarán las cl.keys.
@@ -1522,7 +1524,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida la existencia de varias claves en un registro dado.
      *
      * @param array $keys          Las claves que se van a validar en el registro.
@@ -1540,13 +1542,16 @@ class validacion {
         }
         foreach ($keys as $key){
             if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' no puede venir vacio',data: $keys);
+                return $this->error->error(mensaje:'Error '.$key.' no puede venir vacio',data: $keys
+                    , es_final: true);
             }
             if(!isset($registro[$key])){
-                return $this->error->error(mensaje: 'Error '.$key.' no existe en el registro', data: $registro);
+                return $this->error->error(mensaje: 'Error '.$key.' no existe en el registro', data: $registro
+                    , es_final: true);
             }
             if($registro[$key] === '' && $valida_vacio){
-                return $this->error->error(mensaje: 'Error '.$key.' esta vacio en el registro', data: $registro);
+                return $this->error->error(mensaje: 'Error '.$key.' esta vacio en el registro', data: $registro
+                    , es_final: true);
             }
         }
 
