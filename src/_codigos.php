@@ -25,7 +25,7 @@ class _codigos{
     final public function init_cod_int_0_n_numbers(int $longitud, array $patterns): string|array
     {
         if($longitud<=0){
-            return  $this->error->error(mensaje: 'Error longitud debe ser mayor a 0',data: $longitud);
+            return  $this->error->error(mensaje: 'Error longitud debe ser mayor a 0',data: $longitud,es_final: true);
         }
         $key = 'cod_int_0_'.$longitud.'_numbers';
         $patterns[$key] = '/^[0-9]{'.$longitud.'}$/';

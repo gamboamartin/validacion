@@ -18,8 +18,8 @@
     ],
     "require": {
         "php": "^8.3",
-        "gamboa.martin/errores": "^5.0.0",
-        "gamboa.martin/test": "^4.0.0",
+        "gamboa.martin/errores": "^6.0.0",
+        "gamboa.martin/test": "^5.0.0",
         "phpunit/phpunit": "^10.0.0"
     },
     "require-dev": {

@@ -153,16 +153,19 @@ class validacion {
     final public function btn_base(array $data_boton): bool|array
     {
         if(!isset($data_boton['filtro'])){
-            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe existir',data: $data_boton);
+            return $this->error->error(
+                mensaje: 'Error $data_boton[filtro] debe existir',data: $data_boton,es_final: true);
         }
         if(!is_array($data_boton['filtro'])){
-            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe ser un array',data: $data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe ser un array',data: $data_boton
+                ,es_final: true);
         }
         if(!isset($data_boton['id'])){
-            return $this->error->error(mensaje: 'Error $data_boton[id] debe existir',data: $data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[id] debe existir',data: $data_boton,es_final: true);
         }
         if(!isset($data_boton['etiqueta'])){
-            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton,
+                es_final: true);
         }
         return true;
     }
@@ -184,16 +187,20 @@ class validacion {
     final public function btn_second(array $data_boton): bool|array
     {
         if(!isset($data_boton['etiqueta'])){
-            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton,
+                es_final: true);
         }
         if($data_boton['etiqueta'] === ''){
-            return $this->error->error(mensaje: 'Error etiqueta no puede venir vacio',data: $data_boton['etiqueta']);
+            return $this->error->error(mensaje: 'Error etiqueta no puede venir vacio',data: $data_boton['etiqueta'],
+                es_final: true);
         }
         if(!isset($data_boton['class'])){
-            return $this->error->error(mensaje: 'Error $data_boton[class] debe existir',data: $data_boton);
+            return $this->error->error(mensaje: 'Error $data_boton[class] debe existir',data: $data_boton,
+                es_final: true);
         }
         if($data_boton['class'] === ''){
-            return $this->error->error(mensaje: 'Error class no puede venir vacio',data: $data_boton['class']);
+            return $this->error->error(mensaje: 'Error class no puede venir vacio',data: $data_boton['class'],
+                es_final: true);
         }
         return true;
     }
