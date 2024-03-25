@@ -4,9 +4,7 @@ namespace gamboamartin\validacion;
 use gamboamartin\errores\errores;
 use stdClass;
 
-/**
- * @final rev
- */
+
 class validacion {
     public array $patterns = array();
     protected errores $error;
@@ -108,7 +106,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Integra a validacion->patterns los regex numericos la veces que este el max_long definido
      * @param int $max_long N veces que se ejecutara la funcion init_cod_int_0_n_numbers
      * @return array
@@ -117,7 +115,7 @@ class validacion {
     private function base_regex_0_numbers(int $max_long): array
     {
         if($max_long<=0){
-            return $this->error->error(mensaje: 'Error max_long debe ser mayor a 0', data: $max_long);
+            return $this->error->error(mensaje: 'Error max_long debe ser mayor a 0', data: $max_long, es_final: true);
         }
         $longitud_cod_0_n_numbers = 1;
         $patterns = array();

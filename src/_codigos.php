@@ -11,7 +11,7 @@ class _codigos{
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Esta función se utiliza para inicializar un código de longitud especificada
      * con números enteros del 0.
      *
