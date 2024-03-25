@@ -1273,7 +1273,7 @@ class validacion {
 
     /**
      *
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI ERROR REV
      * Funcion que valida la existencia y forma de un modelo enviando un txt con el nombre del modelo a validar
      * @version 1.0.0
      *
@@ -1287,10 +1287,10 @@ class validacion {
         $name_modelo = trim($name_modelo);
         $name_modelo = str_replace('models\\','',$name_modelo);
         if(trim($name_modelo) ===''){
-            return $this->error->error(mensaje: "Error modelo vacio",data: $name_modelo);
+            return $this->error->error(mensaje: "Error modelo vacio",data: $name_modelo, es_final: true);
         }
         if(is_numeric($name_modelo)){
-            return $this->error->error(mensaje:"Error modelo",data:$name_modelo);
+            return $this->error->error(mensaje:"Error modelo",data:$name_modelo, es_final: true);
         }
 
 
