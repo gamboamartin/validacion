@@ -809,7 +809,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Verifica si una celda dada es válida.
      *
      * Esta función toma una cadena, que representa una celda,
@@ -831,7 +831,7 @@ class validacion {
     {
         $celda = trim($celda);
         if($celda === ''){
-            return $this->error->error(mensaje: 'Error el celda esta vacia', data: $celda);
+            return $this->error->error(mensaje: 'Error el celda esta vacia', data: $celda, es_final: true);
         }
 
         $es_celda = $this->valida_pattern(key:'celda_calc', txt:$celda);
@@ -840,7 +840,8 @@ class validacion {
         }
 
         if(!$es_celda){
-            return $this->error->error(mensaje: 'Error la celda es invalida', data: $this->patterns['celda_calc']);
+            return $this->error->error(mensaje: 'Error la celda es invalida', data: $this->patterns['celda_calc'],
+                es_final: true);
         }
         return true;
 
