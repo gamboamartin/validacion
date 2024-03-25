@@ -523,7 +523,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Funcion que valida el dato de una seccion corresponda con la existencia de un modelo
      * @param string $seccion Seccion a validar
      * @return array|bool
@@ -536,7 +536,8 @@ class validacion {
         if(trim($seccion) === ''){
             $fix = 'La seccion debe ser un string no numerico y no vacio seccion=elemento_txt_no_numerico_ni_vacio';
             $fix .= 'seccion=tabla';
-            return  $this->error->error(mensaje: 'Error seccion  no puede ser vacio',data: $seccion, fix: $fix);
+            return  $this->error->error(mensaje: 'Error seccion  no puede ser vacio', data: $seccion,
+                es_final: true, fix: $fix);
         }
         return true;
     }
@@ -563,7 +564,8 @@ class validacion {
         if(trim($accion) === ''){
             $fix = 'La accion debe ser un string no numerico y no vacio accion=elemento_txt_no_numerico_ni_vacio';
             $fix .= 'seccion=lista';
-            return  $this->error->error(mensaje: 'Error accion  no puede ser vacio',data: $accion, fix: $fix);
+            return  $this->error->error(mensaje: 'Error accion  no puede ser vacio', data: $accion,
+                es_final: true, fix: $fix);
         }
         return true;
     }
