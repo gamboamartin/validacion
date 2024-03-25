@@ -206,7 +206,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida una entrada de texto $txt según el patrón 'cod_1_letras_mayusc'.
      *
      * Esta función acepta una entrada que puede ser un valor entero, una cadena de texto o null.
@@ -360,7 +360,6 @@ class validacion {
 
     /**
      * Valida el regex de un correo
-     * @version 1.0.0
      * @param int|string|null $correo texto con correo a validar
      * @return bool|array true si es valido el formato de correo false si no lo es
      */
@@ -684,7 +683,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Este método se encarga de validar la existencia y el valor correcto de un
      * índice dentro de un array o un objeto stdClass (que será convertido a array).
      *
@@ -714,7 +713,8 @@ class validacion {
     {
         $key = trim($key);
         if($key === ''){
-            return $this->error->error(mensaje: 'Error key no puede venir vacio '.$key,data: $registro);
+            return $this->error->error(mensaje: 'Error key no puede venir vacio '.$key,data: $registro
+                , es_final: true);
         }
 
         if(is_object($registro)){
@@ -722,14 +722,16 @@ class validacion {
         }
 
         if(!isset($registro[$key])){
-            return $this->error->error(mensaje:'Error no existe en registro el key '.$key,data:$registro);
+            return $this->error->error(mensaje:'Error no existe en registro el key '.$key,data:$registro
+                , es_final: true);
         }
         if((string)$registro[$key] === ''){
-            return $this->error->error(mensaje:'Error esta vacio '.$key,data:$registro);
+            return $this->error->error(mensaje:'Error esta vacio '.$key,data:$registro, es_final: true);
         }
         if($valida_int) {
             if ((int)$registro[$key] <= 0) {
-                return $this->error->error(mensaje: 'Error el ' . $key . ' debe ser mayor a 0', data: $registro);
+                return $this->error->error(mensaje: 'Error el ' . $key . ' debe ser mayor a 0', data: $registro
+                    , es_final: true);
             }
         }
 
@@ -1223,7 +1225,6 @@ class validacion {
     }
 
     /**
-     * PARAMS-ORDER P INT ERRREV DOC
      * Valida si un correo es valido
      * @param string $correo txt con correo a validar
      * @return bool|array bool true si es un correo valido, array si error
@@ -1241,7 +1242,6 @@ class validacion {
     }
 
     /**
-     * PARAMS ORDER P INT ERRREV DOC
      * Verifica un conjunto de correos integrados en un registro por key
      * @param array $registro registro de donde se obtendran los correos a validar
      * @param array $keys keys que se buscaran en el registro para aplicar validacion de correos
@@ -1971,7 +1971,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Función para validar una cadena de texto según un patrón regex predefinido.
      *
      * @param string $key La llave del patrón predefinido a utilizar para la validación.
