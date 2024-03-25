@@ -251,7 +251,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Verifica si el texto proporcionado cumple con un patrón específico.
      *
      * Esta función es útil para verificar si una cadena de texto proporcionada cumple con el patrón 'cod_int_0_numbers'.
