@@ -133,7 +133,7 @@ class validacion {
 
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Verifica la validez y existencia de ciertos parámetros de un botón en una interfaz de usuario.
      *
      * @param array $data_boton Los datos del botón a validar. Este array debe contener las claves 'filtro', 'id' y 'etiqueta'.
@@ -169,7 +169,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida los datos proporcionados para un botón.
      *
      * @param array $data_boton Datos del botón a validar. Los elementos esperados son:
@@ -236,7 +236,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Detecta si el texto proporcionado cumple con un patrón específico.
      *
      * Esta función es útil para verificar si una cadena de texto proporcionada cumple con el patrón 'cod_3_letras_mayusc'.
