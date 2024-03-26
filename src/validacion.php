@@ -931,12 +931,26 @@ class validacion {
     }
 
     /**
-     * Valida un entero de forma 01,02,03,0n donde n es cualquier numero del 0-9
-     * @param string $key Key a verificar en el registro
-     * @param array|stdClass $registro Registro en proceso
-     * @return bool|array
+     * POR DOCUMENTAR EN WIKI FINAL REV
+     * Valida que el código proporcionado sea válido según ciertos criterios.
+     *
+     * @param   string $key Clave para acceder al registro dado.
+     * @param   array|stdClass $registro El registro que tiene el código a validar.
+     * @return  true|array True si la validación es exitosa, un array de errores en caso contrario.
+     *
+     * Este método primero convierte el registro a un array si se proporciona como un objeto.
+     * Luego, valida el registro proporcionado a nivel base utilizando el método valida_base. Si hay algún error en esta validación,
+     * el método se detiene y devuelve un error.
+     *
+     * Si la validación base es exitosa, entonces verifica si el código en el registro es válido utilizando el método
+     * cod_int_0_2_numbers. Si el código es inválido, entonces devuelve un error.
+     *
+     * Si el código es válido, entonces devuelve true.
+     *
+     * @throws errores Si hay algún error, se lanza una excepción.
+     * @version 5.10.0
      */
-    final public function valida_cod_int_0_2_numbers(string $key, array|stdClass $registro): bool|array{
+    final public function valida_cod_int_0_2_numbers(string $key, array|stdClass $registro): true|array{
 
         if(is_object($registro)){
             $registro = (array) $registro;
@@ -947,7 +961,7 @@ class validacion {
         }
 
         if(!$this->cod_int_0_2_numbers(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro, es_final: true);
         }
 
         return true;
