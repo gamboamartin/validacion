@@ -374,7 +374,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Comprueba si una clave específica existe en un array.
      *
      * La función 'existe_key_data' recibe dos parámetros: un array y una clave en forma de string.
@@ -408,7 +408,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Verifica los keys que existen dentro de data para ver que este cargada de manera correcta la fecha
      * @param array|stdClass $data arreglo donde se verificaran las fechas en base a los keys enviados
      * @param array $keys Keys a verificar
@@ -429,7 +429,7 @@ class validacion {
         foreach($keys as $key){
 
             if($key === ''){
-                return $this->error->error(mensaje: "Error key no puede venir vacio", data: $key);
+                return $this->error->error(mensaje: "Error key no puede venir vacio", data: $key, es_final: true);
             }
             $valida = $this->existe_key_data(arreglo: $data, key: $key);
             if(!$valida){
@@ -1593,7 +1593,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida una fecha.
      *
      * @param mixed $fecha La fecha que se necesita validar. Debe ser una cadena de texto.
@@ -1608,20 +1608,20 @@ class validacion {
     final public function valida_fecha(mixed $fecha, string $tipo_val = 'fecha'): array|true
     {
         if(!is_string($fecha)){
-            return $this->error->error(mensaje: 'Error la fecha debe ser un texto', data: $fecha);
+            return $this->error->error(mensaje: 'Error la fecha debe ser un texto', data: $fecha, es_final: true);
         }
         $fecha = trim($fecha);
         if($fecha === ''){
-            return $this->error->error(mensaje: 'Error la fecha esta vacia', data: $fecha);
+            return $this->error->error(mensaje: 'Error la fecha esta vacia', data: $fecha, es_final: true);
         }
         $tipo_val = trim($tipo_val);
         if($tipo_val === ''){
-            return $this->error->error(mensaje: 'Error tipo_val no puede venir vacio', data: $tipo_val);
+            return $this->error->error(mensaje: 'Error tipo_val no puede venir vacio', data: $tipo_val, es_final: true);
         }
 
         if(!in_array($tipo_val, $this->regex_fecha, true)){
             return $this->error->error(mensaje: 'Error el tipo val no pertenece a fechas validas',
-                data: $this->regex_fecha);
+                data: $this->regex_fecha, es_final: true);
         }
 
         if(! $this->valida_pattern(key: $tipo_val,txt: $fecha)){
