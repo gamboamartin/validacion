@@ -466,7 +466,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida un patrón de ID de clave (key_id)
      *
      * Esta función toma un valor de entrada y verifica si corresponde a
@@ -1798,7 +1798,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida la key_id proporcionada.
      *
      * @param string $value El valor key_id que necesita ser validado.
