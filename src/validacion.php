@@ -281,9 +281,12 @@ class validacion {
     }
 
     /**
-     * Valida un elemento con 3 numeros
-     * @param int|string|null $txt
-     * @return bool
+     * POR DOCUMENTAR EN WIKI FINAL REV
+     * Función final pública que valida si el texto ingresado cumple con cierto patrón con NNN, 0NN, 00N.
+     *
+     * @param int|string|null $txt Texto a validar.
+     * @return bool Retorna verdadero si el texto cumple con el patrón. Sino, retorna falso.
+     * @version 5.12.0
      */
     final public function cod_int_0_3_numbers(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_int_0_3_numbers', txt:$txt);
@@ -978,7 +981,7 @@ class validacion {
         }
 
         if(!$this->cod_int_0_3_numbers(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro, es_final: true);
         }
 
         return true;
