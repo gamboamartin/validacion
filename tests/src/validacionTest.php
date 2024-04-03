@@ -1034,6 +1034,22 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_cod_int_0_3_numbers(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $registro['a'] = '006';
+        $key = 'a';
+        $resultado = $val->valida_cod_int_0_3_numbers(key: $key,registro:  $registro);
+
+        $this->assertIsBool( $resultado);
+        $this->assertNotTrue(errores::$error);
+        $this->assertTrue($resultado);
+        errores::$error = false;
+
+    }
+
     public function test_valida_codigos_int_0_2_numbers(): void{
         errores::$error = false;
         $val = new validacion();
@@ -1050,6 +1066,8 @@ class validacionTest extends test {
         errores::$error = false;
 
     }
+
+
 
     public function test_valida_cols_css(): void{
         errores::$error = false;

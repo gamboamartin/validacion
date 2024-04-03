@@ -970,6 +970,22 @@ class validacion {
         return true;
     }
 
+    /**
+     * POR DOCUMENTAR EN WIKI FINAL REV
+     * Función de validación de código de 0 a 3 números.
+     *
+     * Esta función valida un código que debe ser string de 0 a 3 dígitos.
+     * Inicialmente se lleva a cabo la validación base.
+     * Si la validación base arroja un error, este error se devuelve inmediatamente y termina la ejecución.
+     * Posteriormente, se verifica si el código de entrada cumple con la condición de ser un número entre 0 y 3.
+     * Si el código de entrada no cumple con esta condición, se reporta un error y se termina la ejecución.
+     * Finalmente, si todas las validaciones fueron exitosas, se retorna true, indicando que el código es válido.
+     *
+     * @param string $key La clave del elemento para buscar en el registro.
+     * @param array|stdClass $registro El registro donde se buscará la clave y se validará.
+     * @return bool|array Retorna true si el elemento es válido, en caso contrario, retorna un array con detalles del error.
+     * @version 5.13.0
+     */
     final public function valida_cod_int_0_3_numbers(string $key, array|stdClass $registro): bool|array{
 
         if(is_object($registro)){
