@@ -293,6 +293,7 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida un codigo con 5 digitos
      * @param int|string|null $txt Texto a verificar
      * @return bool
@@ -1011,7 +1012,7 @@ class validacion {
         }
 
         if(!$this->cod_int_0_5_numbers(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro, es_final: true);
         }
 
         return true;
