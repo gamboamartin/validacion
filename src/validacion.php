@@ -324,11 +324,11 @@ class validacion {
     final public function cod_int_0_n_numbers(int $longitud, int|string|null $txt): bool|array
     {
         if($longitud<=0){
-            return $this->error->error(mensaje: 'Error longitud debe ser mayor a 0', data: $longitud);
+            return $this->error->error(mensaje: 'Error longitud debe ser mayor a 0', data: $longitud, es_final: true);
         }
         $txt = trim($txt);
         if($txt === ''){
-            return $this->error->error(mensaje: 'Error txt esta vacio', data: $txt);
+            return $this->error->error(mensaje: 'Error txt esta vacio', data: $txt, es_final: true);
         }
         $key = 'cod_int_0_'.$longitud.'_numbers';
         $this->patterns[$key] = "/^[0-9]{".$longitud."}$/";
@@ -1056,7 +1056,7 @@ class validacion {
         }
 
         if(!$this->cod_int_0_n_numbers(longitud: $longitud, txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro, es_final: true);
         }
 
         return true;
@@ -1220,7 +1220,7 @@ class validacion {
 
     final public function valida_codigos_int_0_n_numbers(array $keys, int $longitud, array|object $registro):array{
         if(count($keys) === 0){
-            return $this->error->error(mensaje: "Error keys vacios",data: $keys);
+            return $this->error->error(mensaje: "Error keys vacios",data: $keys, es_final: true);
         }
 
         if(is_object($registro)){
@@ -1229,10 +1229,10 @@ class validacion {
 
         foreach($keys as $key){
             if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro);
+                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro, es_final: true);
             }
             if(!isset($registro[$key])){
-                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro);
+                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro, es_final: true);
             }
             $id_valido = $this->valida_cod_int_0_n_numbers(key: $key, longitud: $longitud, registro: $registro);
             if(errores::$error){
