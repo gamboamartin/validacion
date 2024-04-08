@@ -315,6 +315,7 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida un regex con 0 inicial minimo
      * @param int $longitud Longitud de cadena con ceros
      * @param int|string|null $txt Texto a verificar
@@ -1042,11 +1043,13 @@ class validacion {
     }
 
     /**
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Se integra validacion cd 0 to n number con prefijos 0
      * @param string $key Key a validar
      * @param int $longitud Longitud
      * @param array|stdClass $registro Registro
      * @return bool|array
+     * @version 5.18.0
      */
     final public function valida_cod_int_0_n_numbers(string $key, int $longitud, array|stdClass $registro): bool|array{
 
