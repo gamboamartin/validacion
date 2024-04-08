@@ -350,13 +350,13 @@ class validacion {
     {
         $tabla = trim($tabla);
         if($tabla === ''){
-            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia', data: $tabla);
+            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia', data: $tabla, es_final: true);
         }
         $tabla = str_replace('models\\','',$tabla);
 
         $tabla = trim($tabla);
         if($tabla === ''){
-            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia', data: $tabla);
+            return $this->error->error(mensaje: 'Error la tabla no puede venir vacia', data: $tabla, es_final: true);
         }
 
         return 'models\\'.$tabla;
