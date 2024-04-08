@@ -2175,7 +2175,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI ES FINAL REV
      * Función que valida si un texto dado cumple con el estándar PEP 8.
      *
      * @param string $txt El texto que se va a validar.
@@ -2194,7 +2194,7 @@ class validacion {
         }
         if(!$valida){
             return $this->error->error(mensaje: 'Error el txt ex invalido',
-                data: array($this->patterns['texto_pep_8'],$txt));
+                data: array($this->patterns['texto_pep_8'],$txt),es_final: true);
         }
         return true;
     }
