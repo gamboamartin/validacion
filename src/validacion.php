@@ -451,7 +451,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida el valor del ID proporcionado.
      *
      * Este método invoca a la función 'valida_pattern' con un patrón predefinido 'id'.
@@ -1706,7 +1706,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida un identificador en PHP.
      *
      * Esta función toma como argumentos una clave $key y un array $registro y realiza una validación.
@@ -1737,14 +1737,14 @@ class validacion {
             return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
         }
         if(!$this->id(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro, es_final: true);
         }
 
         return true;
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI
+     * POR DOCUMENTAR EN WIKI FINAL REV
      * Valida las claves proporcionadas en los registros correspondientes.
      *
      * @param array $keys Una matriz de claves para validar en el registro.
@@ -1776,11 +1776,11 @@ class validacion {
      */
     final public function valida_ids(array $keys, array|object|string $registro):array{
         if(is_string($registro)){
-            return $this->error->error(mensaje: "Error registro debe ser un array",data: $keys);
+            return $this->error->error(mensaje: "Error registro debe ser un array",data: $keys, es_final: true);
         }
 
         if(count($keys) === 0){
-            return $this->error->error(mensaje: "Error keys vacios",data: $keys);
+            return $this->error->error(mensaje: "Error keys vacios",data: $keys, es_final: true);
         }
 
         if(is_object($registro)){
@@ -1789,14 +1789,14 @@ class validacion {
 
         foreach($keys as $key){
             if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro);
+                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro, es_final: true);
             }
             if(!isset($registro[$key])){
-                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro);
+                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro, es_final: true);
             }
             $id_valido = $this->valida_id(key: $key, registro: $registro);
             if(errores::$error){
-                return  $this->error->error(mensaje:'Error '.$key.' Invalido',data:$id_valido);
+                return  $this->error->error(mensaje:'Error '.$key.' Invalido',data:$id_valido, es_final: true);
             }
         }
         return array('mensaje'=>'ids validos',$registro,$keys);
