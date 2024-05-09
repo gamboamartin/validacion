@@ -11,7 +11,7 @@ class _codigos{
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Esta función se utiliza para inicializar un código de longitud especificada
      * con números enteros del 0.
      *
@@ -21,6 +21,7 @@ class _codigos{
      * @return string|array En caso de éxito, devuelve el patrón de búsqueda.
      * Si falla, devuelve un mensaje de error.
      * @version 3.7.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src._codigos.init_cod_int_0_n_numbers.5.24.0
      */
     final public function init_cod_int_0_n_numbers(int $longitud, array $patterns): string|array
     {
