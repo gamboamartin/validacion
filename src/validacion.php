@@ -1312,7 +1312,7 @@ class validacion {
 
     /**
      *
-     * POR DOCUMENTAR EN WIKI ERROR REV
+     * TOTAL
      * Funcion que valida la existencia y forma de un modelo enviando un txt con el nombre del modelo a validar
      * @version 1.0.0
      *
@@ -1321,6 +1321,7 @@ class validacion {
      *     $valida = $this->valida_data_modelo($name_modelo);
      *
      * @return array|string $name_modelo
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_data_modelo.5.23.0
      */
     final public function valida_data_modelo(string $name_modelo):array|bool{
         $name_modelo = trim($name_modelo);
