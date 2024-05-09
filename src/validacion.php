@@ -633,7 +633,7 @@ class validacion {
     }
 
     /**
-     * FINAL REV
+     * TOTAL
      * Verifica si el valor proporcionado es un array.
      *
      * @param mixed $value El valor a verificar.
@@ -642,9 +642,9 @@ class validacion {
      *                    En caso contrario, retorna un array con información del error.
      *
      * @version 3.4.0
-     * @por_documentar_wiki
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_array.5.22.0
      */
-    final public function valida_array(mixed $value): bool|array
+    final public function valida_array(mixed $value): true|array
     {
         if(!is_array($value)){
             return $this->error->error(mensaje: 'Error el valor no es un array',data: $value,es_final: true);
@@ -653,7 +653,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Valida la existencia de un conjunto de claves en un array o en un objeto y luego valida todos los
      * elementos de las claves proporcionadas usando el método valida_array.
      *
@@ -663,6 +663,7 @@ class validacion {
      * @return true|array Retorna verdadero si la validación es exitosa.
      * Si hay un error, retorna un array con los detalles del error.
      * @version 3.5.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_arrays.5.22.0
      *
      */
     final public function valida_arrays(array $keys, array|stdClass $row): true|array
@@ -671,7 +672,7 @@ class validacion {
             $row = (array)$row;
         }
         if(count($keys) === 0){
-            return $this->error->error(mensaje: 'Error keys esta vacio', data: $keys);
+            return $this->error->error(mensaje: 'Error keys esta vacio', data: $keys, es_final: true);
         }
         $valida_existe = $this->valida_existencia_keys(keys: $keys,registro: $row);
         if(errores::$error){
@@ -1564,7 +1565,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Valida la existencia de varias claves en un registro dado.
      *
      * @param array $keys          Las claves que se van a validar en el registro.
@@ -1573,6 +1574,7 @@ class validacion {
      *
      * @return array|true  Retorna un array  si ocurre un error y true si todo está bien.
      * @version 3.2.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_existencia_keys.5.22.0
      *
      */
     final public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|true{
