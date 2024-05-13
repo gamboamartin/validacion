@@ -204,7 +204,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Valida una entrada de texto $txt según el patrón 'cod_1_letras_mayusc'.
      *
      * Esta función acepta una entrada que puede ser un valor entero, una cadena de texto o null.
@@ -230,6 +230,7 @@ class validacion {
      *     echo "La entrada no es valida."
      * }
      * @version 15.13.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.cod_1_letras_mayusc.5.25.0
      */
     final public function cod_1_letras_mayusc(int|string|null $txt):bool{
         return $this->valida_pattern(key:'cod_1_letras_mayusc', txt:$txt);
@@ -688,7 +689,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Este método se encarga de validar la existencia y el valor correcto de un
      * índice dentro de un array o un objeto stdClass (que será convertido a array).
      *
@@ -713,6 +714,7 @@ class validacion {
      *
      * @author Martin Gamboa
      * @version 3.12.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_base.5.25.0
      */
     private function valida_base(string $key, array|stdClass $registro, bool $valida_int = true): true|array
     {
@@ -875,10 +877,12 @@ class validacion {
     }
 
     /**
+     * TOTAL
      * Valida que in elemento que sea de una sola letra y sea mayuscula
      * @param string $key Key de array a verificar
      * @param array|object $registro Registro a verificar
      * @return bool|array
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_cod_1_letras_mayusc.5.25.0
      */
     final public function valida_cod_1_letras_mayusc(string $key, array|object $registro): bool|array{
 
@@ -2012,7 +2016,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Función para validar una cadena de texto según un patrón regex predefinido.
      *
      * @param string $key La llave del patrón predefinido a utilizar para la validación.
@@ -2020,6 +2024,7 @@ class validacion {
      *
      * @return bool Regresa verdadero si la cadena coincide con el patrón. Falso en caso contrario.
      * @version 3.8.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_pattern.5.25.0
      */
     final public function valida_pattern(string $key, string $txt):bool{
         if($key === ''){
