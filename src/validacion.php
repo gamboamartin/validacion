@@ -1852,24 +1852,29 @@ class validacion {
     }
 
     /**
+     * TOTAL
      * Valida que una lada sea correcta con formato de mexico de 2 a 3 numeros
      * @param string $lada Lada a validar
-     * @return bool|array
+     * @return true|array
      * @version 2.60.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_lada.5.26.0
      */
-    final public function valida_lada(string $lada): bool|array
+    final public function valida_lada(string $lada): true|array
     {
         $lada = trim($lada);
         if($lada === ''){
-            return $this->error->error(mensaje: 'Error lada vacia',data:  $this->patterns['lada']);
+            return $this->error->error(mensaje: 'Error lada vacia',
+                data:  array('regex'=>$this->patterns['lada'],'value'=>$lada),es_final: true);
         }
         if(!is_numeric($lada)){
-            return $this->error->error(mensaje: 'Error lada debe ser un numero',data:  $this->patterns['lada']);
+            return $this->error->error(mensaje: 'Error lada debe ser un numero',
+                data:  array('regex'=>$this->patterns['lada'],'value'=>$lada),es_final: true);
         }
 
         $es_valida = $this->valida_pattern(key: 'lada',txt:  $lada);
         if(!$es_valida){
-            return $this->error->error(mensaje: 'Error lada invalida',data:  $this->patterns['lada']);
+            return $this->error->error(mensaje: 'Error lada invalida',
+                data:  array('regex'=>$this->patterns['lada'],'value'=>$lada),es_final: true);
         }
         return true;
     }
