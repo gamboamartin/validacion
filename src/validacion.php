@@ -452,7 +452,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Valida el valor del ID proporcionado.
      *
      * Este método invoca a la función 'valida_pattern' con un patrón predefinido 'id'.
@@ -463,6 +463,7 @@ class validacion {
      *
      * @return bool Devuelve true si $txt es un ID válido, false en caso contrario.
      * @version 3.16.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.id.5.28.0
      */
     final public function id(int|string|null $txt):bool{
         return $this->valida_pattern(key:'id', txt:$txt);
@@ -1713,7 +1714,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Valida un identificador en PHP.
      *
      * Esta función toma como argumentos una clave $key y un array $registro y realiza una validación.
@@ -1737,6 +1738,7 @@ class validacion {
      *   print_r($idValido);
      * }
      * @version 3.17.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_id.5.28.0
      **/
     final public function valida_id(string $key, array $registro): true|array{
         $valida = $this->valida_base(key: $key, registro: $registro);
@@ -1751,7 +1753,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Valida las claves proporcionadas en los registros correspondientes.
      *
      * @param array $keys Una matriz de claves para validar en el registro.
@@ -1780,6 +1782,7 @@ class validacion {
      *
      * @see valida_id() Donde cada identificador individual es validado.
      * @version 3.18.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_ids.5.28.0
      */
     final public function valida_ids(array $keys, array|object|string $registro):array{
         if(is_string($registro)){
