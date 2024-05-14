@@ -1976,24 +1976,29 @@ class validacion {
     }
 
     /**
+     * TOTAL
      * Valida un numero telefonico sin lada mexicano 7 a 8 numeros
      * @param string $tel Telefono a validar
-     * @return bool|array
+     * @return true|array
      * @version 2.63.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_numero_sin_lada.5.27.0
      */
-    final public function valida_numero_sin_lada(string $tel): bool|array
+    final public function valida_numero_sin_lada(string $tel): true|array
     {
         $tel = trim($tel);
         if($tel === ''){
-            return $this->error->error(mensaje: 'Error tel vacia',data:  $this->patterns['tel_sin_lada']);
+            return $this->error->error(mensaje: 'Error tel vacia',
+                data:  array('regex'=>$this->patterns['tel_sin_lada'],'value'=>$tel),es_final: true);
         }
         if(!is_numeric($tel)){
-            return $this->error->error(mensaje: 'Error tel debe ser un numero',data:  $this->patterns['tel_sin_lada']);
+            return $this->error->error(mensaje: 'Error tel debe ser un numero',
+                data:  array('regex'=>$this->patterns['tel_sin_lada'],'value'=>$tel),es_final: true);
         }
 
         $es_valida = $this->valida_pattern(key: 'tel_sin_lada',txt:  $tel);
         if(!$es_valida){
-            return $this->error->error(mensaje: 'Error telefono invalido',data:  $this->patterns['tel_sin_lada']);
+            return $this->error->error(mensaje: 'Error telefono invalido',
+                data:  array('regex'=>$this->patterns['tel_sin_lada'],'value'=>$tel),es_final: true);
         }
         return true;
     }
