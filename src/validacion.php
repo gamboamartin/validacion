@@ -381,7 +381,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Comprueba si una clave específica existe en un array.
      *
      * La función 'existe_key_data' recibe dos parámetros: un array y una clave en forma de string.
@@ -405,6 +405,7 @@ class validacion {
      * En este caso, `$resultado` será 'true' ya que "clave1" existe en `$miArray`.
      *
      * @version 3.27.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.existe_key_data.5.29.0
      */
     final public function existe_key_data(array $arreglo, string $key ):bool{
         $r = true;
@@ -415,7 +416,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Verifica los keys que existen dentro de data para ver que este cargada de manera correcta la fecha
      * @param array|stdClass $data arreglo donde se verificaran las fechas en base a los keys enviados
      * @param array $keys Keys a verificar
@@ -427,6 +428,7 @@ class validacion {
      * @return true|array
      *
      * @version 3.30.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.fechas_in_array.5.29.0
      */
     final public function fechas_in_array(array|stdClass $data, array $keys, string $tipo_val = 'fecha'): true|array
     {
@@ -440,7 +442,7 @@ class validacion {
             }
             $valida = $this->existe_key_data(arreglo: $data, key: $key);
             if(!$valida){
-                return $this->error->error(mensaje: "Error al validar existencia de key", data: $key);
+                return $this->error->error(mensaje: "Error al validar existencia de key", data: $key, es_final: true);
             }
 
             $valida = $this->valida_fecha(fecha: $data[$key],tipo_val: $tipo_val);
@@ -1626,7 +1628,7 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
+     * TOTAL
      * Valida una fecha.
      *
      * @param mixed $fecha La fecha que se necesita validar. Debe ser una cadena de texto.
@@ -1637,6 +1639,7 @@ class validacion {
      *
      * @throws errores Si la fecha no es una cadena de texto o si el tipo de validación no es válido.
      * @version 3.29.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_fecha.5.29.0
      */
     final public function valida_fecha(mixed $fecha, string $tipo_val = 'fecha'): array|true
     {
