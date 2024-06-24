@@ -36,7 +36,7 @@ class validacion {
         $this->patterns['params_json'] = "/^$params_json$/";
         $this->patterns['params_json_parentesis'] = "/^$params_json_parentesis$/";
         $this->patterns['key_id'] = "/^$key_id$/";
-
+        $this->patterns['solo_texto'] = "/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'’-]+$/";
 
         $this->patterns['cod_int_0_numbers'] = '/^[0-9]{5,7}$/';
         $this->patterns['cod_int_0_2_numbers'] = '/^[0-9]{2}$/';
@@ -376,6 +376,18 @@ class validacion {
         $valida = $this->valida_pattern(key: 'correo',txt: $correo);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error verificar regex', data:$valida,params: get_defined_vars());
+        }
+        return $valida;
+    }
+
+    private function texto(int|string|null $texto):bool|array{
+        $texto = trim($texto);
+        if($texto === ''){
+            return $this->error->error(mensaje: 'Error el valor ingresado esta vacio', data:$texto,params: get_defined_vars());
+        }
+        $valida = $this->valida_pattern(key: 'solo_texto',txt: $texto);
+        if(errores::$error){
+            return $this->error->error(mensaje: 'Error al verificar regex', data:$valida,params: get_defined_vars());
         }
         return $valida;
     }
@@ -1283,6 +1295,18 @@ class validacion {
         }
         if(!$valida){
             return $this->error->error(mensaje: 'Error el correo es invalido',data:  $correo);
+        }
+        return true;
+    }
+
+    final public function valida_solo_texto(string $texto): bool|array
+    {
+        $valida = $this->texto(texto: $texto);
+        if(errores::$error){
+            return $this->error->error(mensaje: "Error el valor ingresado $texto es invalido",data:  $valida);
+        }
+        if(!$valida){
+            return $this->error->error(mensaje: "Error el valor ingresado $texto es invalido",data:  $texto);
         }
         return true;
     }
