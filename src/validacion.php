@@ -658,7 +658,7 @@ class validacion {
      *                    En caso contrario, retorna un array con información del error.
      *
      * @version 3.4.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_array.5.22.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_array
      */
     final public function valida_array(mixed $value): true|array
     {
@@ -679,7 +679,7 @@ class validacion {
      * @return true|array Retorna verdadero si la validación es exitosa.
      * Si hay un error, retorna un array con los detalles del error.
      * @version 3.5.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_arrays.5.22.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_arrays
      *
      */
     final public function valida_arrays(array $keys, array|stdClass $row): true|array
@@ -1606,7 +1606,7 @@ class validacion {
      *
      * @return array|true  Retorna un array  si ocurre un error y true si todo está bien.
      * @version 3.2.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_existencia_keys.5.22.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_existencia_keys
      *
      */
     final public function valida_existencia_keys(array $keys, mixed $registro, bool $valida_vacio = true):array|true{
