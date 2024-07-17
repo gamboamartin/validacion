@@ -21,7 +21,7 @@ class _codigos{
      * @return string|array En caso de éxito, devuelve el patrón de búsqueda.
      * Si falla, devuelve un mensaje de error.
      * @version 3.7.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src._codigos.init_cod_int_0_n_numbers.5.24.0
+     * @url https://github.com/gamboamartin/validacion/wiki/src._codigos.init_cod_int_0_n_numbers
      */
     final public function init_cod_int_0_n_numbers(int $longitud, array $patterns): string|array
     {
