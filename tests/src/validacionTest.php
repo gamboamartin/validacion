@@ -936,7 +936,7 @@ class validacionTest extends test {
         $registro['a'] = '0125456';
         $resultado = $val->valida_cod_int_0_2_numbers($key, $registro);
         $this->assertIsArray( $resultado);
-        $this->assertEquals('Error el a es invalido', $resultado['mensaje_limpio']);
+        $this->assertEquals('Error: el a es inválido (no cumple el patrón de 2 dígitos)', $resultado['mensaje_limpio']);
         $this->assertTrue(errores::$error);
 
         errores::$error = false;
@@ -1685,7 +1685,7 @@ class validacionTest extends test {
         $this->assertTrue(errores::$error);
         $this->assertIsArray($resultado);
         $this->assertArrayHasKey('data',$resultado);
-        $this->assertStringContainsStringIgnoringCase('Error keys vacios',$resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase("Error: 'keys' está vacío",$resultado['mensaje']);
 
         errores::$error = false;
         $registro = array();
@@ -1695,7 +1695,7 @@ class validacionTest extends test {
         $this->assertTrue(errores::$error);
         $this->assertIsArray($resultado);
         $this->assertArrayHasKey('data',$resultado);
-        $this->assertStringContainsStringIgnoringCase('Error  Invalido',$resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase("Error: clave vacía",$resultado['mensaje']);
 
         errores::$error = false;
         $registro = array();
@@ -1705,7 +1705,7 @@ class validacionTest extends test {
         $this->assertTrue(errores::$error);
         $this->assertIsArray($resultado);
         $this->assertArrayHasKey('data',$resultado);
-        $this->assertStringContainsStringIgnoringCase('Error no existe x',$resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase("Error: no existe x",$resultado['mensaje']);
 
         errores::$error = false;
         $registro = array();
@@ -1716,7 +1716,7 @@ class validacionTest extends test {
         $this->assertTrue(errores::$error);
         $this->assertIsArray($resultado);
         $this->assertArrayHasKey('data',$resultado);
-        $this->assertStringContainsStringIgnoringCase('Error x Invalido',$resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase("Error: x es inválido",$resultado['mensaje']);
 
         errores::$error = false;
         $registro = array();

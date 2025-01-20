@@ -456,34 +456,100 @@ class validacion {
 
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Verifica si el texto proporcionado cumple con un patrón específico.
+     * REG
+     * Verifica si el valor proporcionado cumple con el patrón `cod_int_0_numbers`.
      *
-     * Esta función es útil para verificar si una cadena de texto proporcionada cumple con el patrón 'cod_int_0_numbers'.
-     * Utiliza la función auxiliar `valida_pattern` para realizar dicha comprobación.
+     * Generalmente, este patrón (definido en `$this->patterns['cod_int_0_numbers']`)
+     * comprueba que la cadena contenga solo dígitos (`0-9`). El número de dígitos permitidos
+     * dependerá de cómo se haya configurado dicho patrón.
      *
-     * @param int|string|null $txt El texto a verificar. Puede ser un entero, una cadena de texto o incluso nulo.
-     * @return bool Retorna verdadero si el texto coincide con el patrón, falso en caso contrario.
-     * @version 4.3.0
+     * - Si la clave `cod_int_0_numbers` no existe en `$this->patterns`, el método
+     *   `valida_pattern()` retornará `false`.
+     * - Si `$txt` no coincide con el patrón (por ejemplo, contiene letras o símbolos),
+     *   también se retorna `false`.
+     * - Si cumple el patrón, se retorna `true`.
+     *
+     * @param int|string|null $txt Valor a validar. Si es un entero o `null`, se convertirá
+     *                             internamente a cadena para evaluar el patrón.
+     *
+     * @return bool `true` si `$txt` coincide con el patrón `cod_int_0_numbers`; de lo contrario `false`.
+     *
+     * @example
+     *  Ejemplo 1: Valor únicamente con números
+     *  ---------------------------------------------------------------------------------
+     *  // Suponiendo que $this->patterns['cod_int_0_numbers'] = '/^[0-9]+$/'
+     *  $resultado = $this->cod_int_0_numbers("12345");
+     *  // $resultado será true.
+     *
+     * @example
+     *  Ejemplo 2: Valor vacío o nulo
+     *  ---------------------------------------------------------------------------------
+     *  // Si el patrón exige al menos un dígito, la cadena vacía '' o null (convertido a '')
+     *  // no coincidirá y retornará false.
+     *
+     *  $resultado = $this->cod_int_0_numbers(null);
+     *  // $resultado será false.
+     *
+     * @example
+     *  Ejemplo 3: Valor con caracteres no numéricos
+     *  ---------------------------------------------------------------------------------
+     *  $resultado = $this->cod_int_0_numbers("ABC123");
+     *  // $resultado será false, ya que contiene letras.
      */
-    final public function cod_int_0_numbers(int|string|null $txt):bool{
-        return $this->valida_pattern(key:'cod_int_0_numbers', txt:$txt);
+    final public function cod_int_0_numbers(int|string|null $txt): bool
+    {
+        return $this->valida_pattern(key: 'cod_int_0_numbers', txt: $txt);
     }
 
+
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Comprueba si el texto proporcionado coincide con el patrón determinado.
+     * REG
+     * Verifica si el valor `$txt` cumple con el patrón `cod_int_0_2_numbers`.
      *
-     * Esta función es útil para verificar si una cadena de texto cumple con el patrón 'cod_int_0_2_numbers'.
-     * Para realizar esta verificación, utiliza la función auxiliar `valida_pattern`.
+     * Por lo general, este patrón (almacenado en `$this->patterns['cod_int_0_2_numbers']`) valida
+     * que el valor consista únicamente en dígitos (`0-9`) y tenga exactamente 2 caracteres de longitud.
+     * Por ejemplo, podría lucir así: `/^[0-9]{2}$/`.
      *
-     * @param int|string|null $txt El texto a verificar. Puede ser un número entero, una cadena de texto, o nulo.
-     * @return bool Retorna verdadero si el texto coincided con el patrón. Falso, en caso contrario.
-     * @version 4.5.0
+     * - Si `$txt` no coincide con el patrón (por ejemplo, es más largo, más corto o contiene caracteres distintos de dígitos),
+     *   se retornará `false`.
+     * - Si la clave `cod_int_0_2_numbers` no existe en `$this->patterns`, `valida_pattern()` también retornará `false`.
+     * - Si coincide correctamente, se retorna `true`.
+     *
+     * @param int|string|null $txt El valor a validar. Si es entero o nulo, se convertirá internamente a cadena para verificar el patrón.
+     *
+     * @return bool `true` si `$txt` cumple con el patrón `cod_int_0_2_numbers`; `false` en caso contrario.
+     *
+     * @example
+     *  Ejemplo 1: Valor válido
+     *  -----------------------------------------------------------------------------------
+     *  // Suponiendo que $this->patterns['cod_int_0_2_numbers'] = '/^[0-9]{2}$/'
+     *  $resultado = $this->cod_int_0_2_numbers("12");
+     *  // $resultado será true, ya que "12" coincide con el patrón de 2 dígitos.
+     *
+     * @example
+     *  Ejemplo 2: Valor con longitud incorrecta
+     *  -----------------------------------------------------------------------------------
+     *  $resultado = $this->cod_int_0_2_numbers("123");
+     *  // $resultado será false, ya que tiene más de 2 dígitos.
+     *
+     * @example
+     *  Ejemplo 3: Valor nulo o vacío
+     *  -----------------------------------------------------------------------------------
+     *  // Si null se convierte a '', y el patrón requiere 2 dígitos, no coincide.
+     *  $resultado = $this->cod_int_0_2_numbers(null);
+     *  // $resultado será false.
+     *
+     * @example
+     *  Ejemplo 4: Caracteres no numéricos
+     *  -----------------------------------------------------------------------------------
+     *  $resultado = $this->cod_int_0_2_numbers("1A");
+     *  // $resultado será false, porque "1A" no son solo dígitos.
      */
-    final public function cod_int_0_2_numbers(int|string|null $txt):bool{
+    final public function cod_int_0_2_numbers(int|string|null $txt): bool
+    {
         return $this->valida_pattern(key:'cod_int_0_2_numbers', txt:$txt);
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
@@ -1301,61 +1367,172 @@ class validacion {
 
 
     /**
-     * Valida un codigo de 3 digitos permisibles con 0 derecha
-     * @param string $key Key a validar
-     * @param array|stdClass $registro Registro donde se ubica campo a verificar
-     * @return bool|array
+     * REG
+     * Verifica que el índice `$key` dentro de `$registro`:
+     *  1. Exista y no esté vacío (mediante `valida_base()` con `valida_int = true` por defecto).
+     *  2. Cumpla el patrón `cod_int_0_numbers`, que normalmente valida que sean solo dígitos (`0-9`).
+     *
+     * - Si alguna de las validaciones falla, se retorna un arreglo con la información del error
+     *   (a través de `$this->error->error()`).
+     * - Si todo es correcto, retorna `true`.
+     *
+     * @param string               $key      Clave que se validará dentro de `$registro`.
+     * @param array|\stdClass      $registro Colección de datos (array u objeto stdClass) donde se verifica la existencia de `$key`.
+     *
+     * @return bool|array Retorna `true` si la validación es exitosa; si hay algún error, retorna
+     *                    un arreglo con la información de dicho error.
+     *
+     * @example
+     *  Ejemplo 1: Validación exitosa con array
+     *  -------------------------------------------------------------------------
+     *  $registro = [
+     *      'codigo' => '12345'
+     *  ];
+     *  // Asumiendo que $this->patterns['cod_int_0_numbers'] = '/^[0-9]+$/'
+     *  $resultado = $this->valida_cod_int_0_numbers('codigo', $registro);
+     *  if ($resultado === true) {
+     *      echo "La clave 'codigo' existe y su valor solo contiene dígitos.";
+     *  } else {
+     *      // Manejo de error.
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Validación con stdClass
+     *  -------------------------------------------------------------------------
+     *  $registroObj = new stdClass();
+     *  $registroObj->codigo = '987654';
+     *
+     *  $resultado = $this->valida_cod_int_0_numbers('codigo', $registroObj);
+     *  // Internamente se convierte $registroObj a array antes de validar.
+     *  // Retornará true si '987654' coincide con el patrón solo dígitos.
+     *
+     * @example
+     *  Ejemplo 3: Falta la clave en $registro
+     *  -------------------------------------------------------------------------
+     *  $registro = [];
+     *  $resultado = $this->valida_cod_int_0_numbers('codigo', $registro);
+     *  // Se retorna un arreglo de error indicando que 'codigo' no existe.
+     *
+     * @example
+     *  Ejemplo 4: Valor no cumple el patrón
+     *  -------------------------------------------------------------------------
+     *  $registro = [
+     *      'codigo' => '12A45'
+     *  ];
+     *  // '12A45' no coincide con el patrón solo dígitos
+     *  $resultado = $this->valida_cod_int_0_numbers('codigo', $registro);
+     *  // Se retorna un arreglo de error indicando que el valor es inválido.
      */
-    final public function valida_cod_int_0_numbers(string $key, array|stdClass $registro): bool|array{
-
+    final public function valida_cod_int_0_numbers(string $key, array|\stdClass $registro): bool|array
+    {
+        // 1. Verifica que el key exista y sea válido a través de valida_base()
         $valida = $this->valida_base(key: $key, registro: $registro);
-        if(errores::$error){
-            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+        if (errores::$error) {
+            return $this->error->error(
+                mensaje: 'Error al validar ' . $key,
+                data: $valida
+            );
         }
 
-        if(!$this->cod_int_0_numbers(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+        // 2. Comprueba que el valor cumpla con el patrón 'cod_int_0_numbers'
+        if (!$this->cod_int_0_numbers(txt: $registro[$key])) {
+            return $this->error->error(
+                mensaje: 'Error: el ' . $key . ' es inválido (no cumple el patrón solo dígitos)',
+                data: $registro
+            );
         }
 
         return true;
     }
+
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Valida que el código proporcionado sea válido según ciertos criterios.
+     * REG
+     * Valida que el índice `$key` dentro de `$registro`:
+     * 1. Exista, no esté vacío y sea un valor válido para ser procesado como número (validado a través de `valida_base()`).
+     * 2. Cumpla con el patrón `cod_int_0_2_numbers`, habitualmente definido para exigir exactamente 2 dígitos (`0-9`).
      *
-     * @param   string $key Clave para acceder al registro dado.
-     * @param   array|stdClass $registro El registro que tiene el código a validar.
-     * @return  true|array True si la validación es exitosa, un array de errores en caso contrario.
+     * - Si `$registro` es un objeto (`stdClass`), se convierte a array.
+     * - Si alguna validación falla, se utiliza `$this->error->error()` para registrar el error y se retorna un arreglo con la información correspondiente.
+     * - Si todo pasa correctamente, retorna `true`.
      *
-     * Este método primero convierte el registro a un array si se proporciona como un objeto.
-     * Luego, valida el registro proporcionado a nivel base utilizando el método valida_base. Si hay algún error en esta validación,
-     * el método se detiene y devuelve un error.
+     * @param string          $key      Nombre de la clave en `$registro` a validar.
+     * @param array|\stdClass $registro Colección de datos; puede ser un array o un objeto `stdClass`.
      *
-     * Si la validación base es exitosa, entonces verifica si el código en el registro es válido utilizando el método
-     * cod_int_0_2_numbers. Si el código es inválido, entonces devuelve un error.
+     * @return true|array Retorna `true` si la validación es satisfactoria. En caso de error, retorna
+     *                    un arreglo con los detalles del mismo.
      *
-     * Si el código es válido, entonces devuelve true.
+     * @example
+     *  Ejemplo 1: Uso con un array válido
+     *  ----------------------------------------------------------------------------
+     *  $registro = [
+     *      'codigo' => '12'
+     *  ];
      *
-     * @throws errores Si hay algún error, se lanza una excepción.
-     * @version 5.10.0
+     *  // Suponiendo que el patrón `cod_int_0_2_numbers` requiere exactamente 2 dígitos,
+     *  // '12' será válido y la función retornará true.
+     *  $resultado = $this->valida_cod_int_0_2_numbers('codigo', $registro);
+     *  if ($resultado === true) {
+     *      echo "Validación exitosa.";
+     *  } else {
+     *      // Manejo de error.
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Uso con stdClass
+     *  ----------------------------------------------------------------------------
+     *  $registroObj = new stdClass();
+     *  $registroObj->codigo = '09';
+     *
+     *  // Se convierte el objeto en array internamente.
+     *  $resultado = $this->valida_cod_int_0_2_numbers('codigo', $registroObj);
+     *  // Retornará true si '09' cumple el patrón (2 dígitos).
+     *
+     * @example
+     *  Ejemplo 3: Falta la clave en el registro
+     *  ----------------------------------------------------------------------------
+     *  $registro = [];
+     *  $resultado = $this->valida_cod_int_0_2_numbers('codigo', $registro);
+     *  // Se retorna un arreglo con la información de error indicando que no existe la clave 'codigo'.
+     *
+     * @example
+     *  Ejemplo 4: Valor inválido para el patrón
+     *  ----------------------------------------------------------------------------
+     *  $registro = [
+     *      'codigo' => '123'
+     *  ];
+     *  // Dado que son 3 dígitos, no coincide con el patrón de 2 dígitos. Se retorna error.
+     *  $resultado = $this->valida_cod_int_0_2_numbers('codigo', $registro);
+     *
      */
-    final public function valida_cod_int_0_2_numbers(string $key, array|stdClass $registro): true|array{
-
-        if(is_object($registro)){
-            $registro = (array) $registro;
+    final public function valida_cod_int_0_2_numbers(string $key, array|\stdClass $registro): true|array
+    {
+        // Convierte objeto a array si corresponde
+        if (is_object($registro)) {
+            $registro = (array)$registro;
         }
+
+        // Valida que la clave $key exista y no esté vacía (además de forzar int > 0 por defecto)
         $valida = $this->valida_base(key: $key, registro: $registro);
-        if(errores::$error){
-            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+        if (errores::$error) {
+            return $this->error->error(
+                mensaje: 'Error al validar ' . $key,
+                data: $valida
+            );
         }
 
-        if(!$this->cod_int_0_2_numbers(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro, es_final: true);
+        // Verifica que el valor cumpla con el patrón 'cod_int_0_2_numbers'
+        if (!$this->cod_int_0_2_numbers(txt: $registro[$key])) {
+            return $this->error->error(
+                mensaje: 'Error: el ' . $key . ' es inválido (no cumple el patrón de 2 dígitos)',
+                data: $registro,
+                es_final: true
+            );
         }
 
         return true;
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
@@ -1504,34 +1681,123 @@ class validacion {
     }
 
     /**
-     * Valida que un conjunto de keys cumplan con la validacion de codigos del tipo 01,02,0n donde n sea del 1-9
-     * @param array $keys Keys a validar
-     * @param array|object $registro Registro a validar
-     * @return array
+     * REG
+     * Valida que cada clave en `$keys` exista en `$registro` y cumpla con el patrón `cod_int_0_2_numbers`,
+     * el cual suele requerir exactamente 2 dígitos (`0-9`).
+     *
+     * - Si `$keys` está vacío, se registra un error, pues no hay claves para validar.
+     * - Si `$registro` es un objeto, se convierte internamente a array.
+     * - Se recorre cada clave de `$keys` verificando que no sea una cadena vacía, que exista en el registro
+     *   y que el valor asociado cumpla con el método `valida_cod_int_0_2_numbers()`.
+     * - Si cualquier validación falla, se registra el error y se retorna un arreglo con la información detallada.
+     * - Si todas las validaciones pasan, se retorna un arreglo con el mensaje `"ids validos"` y
+     *   el contenido de `$registro` y `$keys`.
+     *
+     * @param array         $keys     Conjunto de claves que se deben validar dentro de `$registro`.
+     * @param array|object  $registro Estructura de datos (array u objeto) que contiene los valores a validar.
+     *
+     * @return array Retorna:
+     *  - `[ 'mensaje' => 'ids validos', $registro, $keys ]` si todas las validaciones son exitosas.
+     *  - Un arreglo de error devuelto por `$this->error->error()` si ocurre alguna falla.
+     *
+     * @example
+     *  Ejemplo 1: Validación exitosa con un array
+     *  ----------------------------------------------------------------------------
+     *  $keys = ['codigo1', 'codigo2'];
+     *  $registro = [
+     *      'codigo1' => '01',
+     *      'codigo2' => '99'
+     *  ];
+     *
+     *  $resultado = $this->valida_codigos_int_0_2_numbers($keys, $registro);
+     *  // $resultado será:
+     *  // [
+     *  //   'mensaje' => 'ids validos',
+     *  //   [ 'codigo1' => '01', 'codigo2' => '99' ],
+     *  //   ['codigo1', 'codigo2']
+     *  // ]
+     *
+     * @example
+     *  Ejemplo 2: `$registro` es un objeto
+     *  ----------------------------------------------------------------------------
+     *  $obj = new stdClass();
+     *  $obj->codigo1 = '12';
+     *  $obj->codigo2 = '34';
+     *
+     *  $resultado = $this->valida_codigos_int_0_2_numbers(['codigo1', 'codigo2'], $obj);
+     *  // El objeto se convierte a array internamente antes de validar.
+     *  // Retornará el mismo arreglo exitoso si cumple el patrón de 2 dígitos.
+     *
+     * @example
+     *  Ejemplo 3: Claves vacías o faltantes
+     *  ----------------------------------------------------------------------------
+     *  $keys = ['codigo'];
+     *  $registro = [];
+     *
+     *  // Falta 'codigo' en $registro. Se generará un error:
+     *  $resultado = $this->valida_codigos_int_0_2_numbers($keys, $registro);
+     *  // Se retornará un arreglo con la información del error.
+     *
+     * @example
+     *  Ejemplo 4: Valor no cumple patrón de 2 dígitos
+     *  ----------------------------------------------------------------------------
+     *  $keys = ['codigo'];
+     *  $registro = ['codigo' => '123']; // 3 dígitos
+     *
+     *  $resultado = $this->valida_codigos_int_0_2_numbers($keys, $registro);
+     *  // Se retornará un arreglo con la información del error, indicando que 'codigo' es inválido.
      */
-    final public function valida_codigos_int_0_2_numbers(array $keys, array|object $registro):array{
-        if(count($keys) === 0){
-            return $this->error->error(mensaje: "Error keys vacios",data: $keys);
+    final public function valida_codigos_int_0_2_numbers(array $keys, array|object $registro): array
+    {
+        // Verifica que $keys no esté vacío
+        if (count($keys) === 0) {
+            return $this->error->error(
+                mensaje: "Error: 'keys' está vacío",
+                data: $keys
+            );
         }
 
-        if(is_object($registro)){
+        // Convierte objeto a array si es necesario
+        if (is_object($registro)) {
             $registro = (array)$registro;
         }
 
-        foreach($keys as $key){
-            if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' Invalido esta vacio',data:$registro);
+        // Valida cada clave
+        foreach ($keys as $key) {
+            // La clave no debe ser una cadena vacía
+            if ($key === '') {
+                return $this->error->error(
+                    mensaje: 'Error: la clave está vacía',
+                    data: $registro
+                );
             }
-            if(!isset($registro[$key])){
-                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro);
+
+            // Verifica existencia de la clave en $registro
+            if (!isset($registro[$key])) {
+                return $this->error->error(
+                    mensaje: 'Error: no existe ' . $key,
+                    data: $registro
+                );
             }
+
+            // Valida que el valor cumpla el patrón de 2 dígitos
             $id_valido = $this->valida_cod_int_0_2_numbers(key: $key, registro: $registro);
-            if(errores::$error){
-                return  $this->error->error(mensaje:'Error '.$key.' Invalido',data:$id_valido);
+            if (errores::$error) {
+                return $this->error->error(
+                    mensaje: 'Error: ' . $key . ' es inválido',
+                    data: $id_valido
+                );
             }
         }
-        return array('mensaje'=>'ids validos',$registro,$keys);
+
+        // Todas las validaciones pasaron correctamente
+        return [
+            'mensaje' => 'ids validos',
+            $registro,
+            $keys
+        ];
     }
+
 
     final public function valida_codigos_int_0_3_numbers(array $keys, array|object $registro):array{
         if(count($keys) === 0){
@@ -2105,103 +2371,211 @@ class validacion {
     }
 
     /**
-     * TOTAL
-     * Valida un identificador en PHP.
+     * REG
+     * Verifica que el índice `$key` dentro de `$registro` represente un identificador válido.
      *
-     * Esta función toma como argumentos una clave $key y un array $registro y realiza una validación.
-     * Al principio, la función llama a 'valida_base' pasando la clave y el registro como parámetros.
-     * Si 'valida_base' devuelve un error, 'valida_id' devuelve el error.
-     * En el siguiente paso, comprueba si el valor del registro asociado con la clave es un identificador válido.
-     * Si no es un identificador válido, devuelve un error. De lo contrario, devuelve verdadero.
+     * Los pasos de validación son:
+     *  1. Llamar a `valida_base()` para comprobar que `$key` exista en `$registro`, no esté vacío y sea un entero > 0.
+     *  2. Validar con el método `id()` que el valor asociado a `$key` cumpla las condiciones de un ID válido.
+     *     (Generalmente, se espera un número entero mayor que 0).
      *
-     * @param string $key La clave a validar.
-     * @param array $registro Un array que contiene los registros a validar.
+     * - Si alguna verificación falla, se registra un error mediante `$this->error->error()` y se retorna un arreglo
+     *   con la información correspondiente.
+     * - Si todo es exitoso, retorna `true`.
      *
-     * @return true|array Si la verificación es correcta, se devuelve true. Si hay algún error, se devuelve un array con errores.
+     * @param string $key      Clave que se buscará y validará dentro de `$registro`.
+     * @param array  $registro Arreglo de datos que debe contener el índice `$key`.
+     *
+     * @return true|array Retorna `true` si la validación es satisfactoria; si hay un error, se retorna
+     *                    un arreglo con la información detallada del mismo.
      *
      * @example
-     * $validacion = new validacion();
-     * $idValido = $validacion->valida_id('id', ['id' => '12345']);
-     * if ($idValido === true) {
-     *   echo "El id es válido.";
-     * } else {
-     *   echo "Hubo un error en la validación. Errores: ";
-     *   print_r($idValido);
-     * }
-     * @version 3.17.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_id.5.28.0
-     **/
-    final public function valida_id(string $key, array $registro): true|array{
+     *  Ejemplo 1: Validación exitosa de un ID
+     *  ----------------------------------------------------------------------------
+     *  $registro = [
+     *      'id_usuario' => 10
+     *  ];
+     *
+     *  // Suponiendo que la función id() verifica que sea un entero > 0
+     *  $resultado = $this->valida_id('id_usuario', $registro);
+     *
+     *  if ($resultado === true) {
+     *      echo "El ID es válido.";
+     *  } else {
+     *      // Manejo del error. $resultado contendrá la información del error
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Falta la clave o está vacía
+     *  ----------------------------------------------------------------------------
+     *  $registro = [];
+     *
+     *  // Falta 'id_usuario', por lo que valida_base() devolverá error
+     *  $resultado = $this->valida_id('id_usuario', $registro);
+     *  // Se retorna un arreglo con la información del error
+     *
+     * @example
+     *  Ejemplo 3: ID no válido
+     *  ----------------------------------------------------------------------------
+     *  $registro = [
+     *      'id_usuario' => 0
+     *  ];
+     *
+     *  // id() retornará false, ya que 0 no se considera un identificador válido
+     *  $resultado = $this->valida_id('id_usuario', $registro);
+     *  // Se retorna un arreglo con la información del error
+     */
+    final public function valida_id(string $key, array $registro): true|array
+    {
+        // 1. Valida que $key exista, no esté vacío y sea > 0 mediante valida_base()
         $valida = $this->valida_base(key: $key, registro: $registro);
-        if(errores::$error){
-            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+        if (errores::$error) {
+            return $this->error->error(
+                mensaje: 'Error al validar ' . $key,
+                data: $valida
+            );
         }
-        if(!$this->id(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro, es_final: true);
+
+        // 2. Comprueba que cumpla las condiciones definidas en el método id() (ej. entero > 0)
+        if (!$this->id(txt: $registro[$key])) {
+            return $this->error->error(
+                mensaje: 'Error: el ' . $key . ' es inválido (no cumple con el formato de ID)',
+                data: $registro,
+                es_final: true
+            );
         }
 
         return true;
     }
 
+
     /**
-     * TOTAL
-     * Valida las claves proporcionadas en los registros correspondientes.
+     * REG
+     * Valida que un conjunto de claves (`$keys`) dentro de `$registro` sean IDs válidos (enteros > 0).
      *
-     * @param array $keys Una matriz de claves para validar en el registro.
-     * @param array|object|string $registro El registro en el que se validarán las claves. Puede ser un array, un objeto o una cadena.
+     * - Si `$registro` es una cadena (`string`), se registra un error, pues se espera un array u objeto.
+     * - Si `$keys` está vacío, se registra un error indicando que no se proporcionaron claves.
+     * - Si `$registro` es un objeto, se convierte en array para la validación.
+     * - Para cada clave en `$keys`:
+     *   - Verifica que la clave no sea una cadena vacía.
+     *   - Comprueba que la clave exista en `$registro`.
+     *   - Llama a `valida_id()` para validar que el valor sea un entero válido (> 0).
+     * - Si todas las validaciones pasan, retorna un arreglo con un mensaje de éxito y los valores de `$registro` y `$keys`.
+     * - Si alguna validación falla, retorna un arreglo con los detalles del error.
      *
-     * @return array Devuelve un array con los mensajes de estado y los registros válidos. En caso de error, devuelve
-     * el mensaje de error correspondiente con detalles.
+     * @param array         $keys     Conjunto de claves que deben existir en `$registro` y ser IDs válidos.
+     * @param array|object|string $registro Datos en los que se verificarán dichas claves. Debe ser un arreglo u objeto.
      *
-     * @throws errores Lanza una excepción en caso de que los registros sean de tipo string o las claves estén vacías.
+     * @return array Retorna:
+     *  - `[ 'mensaje' => 'ids validos', $registro, $keys ]` si todas las validaciones se cumplen.
+     *  - Un arreglo de error (resultado de `$this->error->error()`) en caso de validaciones fallidas.
      *
      * @example
-     * Uso básico:
-     * ```php
-     * $validacion = new Validacion();
-     * $resultado = $validacion->valida_ids(['id1', 'id2'], ['id1' => '123', 'id2' => '456']);
-     * print_r($resultado);
-     * ```
-     *  Salida:
-     * ```php
-     * [
-     *     'mensaje' => 'ids validos',
-     *     ['id1' => '123', 'id2' => '456'],
-     *     ['id1', 'id2']
-     * ]
-     * ```
+     *  Ejemplo 1: Validación exitosa con arreglo
+     *  ------------------------------------------------------------------------------------
+     *  $keys = ['id_usuario', 'id_rol'];
+     *  $registro = [
+     *      'id_usuario' => 5,
+     *      'id_rol'     => 10
+     *  ];
+     *  $resultado = $this->valida_ids($keys, $registro);
      *
-     * @see valida_id() Donde cada identificador individual es validado.
-     * @version 3.18.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_ids.5.28.0
+     *  // Si todo es correcto, $resultado será:
+     *  // [
+     *  //   'mensaje' => 'ids validos',
+     *  //   [ 'id_usuario' => 5, 'id_rol' => 10 ],
+     *  //   [ 'id_usuario', 'id_rol' ]
+     *  // ]
+     *
+     * @example
+     *  Ejemplo 2: `$registro` es un objeto
+     *  ------------------------------------------------------------------------------------
+     *  $obj = new stdClass();
+     *  $obj->id_usuario = 5;
+     *  $obj->id_rol     = 10;
+     *
+     *  $resultado = $this->valida_ids(['id_usuario', 'id_rol'], $obj);
+     *  // El objeto se convierte a array internamente y se validan las claves. Mismo resultado exitoso.
+     *
+     * @example
+     *  Ejemplo 3: Falta una clave en `$registro`
+     *  ------------------------------------------------------------------------------------
+     *  $keys = ['id_usuario', 'id_rol'];
+     *  $registro = [ 'id_usuario' => 5 ];
+     *
+     *  $resultado = $this->valida_ids($keys, $registro);
+     *  // Se retorna un arreglo de error, indicando que 'id_rol' no existe.
+     *
+     * @example
+     *  Ejemplo 4: `$registro` es una cadena en lugar de un arreglo u objeto
+     *  ------------------------------------------------------------------------------------
+     *  $resultado = $this->valida_ids(['id_usuario'], "cadena no válida");
+     *  // Se registra un error indicando "Error registro debe ser un array".
      */
-    final public function valida_ids(array $keys, array|object|string $registro):array{
-        if(is_string($registro)){
-            return $this->error->error(mensaje: "Error registro debe ser un array",data: $keys, es_final: true);
+    final public function valida_ids(array $keys, array|object|string $registro): array
+    {
+        // Verifica que $registro no sea un string
+        if (is_string($registro)) {
+            return $this->error->error(
+                mensaje: "Error: 'registro' debe ser un array u objeto, no un string",
+                data: $keys,
+                es_final: true
+            );
         }
 
-        if(count($keys) === 0){
-            return $this->error->error(mensaje: "Error keys vacios",data: $keys, es_final: true);
+        // Verifica que se hayan proporcionado claves
+        if (count($keys) === 0) {
+            return $this->error->error(
+                mensaje: "Error: 'keys' está vacío",
+                data: $keys,
+                es_final: true
+            );
         }
 
-        if(is_object($registro)){
-            $registro = (array)$registro;
+        // Convierte el registro a array si es un objeto
+        if (is_object($registro)) {
+            $registro = (array) $registro;
         }
 
-        foreach($keys as $key){
-            if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro, es_final: true);
+        // Recorre cada clave a validar
+        foreach ($keys as $key) {
+            // La clave no debe ser una cadena vacía
+            if ($key === '') {
+                return $this->error->error(
+                    mensaje: 'Error: clave vacía',
+                    data: $registro,
+                    es_final: true
+                );
             }
-            if(!isset($registro[$key])){
-                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro, es_final: true);
+
+            // La clave debe existir en el array $registro
+            if (!isset($registro[$key])) {
+                return $this->error->error(
+                    mensaje: 'Error: no existe ' . $key,
+                    data: $registro,
+                    es_final: true
+                );
             }
+
+            // Se valida que el valor sea un ID correcto (entero > 0)
             $id_valido = $this->valida_id(key: $key, registro: $registro);
-            if(errores::$error){
-                return  $this->error->error(mensaje:'Error '.$key.' Invalido',data:$id_valido, es_final: true);
+            if (errores::$error) {
+                return $this->error->error(
+                    mensaje: 'Error: ' . $key . ' es inválido',
+                    data: $id_valido,
+                    es_final: true
+                );
             }
         }
-        return array('mensaje'=>'ids validos',$registro,$keys);
+
+        // Si todas las validaciones pasan, retorna mensaje de éxito
+        return [
+            'mensaje' => 'ids validos',
+            $registro,
+            $keys
+        ];
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
