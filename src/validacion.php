@@ -592,15 +592,72 @@ class validacion {
 
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Valida un codigo con 5 digitos
-     * @param int|string|null $txt Texto a verificar
+     * REG
+     * Valida si un valor cumple con el patrón definido para `cod_int_0_5_numbers`.
+     *
+     * Este método utiliza un patrón predefinido en el sistema para verificar si el valor
+     * proporcionado es un código que puede contener entre 0 y 5 números. La validación
+     * garantiza que el formato del valor sea consistente con las reglas establecidas.
+     *
+     * @param int|string|null $txt El valor a validar. Puede ser un entero, una cadena o `null`.
+     *
      * @return bool
-     * @version 0.34.1
+     *   - `true` si el valor cumple con el patrón.
+     *   - `false` si el valor no cumple con el patrón.
+     *
+     * @example
+     *  Ejemplo 1: Valor válido (entero)
+     *  ---------------------------------
+     *  $txt = 12345;
+     *
+     *  $resultado = $this->cod_int_0_5_numbers($txt);
+     *  // $resultado será:
+     *  // true
+     *
+     * @example
+     *  Ejemplo 2: Valor válido (cadena)
+     *  ---------------------------------
+     *  $txt = '123';
+     *
+     *  $resultado = $this->cod_int_0_5_numbers($txt);
+     *  // $resultado será:
+     *  // true
+     *
+     * @example
+     *  Ejemplo 3: Valor fuera del rango
+     *  ---------------------------------
+     *  $txt = '123456';
+     *
+     *  $resultado = $this->cod_int_0_5_numbers($txt);
+     *  // $resultado será:
+     *  // false
+     *
+     * @example
+     *  Ejemplo 4: Valor nulo
+     *  ----------------------
+     *  $txt = null;
+     *
+     *  $resultado = $this->cod_int_0_5_numbers($txt);
+     *  // $resultado será:
+     *  // false
+     *
+     * @example
+     *  Ejemplo 5: Valor con caracteres no numéricos
+     *  ---------------------------------------------
+     *  $txt = '12a34';
+     *
+     *  $resultado = $this->cod_int_0_5_numbers($txt);
+     *  // $resultado será:
+     *  // false
+     *
+     * @throws array Si el método `valida_pattern` genera un error durante su ejecución,
+     *               este error será manejado por la lógica definida en el sistema.
      */
-    final public function cod_int_0_5_numbers(int|string|null $txt):bool{
-        return $this->valida_pattern(key:'cod_int_0_5_numbers', txt:$txt);
+    final public function cod_int_0_5_numbers(int|string|null $txt): bool
+    {
+        return $this->valida_pattern(key: 'cod_int_0_5_numbers', txt: $txt);
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
@@ -1733,19 +1790,104 @@ class validacion {
     }
 
 
-    final public function valida_cod_int_0_5_numbers(string $key, array|stdClass $registro): bool|array{
-
+    /**
+     * REG
+     * Valida que el valor de un campo en un registro cumpla con el patrón `cod_int_0_5_numbers`.
+     *
+     * Este método:
+     * 1. Verifica la existencia y validez del campo `$key` dentro del registro proporcionado.
+     * 2. Valida que el valor asociado al campo `$key` cumpla con el patrón `cod_int_0_5_numbers`.
+     *    El patrón `cod_int_0_5_numbers` permite entre 0 y 5 números.
+     *
+     * @param string $key Nombre del campo a validar dentro del registro.
+     * @param array|stdClass $registro Registro que contiene los datos a validar.
+     *
+     * @return bool|array
+     *   - Retorna `true` si la validación es exitosa.
+     *   - Retorna un arreglo de error si la validación falla. El arreglo incluye detalles del error.
+     *
+     * @example
+     *  Ejemplo 1: Validación exitosa con un registro válido
+     *  -----------------------------------------------------
+     *  $key = 'codigo';
+     *  $registro = ['codigo' => '12345'];
+     *
+     *  $resultado = $this->valida_cod_int_0_5_numbers($key, $registro);
+     *  // $resultado será `true`.
+     *
+     * @example
+     *  Ejemplo 2: Validación fallida por valor inválido
+     *  -------------------------------------------------
+     *  $key = 'codigo';
+     *  $registro = ['codigo' => '123456']; // Más de 5 números
+     *
+     *  $resultado = $this->valida_cod_int_0_5_numbers($key, $registro);
+     *  // $resultado será un arreglo de error:
+     *  // [
+     *  //   'error' => 1,
+     *  //   'mensaje' => 'Error el codigo es invalido',
+     *  //   'data' => ['codigo' => '123456'],
+     *  //   ...
+     *  // ]
+     *
+     * @example
+     *  Ejemplo 3: Validación fallida por ausencia del campo en el registro
+     *  -------------------------------------------------------------------
+     *  $key = 'codigo';
+     *  $registro = ['otro_campo' => '12345'];
+     *
+     *  $resultado = $this->valida_cod_int_0_5_numbers($key, $registro);
+     *  // $resultado será un arreglo de error:
+     *  // [
+     *  //   'error' => 1,
+     *  //   'mensaje' => 'Error al validar codigo',
+     *  //   'data' => [...],
+     *  //   ...
+     *  // ]
+     *
+     * @example
+     *  Ejemplo 4: Validación fallida por tipo de dato no soportado
+     *  ------------------------------------------------------------
+     *  $key = 'codigo';
+     *  $registro = ['codigo' => null];
+     *
+     *  $resultado = $this->valida_cod_int_0_5_numbers($key, $registro);
+     *  // $resultado será un arreglo de error:
+     *  // [
+     *  //   'error' => 1,
+     *  //   'mensaje' => 'Error el codigo es invalido',
+     *  //   'data' => ['codigo' => null],
+     *  //   ...
+     *  // ]
+     *
+     * @example
+     *  Ejemplo 5: Validación con objeto stdClass
+     *  ------------------------------------------
+     *  $key = 'codigo';
+     *  $registro = new stdClass();
+     *  $registro->codigo = '123';
+     *
+     *  $resultado = $this->valida_cod_int_0_5_numbers($key, $registro);
+     *  // $resultado será `true`.
+     *
+     * @throws array
+     *   - Si el campo `$key` está vacío, no existe en el registro, o el valor no cumple con el patrón,
+     *     retorna un arreglo de error detallando la falla.
+     */
+    final public function valida_cod_int_0_5_numbers(string $key, array|stdClass $registro): bool|array
+    {
         $valida = $this->valida_base(key: $key, registro: $registro);
-        if(errores::$error){
-            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+        if (errores::$error) {
+            return $this->error->error(mensaje: 'Error al validar ' . $key, data: $valida);
         }
 
-        if(!$this->cod_int_0_5_numbers(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro, es_final: true);
+        if (!$this->cod_int_0_5_numbers(txt: $registro[$key])) {
+            return $this->error->error(mensaje: 'Error el ' . $key . ' es invalido', data: $registro, es_final: true);
         }
 
         return true;
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
@@ -2138,32 +2280,92 @@ class validacion {
     }
 
     /**
+     * REG
+     * Valida la estructura de un nombre de modelo para garantizar que cumpla con los requisitos establecidos.
      *
-     * TOTAL
-     * Funcion que valida la existencia y forma de un modelo enviando un txt con el nombre del modelo a validar
-     * @version 1.0.0
+     * Este método:
+     * 1. Limpia el nombre del modelo eliminando espacios en blanco al inicio y al final.
+     * 2. Elimina el prefijo `models\` si está presente en el nombre del modelo.
+     * 3. Verifica que el nombre del modelo no sea vacío después de la limpieza.
+     * 4. Asegura que el nombre del modelo no sea un valor numérico.
      *
-     * @param string $name_modelo txt con el nombre del modelo a validar
+     * Si alguna de estas condiciones falla, retorna un array con los detalles del error.
+     *
+     * @param string $name_modelo Nombre del modelo a validar.
+     *
+     * @return array|bool
+     *   - `true` si el nombre del modelo cumple con las validaciones.
+     *   - Un array de error si alguna validación falla, incluyendo detalles del problema.
+     *
      * @example
-     *     $valida = $this->valida_data_modelo($name_modelo);
+     *  Ejemplo 1: Nombre de modelo válido
+     *  -----------------------------------
+     *  $name_modelo = 'models\\Usuario';
      *
-     * @return array|string $name_modelo
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_data_modelo.5.23.0
+     *  $resultado = $this->valida_data_modelo($name_modelo);
+     *  // $resultado será:
+     *  // true
+     *
+     * @example
+     *  Ejemplo 2: Nombre vacío después de la limpieza
+     *  ----------------------------------------------
+     *  $name_modelo = '   ';
+     *
+     *  $resultado = $this->valida_data_modelo($name_modelo);
+     *  // $resultado será:
+     *  // [
+     *  //   'error' => 1,
+     *  //   'mensaje' => 'Error modelo vacio',
+     *  //   'data' => '',
+     *  //   'es_final' => true,
+     *  // ]
+     *
+     * @example
+     *  Ejemplo 3: Nombre numérico no válido
+     *  -------------------------------------
+     *  $name_modelo = '1234';
+     *
+     *  $resultado = $this->valida_data_modelo($name_modelo);
+     *  // $resultado será:
+     *  // [
+     *  //   'error' => 1,
+     *  //   'mensaje' => 'Error modelo',
+     *  //   'data' => '1234',
+     *  //   'es_final' => true,
+     *  // ]
+     *
+     * @example
+     *  Ejemplo 4: Nombre con prefijo innecesario
+     *  -----------------------------------------
+     *  $name_modelo = 'models\\Producto';
+     *
+     *  $resultado = $this->valida_data_modelo($name_modelo);
+     *  // $resultado será:
+     *  // true
+     *  // El prefijo `models\` será eliminado antes de la validación.
      */
-    final public function valida_data_modelo(string $name_modelo):array|bool{
+    final public function valida_data_modelo(string $name_modelo): array|bool
+    {
         $name_modelo = trim($name_modelo);
-        $name_modelo = str_replace('models\\','',$name_modelo);
-        if(trim($name_modelo) ===''){
-            return $this->error->error(mensaje: "Error modelo vacio",data: $name_modelo, es_final: true);
+        $name_modelo = str_replace('models\\', '', $name_modelo);
+        if (trim($name_modelo) === '') {
+            return $this->error->error(
+                mensaje: "Error modelo vacio",
+                data: $name_modelo,
+                es_final: true
+            );
         }
-        if(is_numeric($name_modelo)){
-            return $this->error->error(mensaje:"Error modelo",data:$name_modelo, es_final: true);
+        if (is_numeric($name_modelo)) {
+            return $this->error->error(
+                mensaje: "Error modelo",
+                data: $name_modelo,
+                es_final: true
+            );
         }
-
 
         return true;
-
     }
+
 
     /**
      * Valida un numero sea double mayor a 0

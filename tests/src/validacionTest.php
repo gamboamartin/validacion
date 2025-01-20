@@ -951,6 +951,31 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_cod_int_0_5_numbers(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+        $key = 'codigo';
+        $registro = ['codigo' => '12345'];
+
+        $result = $val->valida_cod_int_0_5_numbers($key, $registro);
+
+        $this->assertTrue($result);
+        errores::$error = false;
+
+        $key = 'codigo';
+        $registro = ['codigo' => null];
+
+        $result = $val->valida_cod_int_0_5_numbers($key, $registro);
+
+        $this->assertIsArray($result);
+        $this->assertEquals(1, $result['error']);
+        $this->assertStringContainsString('Error al validar codigo', $result['mensaje']);
+        errores::$error = false;
+    }
+
     public function test_valida_cod_int_0_6_numbers(): void
     {
         errores::$error = false;
