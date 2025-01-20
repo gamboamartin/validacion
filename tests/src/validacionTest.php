@@ -41,8 +41,9 @@ class validacionTest extends test {
 
         $data_boton = array();
         $resultado = $val->btn_base($data_boton);
+        //PRINT_R($resultado);exit;
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error $data_boton[filtro] debe existir', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error: $data_boton[filtro] debe existir', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
 
         errores::$error = false;
@@ -51,7 +52,7 @@ class validacionTest extends test {
         $data_boton['filtro'] = '';
         $resultado = $val->btn_base($data_boton);
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error $data_boton[filtro] debe ser un array', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error: $data_boton[filtro] debe ser un array</span></b>', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
 
         errores::$error = false;
@@ -60,7 +61,7 @@ class validacionTest extends test {
         $data_boton['filtro'] = array();
         $resultado = $val->btn_base($data_boton);
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error $data_boton[id] debe existir', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error: $data_boton[id] debe existir', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
 
         errores::$error = false;
@@ -70,7 +71,7 @@ class validacionTest extends test {
         $data_boton['id'] = array();
         $resultado = $val->btn_base($data_boton);
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error $data_boton[etiqueta] debe existir', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error: $data_boton[etiqueta] debe existir', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
 
         errores::$error = false;
@@ -752,7 +753,7 @@ class validacionTest extends test {
         $registro = array();
         $resultado = $val->valida_base($key, $registro);
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error key no puede venir vacio', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error: key no puede venir vacío', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
 
         errores::$error = false;
@@ -764,7 +765,7 @@ class validacionTest extends test {
 
         $resultado = $val->valida_base($key, $registro);
         $this->assertIsArray( $resultado);
-        $this->assertStringContainsStringIgnoringCase('Error no existe en registro el key a', $resultado['mensaje']);
+        $this->assertStringContainsStringIgnoringCase('Error: no existe en $registro el key a', $resultado['mensaje']);
         $this->assertTrue(errores::$error);
 
         errores::$error = false;

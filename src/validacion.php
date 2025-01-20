@@ -106,150 +106,354 @@ class validacion {
     }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Integra a validacion->patterns los regex numericos la veces que este el max_long definido
-     * @param int $max_long N veces que se ejecutara la funcion init_cod_int_0_n_numbers
-     * @return array
-     * @version 3.15.0
+     * REG
+     * Genera un conjunto de expresiones regulares para validar cadenas numéricas de distintas longitudes,
+     * desde 1 hasta `$max_long`. Cada expresión regular se genera llamando al método `init_cod_int_0_n_numbers()`
+     * de la clase `_codigos`.
+     *
+     * - Si `$max_long` es menor o igual a 0, se registra un error a través de `$this->error->error()` y
+     *   se retorna un arreglo con la información del error.
+     * - En caso contrario, se itera desde 1 hasta `$max_long`, generando cada patrón y guardándolo
+     *   en el arreglo `$patterns`.
+     * - Si en el proceso de generación ocurre algún error (por ejemplo, al invocar `init_cod_int_0_n_numbers()`),
+     *   también se registra y se retorna el correspondiente arreglo de error.
+     *
+     * @param int $max_long La longitud máxima para la cual se generará un patrón. Debe ser mayor a 0.
+     *
+     * @return array Retorna un arreglo con todas las expresiones regulares generadas si el proceso fue exitoso.
+     *               En caso de error, retorna un arreglo con la información del error.
+     *
+     * @example
+     *  Ejemplo 1: Generar patrones de 1 a 3 dígitos
+     *  -----------------------------------------------------------------------------
+     *  // Suponiendo que este método pertenece a la clase X, y que $this->patterns
+     *  // está definido como un arreglo de patrones dentro de dicha clase.
+     *
+     *  $max_long = 3;
+     *  $patronesGenerados = $this->base_regex_0_numbers($max_long);
+     *
+     *  // $patronesGenerados podría lucir así:
+     *  // [
+     *  //   '/^[0-9]{1}$/',  // 1 dígito
+     *  //   '/^[0-9]{2}$/',  // 2 dígitos
+     *  //   '/^[0-9]{3}$/'   // 3 dígitos
+     *  // ]
+     *
+     *  // Si $max_long fuera 0 o menor, se retornaría un arreglo con la información de error.
+     *
+     * @example
+     *  Ejemplo 2: Manejo de error si max_long es inválido
+     *  -----------------------------------------------------------------------------
+     *  $max_long = 0;
+     *  $resultado = $this->base_regex_0_numbers($max_long);
+     *
+     *  // $resultado será un arreglo con la descripción del error proveniente de
+     *  // $this->error->error(), indicando que "max_long debe ser mayor a 0".
      */
     private function base_regex_0_numbers(int $max_long): array
     {
-        if($max_long<=0){
-            return $this->error->error(mensaje: 'Error max_long debe ser mayor a 0', data: $max_long, es_final: true);
+        if ($max_long <= 0) {
+            return $this->error->error(
+                mensaje: 'Error max_long debe ser mayor a 0',
+                data: $max_long,
+                es_final: true
+            );
         }
+
         $longitud_cod_0_n_numbers = 1;
         $patterns = array();
-        while($longitud_cod_0_n_numbers <= $max_long){
+
+        // Genera patrones para cada longitud desde 1 hasta $max_long
+        while ($longitud_cod_0_n_numbers <= $max_long) {
             $regex = (new _codigos())->init_cod_int_0_n_numbers(
-                longitud: $longitud_cod_0_n_numbers,patterns: $this->patterns);
-            if(errores::$error){
-                return $this->error->error(mensaje: 'Error al inicializar regex', data: $regex);
+                longitud: $longitud_cod_0_n_numbers,
+                patterns: $this->patterns
+            );
+
+            // Si se detectó un error al crear el patrón, retornar el mensaje de error
+            if (errores::$error) {
+                return $this->error->error(
+                    mensaje: 'Error al inicializar regex',
+                    data: $regex
+                );
             }
+
+            // Agrega el patrón generado al arreglo $patterns
             $patterns[] = $regex;
             $longitud_cod_0_n_numbers++;
         }
+
         return $patterns;
     }
 
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Verifica la validez y existencia de ciertos parámetros de un botón en una interfaz de usuario.
+     * REG
+     * Valida que el arreglo `$data_boton` contenga ciertos índices requeridos (`filtro`, `id`, `etiqueta`) y que estos
+     * cumplan con el tipo de dato esperado (por ejemplo, `filtro` debe ser un array).
      *
-     * @param array $data_boton Los datos del botón a validar. Este array debe contener las claves 'filtro', 'id' y 'etiqueta'.
+     * En caso de que falte alguno de estos índices, o no cumpla con las validaciones correspondientes,
+     * registra un error a través de `$this->error->error()` y retorna un arreglo con la información del error.
+     * Si todo está correcto, retorna `true`.
      *
-     * @return bool|array Devuelve TRUE si la validación es exitosa. En caso contrario, devuelve un array con detalles del error.
+     * @param array $data_boton Arreglo que contiene los datos necesarios para la creación o configuración de un botón.
+     *                          Debe incluir al menos las siguientes claves:
+     *                          - 'filtro'  (array)
+     *                          - 'id'      (mixed)
+     *                          - 'etiqueta' (mixed)
      *
-     * @throws errores Si algún parámetro obligatorio no existe o no es válido, la función arroja una excepción de tipo ErrorException.
+     * @return bool|array Retorna `true` si las validaciones son exitosas. En caso de error, retorna un
+     *                    arreglo con la información detallada del mismo.
      *
-     * Parámetros de $data_boton:
-     * - 'filtro' (obligatorio): Debe ser un array. Es el filtro que se aplica a los datos del botón.
-     * - 'id' (obligatorio): Es el identificador del botón
-     * - 'etiqueta' (obligatorio): Es la etiqueta que se mostrará en el botón.
-     * @version 3.20.0
+     * @example
+     *  Ejemplo 1: Uso mínimo con datos correctos
+     *  --------------------------------------------------------------------------------
+     *  $data = [
+     *      'filtro'  => ['activo' => true],
+     *      'id'      => 'btn-123',
+     *      'etiqueta'=> 'Enviar'
+     *  ];
+     *
+     *  $resultado = $this->btn_base($data);
+     *  if ($resultado === true) {
+     *      echo "Validación exitosa, se puede continuar con el flujo";
+     *  } else {
+     *      // Manejo de error, $resultado contendrá los detalles de la falla
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Falta el índice 'filtro'
+     *  --------------------------------------------------------------------------------
+     *  $data = [
+     *      'id'      => 'btn-123',
+     *      'etiqueta'=> 'Enviar'
+     *  ];
+     *
+     *  $resultado = $this->btn_base($data);
+     *  // Aquí se retornará un arreglo de error, indicando que 'filtro' no existe en $data_boton.
+     *
+     * @example
+     *  Ejemplo 3: 'filtro' no es un array
+     *  --------------------------------------------------------------------------------
+     *  $data = [
+     *      'filtro'  => 'valor no válido',
+     *      'id'      => 'btn-123',
+     *      'etiqueta'=> 'Enviar'
+     *  ];
+     *
+     *  $resultado = $this->btn_base($data);
+     *  // Se retornará un arreglo de error, indicando que '$data_boton[filtro] debe ser un array'.
      */
     final public function btn_base(array $data_boton): bool|array
     {
-        if(!isset($data_boton['filtro'])){
+        if (!isset($data_boton['filtro'])) {
             return $this->error->error(
-                mensaje: 'Error $data_boton[filtro] debe existir',data: $data_boton,es_final: true);
+                mensaje: 'Error: $data_boton[filtro] debe existir',
+                data: $data_boton,
+                es_final: true
+            );
         }
-        if(!is_array($data_boton['filtro'])){
-            return $this->error->error(mensaje: 'Error $data_boton[filtro] debe ser un array',data: $data_boton
-                ,es_final: true);
+        if (!is_array($data_boton['filtro'])) {
+            return $this->error->error(
+                mensaje: 'Error: $data_boton[filtro] debe ser un array',
+                data: $data_boton,
+                es_final: true
+            );
         }
-        if(!isset($data_boton['id'])){
-            return $this->error->error(mensaje: 'Error $data_boton[id] debe existir',data: $data_boton,es_final: true);
+        if (!isset($data_boton['id'])) {
+            return $this->error->error(
+                mensaje: 'Error: $data_boton[id] debe existir',
+                data: $data_boton,
+                es_final: true
+            );
         }
-        if(!isset($data_boton['etiqueta'])){
-            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton,
-                es_final: true);
+        if (!isset($data_boton['etiqueta'])) {
+            return $this->error->error(
+                mensaje: 'Error: $data_boton[etiqueta] debe existir',
+                data: $data_boton,
+                es_final: true
+            );
         }
+
         return true;
     }
 
+
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Valida los datos proporcionados para un botón.
+     * REG
+     * Valida que el arreglo `$data_boton` contenga ciertos índices necesarios (`etiqueta` y `class`),
+     * verificando además que sus valores no estén vacíos.
      *
-     * @param array $data_boton Datos del botón a validar. Los elementos esperados son:
-     *     - 'etiqueta': Etiqueta del botón. Debe existir y no puede estar vacía.
-     *     - 'class': Clase del botón. Debe existir y no puede estar vacía.
+     * Si alguna validación falla, registra un error a través de `$this->error->error()` y
+     * retorna un arreglo con la información del error. De lo contrario, retorna `true`.
      *
-     * @return bool|array Retorna true si la validación es exitosa. Si hay errores, retorna un arreglo con detalles del error.
+     * @param array $data_boton Arreglo con los datos necesarios para configurar un botón:
+     *                          - 'etiqueta' (string no vacío)
+     *                          - 'class'   (string no vacío)
      *
-     * @throws errores Si algún dato proporcionado no cumple los requerimientos de validación,
-     * se lanza una excepción con detalles del error.
-     * @version 3.21.0
+     * @return bool|array Retorna `true` si las validaciones pasan. Si hay algún problema,
+     *                    retorna un arreglo con la información del error.
+     *
+     * @example
+     *  Ejemplo 1: Validación exitosa
+     *  ----------------------------------------------------------------------------
+     *  $data = [
+     *      'etiqueta' => 'Guardar',
+     *      'class'    => 'btn btn-success'
+     *  ];
+     *
+     *  $resultado = $this->btn_second($data);
+     *  if($resultado === true){
+     *      echo "Datos del botón validados correctamente.";
+     *  } else {
+     *      // $resultado contendrá detalles del error
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Falta la clave 'etiqueta'
+     *  ----------------------------------------------------------------------------
+     *  $data = [
+     *      'class' => 'btn btn-primary'
+     *  ];
+     *
+     *  $resultado = $this->btn_second($data);
+     *  // Retornará un arreglo con el mensaje de error indicando que 'etiqueta' no existe.
+     *
+     * @example
+     *  Ejemplo 3: 'etiqueta' está vacía
+     *  ----------------------------------------------------------------------------
+     *  $data = [
+     *      'etiqueta' => '',
+     *      'class'    => 'btn btn-primary'
+     *  ];
+     *
+     *  $resultado = $this->btn_second($data);
+     *  // Retornará un arreglo con el mensaje de error indicando que 'etiqueta' no puede estar vacía.
      */
     final public function btn_second(array $data_boton): bool|array
     {
+        // Validación de 'etiqueta'
         if(!isset($data_boton['etiqueta'])){
-            return $this->error->error(mensaje: 'Error $data_boton[etiqueta] debe existir',data: $data_boton,
-                es_final: true);
+            return $this->error->error(
+                mensaje: 'Error $data_boton[etiqueta] debe existir',
+                data: $data_boton,
+                es_final: true
+            );
         }
         if($data_boton['etiqueta'] === ''){
-            return $this->error->error(mensaje: 'Error etiqueta no puede venir vacio',data: $data_boton['etiqueta'],
-                es_final: true);
+            return $this->error->error(
+                mensaje: 'Error: "etiqueta" no puede venir vacía',
+                data: $data_boton['etiqueta'],
+                es_final: true
+            );
         }
+
+        // Validación de 'class'
         if(!isset($data_boton['class'])){
-            return $this->error->error(mensaje: 'Error $data_boton[class] debe existir',data: $data_boton,
-                es_final: true);
+            return $this->error->error(
+                mensaje: 'Error $data_boton[class] debe existir',
+                data: $data_boton,
+                es_final: true
+            );
         }
         if($data_boton['class'] === ''){
-            return $this->error->error(mensaje: 'Error class no puede venir vacio',data: $data_boton['class'],
-                es_final: true);
+            return $this->error->error(
+                mensaje: 'Error: "class" no puede venir vacía',
+                data: $data_boton['class'],
+                es_final: true
+            );
         }
+
         return true;
     }
 
-    /**
-     * TOTAL
-     * Valida una entrada de texto $txt según el patrón 'cod_1_letras_mayusc'.
-     *
-     * Esta función acepta una entrada que puede ser un valor entero, una cadena de texto o null.
-     * Comprueba la validación utilizando el patrón con key 'cod_1_letras_mayusc'.
-     *
-     * @param int|string|null $txt La entrada a validar.
-     *
-     * @return bool Retorna verdadero si la entrada pasa la validación, falso en caso contrario.
-     *
-     * @example
-     * // Crear un nuevo objeto de validación
-     * $validador = new validacion();
-     *
-     * //Entrada del usuario
-     * $entrada = "ABCD";
-     *
-     * // Usar la entrada del usuario para verificar su validez
-     * $esValido = $validador->cod_1_letras_mayusc($entrada);
-     *
-     * if ($esValido) {
-     *     echo "La entrada es valida."
-     * } else {
-     *     echo "La entrada no es valida."
-     * }
-     * @version 15.13.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.cod_1_letras_mayusc.5.25.0
-     */
-    final public function cod_1_letras_mayusc(int|string|null $txt):bool{
-        return $this->valida_pattern(key:'cod_1_letras_mayusc', txt:$txt);
-    }
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Detecta si el texto proporcionado cumple con un patrón específico.
+     * REG
+     * Valida que el valor provisto cumpla con el patrón asociado a la clave `cod_1_letras_mayusc`.
      *
-     * Esta función es útil para verificar si una cadena de texto proporcionada cumple con el patrón 'cod_3_letras_mayusc'.
-     * Realiza su labor utilizando la función auxiliar `valida_pattern`.
+     * Este método suele usarse para verificar que una cadena (o número convertible a cadena)
+     * conste únicamente de letras mayúsculas, dependiendo de cómo se haya definido el patrón
+     * en la propiedad `$this->patterns['cod_1_letras_mayusc']`.
      *
-     * @param int|string|null $txt El texto a verificar. Este puede ser un entero, una cadena de texto o incluso nulo.
-     * @return bool Retorno verdadero si el texto coincide con el patrón, falso en caso contrario.
-     * @version 4.2.0
+     * Si el valor no cumple con el patrón, o si la clave del patrón no existe, retornará `false`.
+     *
+     * @param int|string|null $txt Valor a validar. Si es `int` o `null`, internamente se convertirá a string
+     *                             para realizar la validación.
+     *
+     * @return bool `true` si el valor `$txt` coincide con el patrón `cod_1_letras_mayusc`, `false` en caso contrario.
+     *
+     * @example
+     *  // Ejemplo 1: Valor válido con letras mayúsculas
+     *  ----------------------------------------------------------------------------
+     *  // Suponiendo que $this->patterns['cod_1_letras_mayusc'] = '/^[A-Z]+$/'
+     *
+     *  $resultado = $this->cod_1_letras_mayusc('ABC');
+     *  // $resultado será true, ya que 'ABC' coincide con el patrón de solo letras mayúsculas.
+     *
+     * @example
+     *  // Ejemplo 2: Valor numérico que se convierte en string
+     *  ----------------------------------------------------------------------------
+     *  // Si el patrón considera sólo letras, por ejemplo '/^[A-Z]+$/', un valor numérico '123'
+     *  // no pasará la validación.
+     *
+     *  $resultado = $this->cod_1_letras_mayusc(123);
+     *  // $resultado será false, ya que '123' no coincide con el patrón de letras mayúsculas.
+     *
+     * @example
+     *  // Ejemplo 3: Uso con valor nulo
+     *  ----------------------------------------------------------------------------
+     *  $resultado = $this->cod_1_letras_mayusc(null);
+     *  // Internamente null se convertirá a cadena vacía '', y no coincidirá con el patrón (retornará false).
      */
-    final public function cod_3_letras_mayusc(int|string|null $txt):bool{
-        return $this->valida_pattern(key:'cod_3_letras_mayusc', txt:$txt);
+    final public function cod_1_letras_mayusc(int|string|null $txt): bool
+    {
+        return $this->valida_pattern(key: 'cod_1_letras_mayusc', txt: $txt);
     }
+
+
+    /**
+     * REG
+     * Valida que el valor provisto cumpla con el patrón identificado por la clave `cod_3_letras_mayusc`.
+     *
+     * Generalmente, este patrón (almacenado en `$this->patterns['cod_3_letras_mayusc']`)
+     * requiere que la cadena contenga exactamente 3 letras mayúsculas (por ejemplo, `/^[A-Z]{3}$/`).
+     *
+     * - Si la clave `cod_3_letras_mayusc` no existe en `$this->patterns`, el método subyacente
+     *   (`valida_pattern()`) retornará `false`.
+     * - Si `$txt` no coincide con el patrón, también se retorna `false`.
+     * - Si `$txt` coincide con el patrón, se retorna `true`.
+     *
+     * @param int|string|null $txt El valor a validar. Si es un entero o `null`, se convertirá a cadena
+     *                             internamente para la verificación del patrón.
+     *
+     * @return bool Retorna `true` si `$txt` cumple el patrón `cod_3_letras_mayusc`; de lo contrario `false`.
+     *
+     * @example
+     *  Ejemplo 1: Valor válido de 3 letras mayúsculas
+     *  -------------------------------------------------------------------------------------
+     *  // Suponiendo que $this->patterns['cod_3_letras_mayusc'] = '/^[A-Z]{3}$/'
+     *  $resultado = $this->cod_3_letras_mayusc("ABC");
+     *  // $resultado será true.
+     *
+     * @example
+     *  Ejemplo 2: Valor insuficiente (menos de 3 letras)
+     *  -------------------------------------------------------------------------------------
+     *  $resultado = $this->cod_3_letras_mayusc("AB");
+     *  // $resultado será false, ya que no cumple exactamente 3 letras mayúsculas.
+     *
+     * @example
+     *  Ejemplo 3: Valor nulo
+     *  -------------------------------------------------------------------------------------
+     *  // Al convertir null a cadena resulta '', que no coincide con '/^[A-Z]{3}$/'
+     *  $resultado = $this->cod_3_letras_mayusc(null);
+     *  // $resultado será false.
+     */
+    final public function cod_3_letras_mayusc(int|string|null $txt): bool
+    {
+        return $this->valida_pattern(key: 'cod_3_letras_mayusc', txt: $txt);
+    }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
@@ -704,61 +908,116 @@ class validacion {
     }
 
     /**
-     * TOTAL
-     * Este método se encarga de validar la existencia y el valor correcto de un
-     * índice dentro de un array o un objeto stdClass (que será convertido a array).
+     * REG
+     * Valida la existencia y contenido de una clave dentro de un arreglo u objeto stdClass.
      *
-     * @param string $key La llave que se quiere validar en el registro.
-     * @param array|stdClass $registro El array o el objeto stdClass que contiene el dato a validar.
-     * @param bool $valida_int Determina si se realiza una validación adicional en el caso
-     * que el valor sea un número entero. Por defecto es true, indicando que los valores
-     * integer deben ser mayores a 0 para ser considerados válidos.
+     * Esta función se asegura de que el índice o propiedad `$key` exista en `$registro`, no sea vacío
+     * y, opcionalmente, verifica que su valor sea un entero mayor que cero. En caso de que alguna de
+     * estas condiciones falle, se registra un error a través de `$this->error->error()` y se retorna
+     * un arreglo con la información del error.
      *
-     * @return true|array Retorna true en caso de que todas las validaciones sean correctas.
-     * Si se llega a encontrar algún error, se retorna un array con información del error
-     * generado.
+     * @param string               $key        Clave que se buscará y validará dentro de `$registro`.
+     * @param array|stdClass      $registro   Colección de datos donde se validará la existencia de `$key`.
+     * @param bool                 $valida_int Si es `true`, se valida que el valor asociado a `$key` sea un entero > 0.
      *
-     * @throws errores En caso de encontrar un error, se lanza una excepción con una
-     * descripción del mismo.
+     * @return true|array Retorna `true` si la validación es exitosa; en caso de error, retorna un array que describe el error.
      *
-     * Ejemplos de uso:
+     * @example
+     *  Ejemplo 1: Uso con un arreglo y validación de entero
+     *  ----------------------------------------------------------------------------
+     *  $registro = [
+     *      'usuario_id' => 15,
+     *      'nombre'     => 'Juan Pérez'
+     *  ];
      *
-     * valida_base('nombre', ['nombre' => 'Luis', 'edad'=> 24]);
-     * valida_base('numero', ['numero' => 123, 'edad'=> 24]);
-     * valida_base('nombre', (object)['nombre' => 'Luis', 'edad'=> 24], false);
+     *  // Se validará que 'usuario_id' exista, no sea vacío y sea > 0.
+     *  $resultado = $this->valida_base('usuario_id', $registro, true);
      *
-     * @author Martin Gamboa
-     * @version 3.12.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_base.5.25.0
+     *  if($resultado !== true) {
+     *      // Manejo de error, $resultado contendrá los datos del error devueltos por $this->error->error()
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Uso con un arreglo y SIN validación de entero
+     *  ----------------------------------------------------------------------------
+     *  $registro = [
+     *      'descripcion' => 'Texto de ejemplo'
+     *  ];
+     *
+     *  // Se validará que 'descripcion' exista y no sea vacío, pero no se forzará que sea un entero.
+     *  $resultado = $this->valida_base('descripcion', $registro, false);
+     *
+     *  if($resultado !== true) {
+     *      // Manejo de error, $resultado contendrá los datos del error.
+     *  }
+     *
+     * @example
+     *  Ejemplo 3: Uso con un stdClass
+     *  ----------------------------------------------------------------------------
+     *  $registro_obj = new stdClass();
+     *  $registro_obj->cantidad = 10;
+     *
+     *  // Se validará que 'cantidad' exista y sea un entero mayor que 0.
+     *  // Internamente, se convertirá $registro_obj a un array para hacer la validación.
+     *  $resultado = $this->valida_base('cantidad', $registro_obj, true);
+     *
+     *  if($resultado !== true) {
+     *      // Manejo de error, $resultado contendrá los datos del error.
+     *  }
+     *
+     *  // IMPORTANTE: Si la clave o propiedad no existe, o si no cumple los criterios,
+     *  // se retornará un arreglo con la información del error en lugar de `true`.
      */
-    private function valida_base(string $key, array|stdClass $registro, bool $valida_int = true): true|array
+    private function valida_base(string $key, array|\stdClass $registro, bool $valida_int = true): true|array
     {
         $key = trim($key);
-        if($key === ''){
-            return $this->error->error(mensaje: 'Error key no puede venir vacio '.$key,data: $registro
-                , es_final: true);
+        if ($key === '') {
+            // Retorna arreglo de error si la clave está vacía
+            return $this->error->error(
+                mensaje: 'Error: key no puede venir vacío ' . $key,
+                data: $registro,
+                es_final: true
+            );
         }
 
-        if(is_object($registro)){
-            $registro = (array) $registro;
+        // Convierte objeto stdClass a array para facilitar la validación
+        if (is_object($registro)) {
+            $registro = (array)$registro;
         }
 
-        if(!isset($registro[$key])){
-            return $this->error->error(mensaje:'Error no existe en registro el key '.$key,data:$registro
-                , es_final: true);
+        // Verifica existencia de la clave en el array
+        if (!isset($registro[$key])) {
+            return $this->error->error(
+                mensaje: 'Error: no existe en $registro el key ' . $key,
+                data: $registro,
+                es_final: true
+            );
         }
-        if((string)$registro[$key] === ''){
-            return $this->error->error(mensaje:'Error esta vacio '.$key,data:$registro, es_final: true);
+
+        // Verifica que no esté vacío
+        if ((string)$registro[$key] === '') {
+            return $this->error->error(
+                mensaje: 'Error: está vacío ' . $key,
+                data: $registro,
+                es_final: true
+            );
         }
-        if($valida_int) {
+
+        // Si se requiere validar entero mayor a 0
+        if ($valida_int) {
             if ((int)$registro[$key] <= 0) {
-                return $this->error->error(mensaje: 'Error el ' . $key . ' debe ser mayor a 0', data: $registro
-                    , es_final: true);
+                return $this->error->error(
+                    mensaje: 'Error: el ' . $key . ' debe ser mayor a 0',
+                    data: $registro,
+                    es_final: true
+                );
             }
         }
 
+        // Si todas las validaciones pasan
         return true;
     }
+
 
     /**
      * Valida un elemento sea bool
@@ -892,49 +1151,154 @@ class validacion {
     }
 
     /**
-     * TOTAL
-     * Valida que in elemento que sea de una sola letra y sea mayuscula
-     * @param string $key Key de array a verificar
-     * @param array|object $registro Registro a verificar
-     * @return bool|array
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_cod_1_letras_mayusc.5.25.0
+     * REG
+     * Valida que el campo `$key` dentro de `$registro`:
+     *  1. Exista y no esté vacío (usando `valida_base()`).
+     *  2. Cumpla con el patrón definido para `cod_1_letras_mayusc` (por ejemplo, solo letras mayúsculas).
+     *
+     * Si no se cumplen estas condiciones, registra un error y retorna un arreglo con los datos del error.
+     * De lo contrario, retorna `true`.
+     *
+     * @param string        $key      Clave que se validará dentro de `$registro`.
+     * @param array|object  $registro Arreglo u objeto que contiene la información a validar.
+     *
+     * @return bool|array   Retorna `true` si la validación es exitosa. En caso de error, retorna un arreglo
+     *                      con la información detallada del mismo.
+     *
+     * @example
+     *  Ejemplo 1: Validación exitosa con un array
+     *  ----------------------------------------------------------------------------------
+     *  $registro = [
+     *      'codigo' => 'ABC'
+     *  ];
+     *  $resultado = $this->valida_cod_1_letras_mayusc('codigo', $registro);
+     *  if ($resultado === true) {
+     *      echo "La validación fue exitosa. 'codigo' contiene solo letras mayúsculas.";
+     *  } else {
+     *      // Manejo de error, $resultado contendrá la información del error
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Validación con un stdClass
+     *  ----------------------------------------------------------------------------------
+     *  $registroObj = new stdClass();
+     *  $registroObj->codigo = 'XYZ';
+     *  $resultado = $this->valida_cod_1_letras_mayusc('codigo', $registroObj);
+     *  if ($resultado === true) {
+     *      echo "La validación fue exitosa. 'codigo' es solo mayúsculas.";
+     *  } else {
+     *      // Manejo de error (se convierte el objeto en array internamente)
+     *  }
+     *
+     * @example
+     *  Ejemplo 3: Falla al validar por estar vacío o no existir la clave
+     *  ----------------------------------------------------------------------------------
+     *  $registro = [];
+     *  // Aquí la clave 'codigo' no existe en el arreglo
+     *  $resultado = $this->valida_cod_1_letras_mayusc('codigo', $registro);
+     *  // $resultado contendrá la información de error proveniente de valida_base()
+     *
+     * @example
+     *  Ejemplo 4: Falla al validar el patrón (no cumple solo mayúsculas)
+     *  ----------------------------------------------------------------------------------
+     *  $registro = [
+     *      'codigo' => 'AbC123'
+     *  ];
+     *  $resultado = $this->valida_cod_1_letras_mayusc('codigo', $registro);
+     *  // Retornará error, ya que 'AbC123' no coincide con el patrón de mayúsculas
      */
-    final public function valida_cod_1_letras_mayusc(string $key, array|object $registro): bool|array{
-
-        if(is_object($registro)){
-            $registro = (array)$registro;
-        }
-        $valida = $this->valida_base(key: $key, registro: $registro,valida_int: false);
-        if(errores::$error){
-            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+    final public function valida_cod_1_letras_mayusc(string $key, array|object $registro): bool|array
+    {
+        if (is_object($registro)) {
+            $registro = (array) $registro;
         }
 
-        if(!$this->cod_1_letras_mayusc(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+        // Valida que el key exista, no esté vacío, y NO fuerce int > 0 (valida_int=false)
+        $valida = $this->valida_base(key: $key, registro: $registro, valida_int: false);
+        if (errores::$error) {
+            return $this->error->error(
+                mensaje: 'Error al validar ' . $key,
+                data: $valida
+            );
+        }
+
+        // Valida que el valor del campo cumpla el patrón `cod_1_letras_mayusc`
+        if (!$this->cod_1_letras_mayusc(txt: $registro[$key])) {
+            return $this->error->error(
+                mensaje: 'Error: el ' . $key . ' es inválido (no cumple el patrón de mayúsculas)',
+                data: $registro
+            );
         }
 
         return true;
     }
+
 
     /**
-     * Valida los codigos con 3 letras en mayusculas
-     * @param string $key Key a validar
-     * @param array $registro Registro donde se encuentra el campo
-     * @return bool|array
+     * REG
+     * Verifica que el índice `$key` dentro del arreglo `$registro`:
+     * 1. Exista y no esté vacío (mediante `valida_base()` con `valida_int = false` para no forzar a entero).
+     * 2. Cumpla con el patrón `cod_3_letras_mayusc` (por ejemplo, 3 letras mayúsculas seguidas).
+     *
+     * - Si falla alguna de estas validaciones, se registra un error mediante `$this->error->error()` y se
+     *   retorna el arreglo con la información correspondiente.
+     * - Si todo es correcto, retorna `true`.
+     *
+     * @param string $key      Clave dentro de `$registro` que se desea validar.
+     * @param array  $registro Arreglo con la información a validar.
+     *
+     * @return bool|array Retorna `true` si la validación es satisfactoria. En caso de error, retorna un
+     *                    arreglo con detalles del mismo.
+     *
+     * @example
+     *  Ejemplo 1: Validación exitosa
+     *  ---------------------------------------------------------------------------------------
+     *  $registro = ['codigo' => 'ABC'];
+     *  $resultado = $this->valida_cod_3_letras_mayusc('codigo', $registro);
+     *  if ($resultado === true) {
+     *      echo "Valor válido: contiene 3 letras mayúsculas.";
+     *  } else {
+     *      // Manejo del error, $resultado contiene la información de error
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Falla al no existir la clave
+     *  ---------------------------------------------------------------------------------------
+     *  $registro = [];
+     *  // Falta la clave 'codigo', por lo que valida_base() devolverá error
+     *  $resultado = $this->valida_cod_3_letras_mayusc('codigo', $registro);
+     *  // Se retorna el arreglo con los detalles del error.
+     *
+     * @example
+     *  Ejemplo 3: Falla al no cumplir el patrón
+     *  ---------------------------------------------------------------------------------------
+     *  $registro = ['codigo' => 'AB'];
+     *  // 'AB' no cumple con el patrón de 3 letras mayúsculas
+     *  $resultado = $this->valida_cod_3_letras_mayusc('codigo', $registro);
+     *  // Se retorna el arreglo con los detalles del error.
      */
-    final public function valida_cod_3_letras_mayusc(string $key, array $registro): bool|array{
-
-        $valida = $this->valida_base(key: $key, registro: $registro,valida_int: false);
-        if(errores::$error){
-            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+    final public function valida_cod_3_letras_mayusc(string $key, array $registro): bool|array
+    {
+        // 1. Verifica que el $key exista y no esté vacío en $registro (sin forzar entero > 0).
+        $valida = $this->valida_base(key: $key, registro: $registro, valida_int: false);
+        if (errores::$error) {
+            return $this->error->error(
+                mensaje: 'Error al validar ' . $key,
+                data: $valida
+            );
         }
 
-        if(!$this->cod_3_letras_mayusc(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+        // 2. Comprueba que el valor cumpla el patrón de 3 letras mayúsculas (cod_3_letras_mayusc).
+        if (!$this->cod_3_letras_mayusc(txt: $registro[$key])) {
+            return $this->error->error(
+                mensaje: 'Error: el ' . $key . ' es inválido (no cumple el patrón de 3 letras mayúsculas)',
+                data: $registro
+            );
         }
 
         return true;
     }
+
 
     /**
      * Valida un codigo de 3 digitos permisibles con 0 derecha
@@ -2056,30 +2420,73 @@ class validacion {
     }
 
     /**
-     * TOTAL
-     * Función para validar una cadena de texto según un patrón regex predefinido.
+     * REG
+     * Valida una cadena de texto `$txt` contra un patrón (expresión regular) identificado por `$key`.
      *
-     * @param string $key La llave del patrón predefinido a utilizar para la validación.
-     * @param string $txt La cadena de texto a validar.
+     * La función busca el patrón en la propiedad `$this->patterns[$key]`, realiza la validación
+     * utilizando `preg_match()` y retorna `true` si la cadena cumple con el patrón, o `false` en caso contrario.
      *
-     * @return bool Regresa verdadero si la cadena coincide con el patrón. Falso en caso contrario.
-     * @version 3.8.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_pattern.5.25.0
+     * @param string $key  Clave que identifica el patrón dentro de `$this->patterns`. No debe ser una cadena vacía.
+     * @param string $txt  Cadena de texto a validar contra el patrón seleccionado.
+     *
+     * @return bool Retorna `true` si `$txt` coincide con el patrón asociado a `$key`, de lo contrario `false`.
+     *
+     * @example
+     *  Ejemplo 1: Validar un correo electrónico
+     *  -------------------------------------------------------------------------------------
+     *  // Suponiendo que $this->patterns['email'] = '/^[\w\.\-]+@\w+\.\w{2,}$/'
+     *
+     *  $isValidEmail = $this->valida_pattern('email', 'usuario@example.com');
+     *  if($isValidEmail){
+     *      echo "El correo electrónico es válido";
+     *  } else {
+     *      echo "Correo electrónico no válido";
+     *  }
+     *
+     * @example
+     *  Ejemplo 2: Validar un número de teléfono
+     *  -------------------------------------------------------------------------------------
+     *  // Suponiendo que $this->patterns['telefono'] = '/^[0-9]{10}$/'
+     *
+     *  $isValidPhone = $this->valida_pattern('telefono', '5512345678');
+     *  if($isValidPhone){
+     *      echo "El número de teléfono es válido (10 dígitos)";
+     *  } else {
+     *      echo "Formato de teléfono incorrecto";
+     *  }
+     *
+     * @example
+     *  Ejemplo 3: Clave no registrada o vacía
+     *  -------------------------------------------------------------------------------------
+     *  // Si se pasa una clave que no existe en $this->patterns o está vacía, la función retorna false.
+     *
+     *  // Caso 3a: Clave vacía
+     *  $isValid = $this->valida_pattern('', 'texto');
+     *  // $isValid será false.
+     *
+     *  // Caso 3b: Clave no definida en el arreglo
+     *  $isValid = $this->valida_pattern('claveInexistente', 'texto');
+     *  // $isValid será false, ya que no existe 'claveInexistente' en $this->patterns.
      */
-    final public function valida_pattern(string $key, string $txt):bool{
-        if($key === ''){
+    final public function valida_pattern(string $key, string $txt): bool
+    {
+        if ($key === '') {
             return false;
         }
-        if(!isset($this->patterns[$key])){
+        if (!isset($this->patterns[$key])) {
             return false;
         }
+
         $result = preg_match($this->patterns[$key], $txt);
         $r = false;
-        if((int)$result !== 0){
+
+        if ((int)$result !== 0) {
             $r = true;
         }
+
         return $r;
     }
+
 
     /**
      * Valida un rango de fechas
