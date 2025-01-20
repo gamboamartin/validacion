@@ -1708,7 +1708,7 @@ class validacionTest extends test {
         $this->assertStringContainsStringIgnoringCase("Error: no existe x",$resultado['mensaje']);
 
         errores::$error = false;
-        $registro = array(); 
+        $registro = array();
         $keys = array();
         $keys[] = 'x';
         $registro['x'] = '';
