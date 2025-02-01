@@ -1094,6 +1094,70 @@ class validacionTest extends test {
     }
 
 
+    public function test_valida_codigos_int_0_6_numbers(): void {
+        // Reinicia la bandera de error
+        errores::$error = false;
+        $validacion = new validacion();
+        $keys = []; // arreglo vacío
+        $registro = ['a' => '000123'];
+
+        $resultado = $validacion->valida_codigos_int_0_6_numbers($keys, $registro);
+
+        $this->assertIsArray($resultado, "El resultado debe ser un array de error.");
+        $this->assertTrue(errores::$error, "Se esperaba que se activara el flag de error.");
+        $this->assertStringContainsStringIgnoringCase("Error keys vacios", $resultado['mensaje'], "El mensaje de error no coincide.");
+
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $keys = ['']; // clave vacía
+        $registro = ['' => '000123'];
+
+        $resultado = $validacion->valida_codigos_int_0_6_numbers($keys, $registro);
+
+        $this->assertIsArray($resultado, "Se esperaba un array de error.");
+        $this->assertTrue(errores::$error, "El flag de error debe estar activo.");
+        $this->assertStringContainsStringIgnoringCase("Error  Invalido", $resultado['mensaje'], "El mensaje de error debe indicar clave vacía.");
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $keys = ['a'];
+        $registro = []; // No existe la clave 'a'
+
+        $resultado = $validacion->valida_codigos_int_0_6_numbers($keys, $registro);
+
+        $this->assertIsArray($resultado, "Se esperaba un array de error.");
+        $this->assertTrue(errores::$error, "El flag de error debe estar activo.");
+        $this->assertStringContainsStringIgnoringCase("Error no existe a", $resultado['mensaje'], "El mensaje debe indicar que la clave 'a' no existe.");
+
+
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $keys = ['a'];
+        // Se espera que el valor cumpla un patrón de 6 dígitos, por lo tanto 'ABC123' (letras) no es válido.
+        $registro = ['a' => 'ABC123'];
+
+        $resultado = $validacion->valida_codigos_int_0_6_numbers($keys, $registro);
+
+        $this->assertIsArray($resultado, "Se esperaba un array de error al fallar la validación.");
+        $this->assertTrue(errores::$error, "El flag de error debe activarse.");
+        $this->assertStringContainsStringIgnoringCase("Error a Invalido", $resultado['mensaje'], "El mensaje de error debe indicar que el valor para 'a' es inválido.");
+
+        errores::$error = false;
+        $validacion = new validacion();
+        $keys = ['a', 'b'];
+        // Se proporcionan dos claves con valores de 6 dígitos válidos.
+        $registro = ['a' => '000123', 'b' => '000456'];
+
+        $resultado = $validacion->valida_codigos_int_0_6_numbers($keys, $registro);
+
+        $this->assertIsArray($resultado, "El resultado exitoso debe ser un array.");
+        // Se espera que el mensaje sea 'ids validos'
+        $this->assertEquals('ids validos', $resultado['mensaje'], "El mensaje de éxito no coincide.");
+        $this->assertFalse(errores::$error, "No se debe activar el flag de error en caso exitoso.");
+
+    }
 
     public function test_valida_cols_css(): void{
         errores::$error = false;

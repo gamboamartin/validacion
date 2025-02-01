@@ -660,15 +660,58 @@ class validacion {
 
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Valida un codigo con 6 digitos
-     * @param int|string|null $txt Texto a verificar
-     * @return bool
-     * @version 0.34.1
+     * REG
+     * Valida que el valor proporcionado cumpla con el patrón para un código numérico de 6 dígitos.
+     *
+     * Este método verifica si el valor `$txt` coincide con el patrón definido en la clave
+     * `cod_int_0_6_numbers` de la propiedad `$this->patterns`. Se espera que el valor contenga
+     * exactamente 6 dígitos numéricos. La validación se realiza utilizando el método
+     * `valida_pattern()`, que aplica la expresión regular correspondiente.
+     *
+     * ### Funcionamiento:
+     * - El método recibe como parámetro un valor que puede ser de tipo entero, cadena o nulo.
+     * - Si el valor es un entero, se convertirá a cadena internamente para la validación.
+     * - Si el valor es `null` o una cadena vacía, la validación fallará.
+     * - Se utiliza el patrón asociado a la clave `'cod_int_0_6_numbers'` para comprobar que el
+     *   valor contenga únicamente 6 dígitos.
+     *
+     * ### Casos de uso exitosos:
+     * - **Ejemplo 1: Valor válido (cadena)**
+     *   ```php
+     *   $resultado = $obj->cod_int_0_6_numbers("123456");
+     *   // Retorna true, ya que "123456" contiene exactamente 6 dígitos.
+     *   ```
+     *
+     * - **Ejemplo 2: Valor válido (entero)**
+     *   ```php
+     *   $resultado = $obj->cod_int_0_6_numbers(123456);
+     *   // Retorna true, ya que el entero 123456 se convierte a "123456", que cumple con el patrón.
+     *   ```
+     *
+     * ### Casos de error:
+     * - **Ejemplo 3: Valor con longitud incorrecta**
+     *   ```php
+     *   $resultado = $obj->cod_int_0_6_numbers("12345");
+     *   // Retorna false, ya que "12345" tiene solo 5 dígitos, no cumple con el patrón.
+     *   ```
+     *
+     * - **Ejemplo 4: Valor con caracteres no numéricos**
+     *   ```php
+     *   $resultado = $obj->cod_int_0_6_numbers("12A456");
+     *   // Retorna false, ya que "12A456" contiene una letra y no es estrictamente numérico.
+     *   ```
+     *
+     * @param int|string|null $txt El valor que se desea validar. Este valor debe representar un código
+     *                             numérico de 6 dígitos. Si se pasa un entero, se convertirá a cadena.
+     *                             Si se pasa `null` o una cadena vacía, la validación fallará.
+     *
+     * @return bool Devuelve `true` si `$txt` cumple con el patrón de 6 dígitos (según `$this->patterns['cod_int_0_6_numbers']`),
+     *              o `false` en caso contrario.
      */
-    final public function cod_int_0_6_numbers(int|string|null $txt):bool{
-        return $this->valida_pattern(key:'cod_int_0_6_numbers', txt:$txt);
+    final public function cod_int_0_6_numbers(int|string|null $txt): bool {
+        return $this->valida_pattern(key: 'cod_int_0_6_numbers', txt: $txt);
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
@@ -748,77 +791,164 @@ class validacion {
     }
 
     /**
-     * TOTAL
-     * Comprueba si una clave específica existe en un array.
+     * REG
+     * Verifica si una clave específica existe en un arreglo.
      *
-     * La función 'existe_key_data' recibe dos parámetros: un array y una clave en forma de string.
-     * Verifica si la clave proporcionada existe en el array. Si la clave existe en el array, devuelve 'true',
-     * en caso contrario, devuelve 'false'.
+     * Este método comprueba si la clave especificada existe en el arreglo proporcionado.
+     * Devuelve `true` si la clave está definida en el arreglo, y `false` en caso contrario.
      *
-     * @param  array $arreglo El array en el que queremos buscar la clave.
-     * @param  string $key La clave que queremos comprobar si existe en el array.
-     * @return bool Devuelve 'true' si la clave existe en el array, 'false' en caso contrario.
+     * @param array  $arreglo El arreglo en el que se buscará la clave. Este arreglo puede contener cualquier
+     *                        tipo de elementos y la clave se buscará a nivel de índices.
+     * @param string $key     La clave a buscar dentro del arreglo. Se espera que sea una cadena que
+     *                        represente el nombre o índice del elemento.
      *
-     * Ejemplo de uso:
+     * @return bool Retorna `true` si la clave existe en el arreglo; de lo contrario, retorna `false`.
      *
-     * ```php
-     * $miArray = array(
-     *   "clave1" => "valor1",
-     *   "clave2" => "valor2"
-     * );
-     * $miClave = "clave1";
-     * $resultado = existe_key_data($miArray, $miClave);
-     * ```
-     * En este caso, `$resultado` será 'true' ya que "clave1" existe en `$miArray`.
+     * @example
+     * // Ejemplo 1: Clave existente en el arreglo
+     * $datos = ['nombre' => 'Juan', 'edad' => 30];
+     * $resultado = $this->existe_key_data($datos, 'nombre');
+     * // $resultado será true, ya que la clave 'nombre' existe en el arreglo.
      *
-     * @version 3.27.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.existe_key_data.5.29.0
+     * @example
+     * // Ejemplo 2: Clave inexistente en el arreglo
+     * $datos = ['nombre' => 'Juan', 'edad' => 30];
+     * $resultado = $this->existe_key_data($datos, 'direccion');
+     * // $resultado será false, ya que la clave 'direccion' no se encuentra en el arreglo.
+     *
+     * @example
+     * // Ejemplo 3: Arreglo vacío
+     * $datos = [];
+     * $resultado = $this->existe_key_data($datos, 'cualquier_clave');
+     * // $resultado será false, ya que el arreglo está vacío y por ende no contiene ninguna clave.
      */
-    final public function existe_key_data(array $arreglo, string $key ):bool{
+    final public function existe_key_data(array $arreglo, string $key): bool {
         $r = true;
-        if(!isset($arreglo[$key])){
+        if (!isset($arreglo[$key])) {
             $r = false;
         }
         return $r;
     }
 
+
     /**
-     * TOTAL
-     * Verifica los keys que existen dentro de data para ver que este cargada de manera correcta la fecha
-     * @param array|stdClass $data arreglo donde se verificaran las fechas en base a los keys enviados
-     * @param array $keys Keys a verificar
-     * @param string $tipo_val El key debe ser el tipo val para la obtencion del regex de formato de fecha
-     * utiliza los patterns de las siguientes formas
-     *          fecha=yyyy-mm-dd
-     *          fecha_hora_min_sec_esp = yyyy-mm-dd hh-mm-ss
-     *          fecha_hora_min_sec_t = yyyy-mm-ddThh-mm-ss
-     * @return true|array
+     * REG
+     * Valida que un conjunto de fechas en un arreglo u objeto stdClass cumpla con un formato determinado.
      *
-     * @version 3.30.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.fechas_in_array.5.29.0
+     * Esta función se encarga de verificar que, para cada clave especificada en el arreglo `$keys`,
+     * exista en el conjunto de datos `$data` y que su valor sea una fecha válida de acuerdo al formato
+     * indicado por `$tipo_val`. La validación del formato de fecha se realiza mediante el método
+     * `valida_fecha()`, que utiliza patrones predefinidos (por ejemplo, "yyyy-mm-dd" para el tipo 'fecha').
+     *
+     * El flujo de validación es el siguiente:
+     * - Si `$data` es un objeto (stdClass), se convierte a un arreglo.
+     * - Para cada clave en `$keys`:
+     *   1. Se verifica que la clave no sea una cadena vacía; de ser vacía, se retorna un error.
+     *   2. Se comprueba que la clave exista en `$data` mediante el método `existe_key_data()`. Si la clave no existe,
+     *      se retorna un error indicando la ausencia de la misma.
+     *   3. Se valida que el valor asociado a la clave en `$data` sea una fecha válida, utilizando el método
+     *      `valida_fecha()`, que se encarga de verificar que el valor cumpla con el formato definido por `$tipo_val`.
+     *
+     * Si todas las claves existen y sus valores son fechas válidas, la función retorna `true`. Si alguna validación
+     * falla, se retorna un arreglo con los detalles del error generado por `$this->error->error()`.
+     *
+     * @param array|stdClass $data     Conjunto de datos en el que se buscarán las fechas. Puede ser un arreglo asociativo o un objeto de tipo stdClass.
+     * @param array          $keys    Arreglo de claves que se deben verificar en `$data`. Cada clave representa el nombre de un campo que contiene una fecha.
+     *                                Ejemplo: `['fecha_inicio', 'fecha_fin']`
+     * @param string         $tipo_val Tipo de fecha a validar. Este valor debe corresponder a uno de los formatos predefinidos
+     *                                en la propiedad `$this->regex_fecha` (por ejemplo, 'fecha' para "yyyy-mm-dd", 'fecha_hora_min_sec_esp' para "yyyy-mm-dd hh:mm:ss", etc.).
+     *                                Por defecto es 'fecha'.
+     *
+     * @return true|array Devuelve `true` si todas las claves existen y sus valores son fechas válidas según el formato especificado.
+     *                    En caso de error, retorna un arreglo con la información del error.
+     *
+     * @example Ejemplo 1: Validación exitosa con un arreglo asociativo
+     * ```php
+     * $data = [
+     *     'fecha_inicio' => '2023-01-01',
+     *     'fecha_fin'    => '2023-12-31'
+     * ];
+     * $keys = ['fecha_inicio', 'fecha_fin'];
+     * $resultado = $this->fechas_in_array($data, $keys);
+     * // Resultado esperado: true, ya que ambas fechas cumplen con el formato "yyyy-mm-dd".
+     * ```
+     *
+     * @example Ejemplo 2: Validación exitosa con un objeto stdClass
+     * ```php
+     * $data = new stdClass();
+     * $data->fecha_inicio = '2023-01-01';
+     * $data->fecha_fin = '2023-12-31';
+     * $keys = ['fecha_inicio', 'fecha_fin'];
+     * $resultado = $this->fechas_in_array($data, $keys);
+     * // Resultado esperado: true.
+     * ```
+     *
+     * @example Ejemplo 3: Error por clave vacía en el arreglo de claves
+     * ```php
+     * $data = [
+     *     'fecha_inicio' => '2023-01-01',
+     *     'fecha_fin'    => '2023-12-31'
+     * ];
+     * $keys = [''];  // Se proporciona una clave vacía
+     * $resultado = $this->fechas_in_array($data, $keys);
+     * // Resultado esperado: Retorna un error indicando "Error key no puede venir vacio".
+     * ```
+     *
+     * @example Ejemplo 4: Error por ausencia de una clave en el conjunto de datos
+     * ```php
+     * $data = [
+     *     'fecha_inicio' => '2023-01-01'
+     * ];
+     * $keys = ['fecha_inicio', 'fecha_fin'];
+     * $resultado = $this->fechas_in_array($data, $keys);
+     * // Resultado esperado: Retorna un error indicando "Error al validar existencia de key" para 'fecha_fin'.
+     * ```
+     *
+     * @example Ejemplo 5: Error por formato de fecha inválido
+     * ```php
+     * $data = [
+     *     'fecha_inicio' => '2023-01-01',
+     *     'fecha_fin'    => '31-12-2023'  // Formato incorrecto
+     * ];
+     * $keys = ['fecha_inicio', 'fecha_fin'];
+     * $resultado = $this->fechas_in_array($data, $keys);
+     * // Resultado esperado: Retorna un error indicando "Error al validar fecha: $data[fecha_fin]" si el método valida_fecha detecta el formato incorrecto.
+     * ```
      */
     final public function fechas_in_array(array|stdClass $data, array $keys, string $tipo_val = 'fecha'): true|array
     {
-        if(is_object($data)){
+        if (is_object($data)) {
             $data = (array)$data;
         }
-        foreach($keys as $key){
+        foreach ($keys as $key) {
 
-            if($key === ''){
-                return $this->error->error(mensaje: "Error key no puede venir vacio", data: $key, es_final: true);
+            if ($key === '') {
+                return $this->error->error(
+                    mensaje: "Error key no puede venir vacio",
+                    data: $key,
+                    es_final: true
+                );
             }
             $valida = $this->existe_key_data(arreglo: $data, key: $key);
-            if(!$valida){
-                return $this->error->error(mensaje: "Error al validar existencia de key", data: $key, es_final: true);
+            if (!$valida) {
+                return $this->error->error(
+                    mensaje: "Error al validar existencia de key",
+                    data: $key,
+                    es_final: true
+                );
             }
 
-            $valida = $this->valida_fecha(fecha: $data[$key],tipo_val: $tipo_val);
-            if(errores::$error){
-                return $this->error->error(mensaje: "Error al validar fecha: ".'$data['.$key.']', data: $valida);
+            $valida = $this->valida_fecha(fecha: $data[$key], tipo_val: $tipo_val);
+            if (errores::$error) {
+                return $this->error->error(
+                    mensaje: "Error al validar fecha: " . '$data[' . $key . ']',
+                    data: $valida
+                );
             }
         }
         return true;
     }
+
 
     /**
      * TOTAL
@@ -1890,26 +2020,79 @@ class validacion {
 
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Valida un numero con 6 digitos con 0 iniciales
-     * @param string $key Key de row a validar
-     * @param array|stdClass $registro Registro a validar
-     * @return bool|array
-     * @version 0.37.1
+     * REG
+     * Valida que el valor asociado a una clave específica en un registro cumpla con el patrón para un código numérico de 6 dígitos.
+     *
+     * Este método realiza las siguientes operaciones:
+     *
+     * 1. **Validación de existencia y contenido básico del campo:**
+     *    - Utiliza el método `valida_base()` para comprobar que la clave `$key` exista en el registro `$registro`
+     *      y que su valor no esté vacío. Si la validación básica falla, se retorna un array con la descripción del error.
+     *
+     * 2. **Validación del formato del valor:**
+     *    - Llama al método `cod_int_0_6_numbers()` pasando el valor correspondiente a la clave `$key` del registro.
+     *    - Este método verifica que el valor cumpla con el patrón definido para códigos numéricos de 6 dígitos.
+     *      Si el valor no cumple con el patrón, se retorna un array de error con la descripción del problema.
+     *
+     * Si ambas validaciones son exitosas, el método retorna `true`; de lo contrario, retorna un array con la información
+     * detallada del error.
+     *
+     * ### Casos de Uso Exitosos:
+     *
+     * - **Ejemplo 1: Validación con un registro en formato array**
+     *   ```php
+     *   $registro = ['codigo' => '123456'];
+     *   $resultado = $obj->valida_cod_int_0_6_numbers('codigo', $registro);
+     *   // Resultado esperado: true, ya que "123456" cumple con el patrón de 6 dígitos.
+     *   ```
+     *
+     * - **Ejemplo 2: Validación con un registro en formato stdClass**
+     *   ```php
+     *   $registro = new stdClass();
+     *   $registro->codigo = '987654';
+     *   $resultado = $obj->valida_cod_int_0_6_numbers('codigo', $registro);
+     *   // Resultado esperado: true, ya que "987654" cumple con el patrón de 6 dígitos.
+     *   ```
+     *
+     * ### Casos de Error:
+     *
+     * - **Ejemplo 3: El campo no existe o está vacío**
+     *   ```php
+     *   $registro = ['otro_campo' => '123456'];
+     *   $resultado = $obj->valida_cod_int_0_6_numbers('codigo', $registro);
+     *   // Resultado esperado: Array de error indicando que la clave 'codigo' no existe en el registro.
+     *   ```
+     *
+     * - **Ejemplo 4: El valor no cumple con el patrón de 6 dígitos**
+     *   ```php
+     *   $registro = ['codigo' => '12345']; // Solo 5 dígitos
+     *   $resultado = $obj->valida_cod_int_0_6_numbers('codigo', $registro);
+     *   // Resultado esperado: Array de error indicando que el valor para 'codigo' es inválido.
+     *   ```
+     *
+     * @param string $key       La clave del registro cuyo valor se va a validar. Se espera que este campo contenga un código de 6 dígitos.
+     * @param array|stdClass $registro  El registro en el que se busca la clave. Puede ser un array asociativo o un objeto de tipo stdClass.
+     *
+     * @return bool|array Devuelve `true` si el valor asociado a `$key` cumple con el patrón para un código numérico de 6 dígitos;
+     *                    en caso contrario, devuelve un array con los detalles del error generado.
+     *
+     * @see valida_base() Para la validación básica de la existencia y contenido del campo.
+     * @see cod_int_0_6_numbers() Para la validación del formato del código de 6 dígitos.
      */
-    final public function valida_cod_int_0_6_numbers(string $key, array|stdClass $registro): bool|array{
+    final public function valida_cod_int_0_6_numbers(string $key, array|stdClass $registro): bool|array {
 
         $valida = $this->valida_base(key: $key, registro: $registro);
-        if(errores::$error){
-            return $this->error->error(mensaje:'Error al validar '.$key ,data:$valida);
+        if (errores::$error) {
+            return $this->error->error(mensaje: 'Error al validar ' . $key, data: $valida);
         }
 
-        if(!$this->cod_int_0_6_numbers(txt:$registro[$key])){
-            return $this->error->error(mensaje:'Error el '.$key.' es invalido',data:$registro);
+        if (!$this->cod_int_0_6_numbers(txt: $registro[$key])) {
+            return $this->error->error(mensaje: 'Error el ' . $key . ' es invalido', data: $registro);
         }
 
         return true;
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
@@ -2155,9 +2338,127 @@ class validacion {
         return array('mensaje'=>'ids validos',$registro,$keys);
     }
 
-    final public function valida_codigos_int_0_6_numbers(array $keys, array|object $registro):array{
+    /**
+     * REG
+     * Valida que los códigos asociados a un conjunto de claves cumplan con el formato de 6 dígitos.
+     *
+     * Esta función se encarga de verificar que, para cada clave especificada en el arreglo `$keys`, el registro
+     * `$registro` (que puede ser un arreglo asociativo o un objeto de tipo `stdClass`) contenga un valor asociado
+     * y que dicho valor cumpla con el patrón definido para códigos numéricos de 6 dígitos (por ejemplo, "000123").
+     *
+     * El proceso de validación se realiza de la siguiente manera:
+     *
+     * 1. **Validación de claves vacías:**
+     *    Se verifica que el arreglo `$keys` no esté vacío. Si lo está, se retorna un error indicando que no se
+     *    han proporcionado claves válidas para la validación.
+     *
+     * 2. **Conversión de objeto a array:**
+     *    Si `$registro` es un objeto (`stdClass`), se convierte a un arreglo asociativo para facilitar la validación.
+     *
+     * 3. **Validación individual por clave:**
+     *    Para cada clave en el arreglo `$keys` se ejecutan las siguientes comprobaciones:
+     *    - Se verifica que la clave no sea una cadena vacía.
+     *      Si alguna clave es una cadena vacía, se retorna un error indicando que dicha clave es inválida.
+     *    - Se comprueba que la clave exista en el registro `$registro`.
+     *      Si la clave no se encuentra, se retorna un error indicando que dicha clave no existe en el registro.
+     *    - Se invoca el método `valida_cod_int_0_6_numbers(string $key, array|stdClass $registro)` para validar
+     *      que el valor asociado a la clave cumpla con el formato de 6 dígitos.
+     *      Si la validación falla (por ejemplo, el valor contiene caracteres no numéricos o no tiene la longitud
+     *      esperada), se retorna el error generado por dicha función.
+     *
+     * Si todas las validaciones son exitosas, la función retorna un arreglo con el siguiente formato:
+     *
+     * ```php
+     * [
+     *     'mensaje' => 'ids validos',
+     *     0 => $registro, // El registro validado (convertido a array si originalmente era un objeto)
+     *     1 => $keys      // El arreglo de claves utilizado en la validación
+     * ]
+     * ```
+     *
+     * ### Ejemplos de Uso Exitoso
+     *
+     * **Ejemplo 1: Registro con claves válidas en un array asociativo**
+     *
+     * ```php
+     * // Se define el arreglo de claves que se deben validar
+     * $keys = ['codigo1', 'codigo2'];
+     *
+     * // Se crea un registro asociativo donde cada clave tiene un valor de 6 dígitos
+     * $registro = [
+     *     'codigo1' => '000123',  // Válido: 6 dígitos
+     *     'codigo2' => '045678'   // Válido: 6 dígitos
+     * ];
+     *
+     * // Se invoca la función de validación
+     * $resultado = $validacion->valida_codigos_int_0_6_numbers($keys, $registro);
+     *
+     * // Resultado esperado:
+     * // [
+     * //     'mensaje' => 'ids validos',
+     * //     0 => [
+     * //         'codigo1' => '000123',
+     * //         'codigo2' => '045678'
+     * //     ],
+     * //     1 => ['codigo1', 'codigo2']
+     * // ]
+     * // En este caso, la función retorna un arreglo indicando que los IDs son válidos.
+     * ```
+     *
+     * **Ejemplo 2: Uso con un objeto stdClass como registro**
+     *
+     * ```php
+     * // Se define el arreglo de claves
+     * $keys = ['codigo'];
+     *
+     * // Se crea un objeto stdClass con la propiedad 'codigo'
+     * $registro = new stdClass();
+     * $registro->codigo = '123456';  // Válido: 6 dígitos
+     *
+     * // Se llama a la función de validación
+     * $resultado = $validacion->valida_codigos_int_0_6_numbers($keys, $registro);
+     *
+     * // Resultado esperado:
+     * // [
+     * //     'mensaje' => 'ids validos',
+     * //     0 => [
+     * //         'codigo' => '123456'
+     * //     ],
+     * //     1 => ['codigo']
+     * // ]
+     * // La función convierte el objeto a array internamente y valida el código.
+     * ```
+     *
+     * ### Consideraciones Adicionales
+     *
+     * - La función depende internamente de la existencia y correcta implementación del método
+     *   `valida_cod_int_0_6_numbers(string $key, array|stdClass $registro)`, que realiza la validación
+     *   específica del formato (por ejemplo, mediante una expresión regular).
+     *
+     * - Si alguna de las comprobaciones falla (por ejemplo, si alguna clave es inválida o si el valor no cumple
+     *   el formato esperado), se activa la bandera de error en `errores::$error` y la función retorna un arreglo
+     *   con la información del error.
+     *
+     * @param array $keys Arreglo de claves que se deben validar en el registro.
+     * @param array|stdClass $registro Registro de datos en el que se buscan las claves. Puede ser un arreglo asociativo o un objeto stdClass.
+     * @return array Retorna un arreglo con el mensaje de éxito y los datos validados si todas las claves y sus valores cumplen con el patrón de 6 dígitos; en caso de error, retorna un arreglo con la información detallada del error.
+     *
+     * @example Uso exitoso:
+     * ```php
+     * $keys = ['codigo'];
+     * $registro = ['codigo' => '000123'];
+     * $resultado = $validacion->valida_codigos_int_0_6_numbers($keys, $registro);
+     * // Resultado:
+     * // [
+     * //     'mensaje' => 'ids validos',
+     * //     0 => ['codigo' => '000123'],
+     * //     1 => ['codigo']
+     * // ]
+     * ```
+     */
+    final public function valida_codigos_int_0_6_numbers(array $keys, array|stdClass $registro): array {
         if(count($keys) === 0){
-            return $this->error->error(mensaje: "Error keys vacios",data: $keys, es_final: true);
+            return $this->error->error(mensaje: "Error keys vacios", data: $keys, es_final: true);
         }
 
         if(is_object($registro)){
@@ -2166,18 +2467,19 @@ class validacion {
 
         foreach($keys as $key){
             if($key === ''){
-                return $this->error->error(mensaje:'Error '.$key.' Invalido',data:$registro, es_final: true);
+                return $this->error->error(mensaje:'Error '.$key.' Invalido', data: $registro, es_final: true);
             }
             if(!isset($registro[$key])){
-                return  $this->error->error(mensaje:'Error no existe '.$key,data:$registro, es_final: true);
+                return $this->error->error(mensaje:'Error no existe '.$key, data: $registro, es_final: true);
             }
             $id_valido = $this->valida_cod_int_0_6_numbers(key: $key, registro: $registro);
             if(errores::$error){
-                return  $this->error->error(mensaje:'Error '.$key.' Invalido',data:$id_valido);
+                return $this->error->error(mensaje:'Error '.$key.' Invalido', data: $id_valido);
             }
         }
-        return array('mensaje'=>'ids validos',$registro,$keys);
+        return array('mensaje'=>'ids validos', $registro, $keys);
     }
+
 
     final public function valida_codigos_int_0_n_numbers(array $keys, int $longitud, array|object $registro):array{
         if(count($keys) === 0){
@@ -2721,43 +3023,154 @@ class validacion {
     }
 
     /**
-     * TOTAL
-     * Valida una fecha.
+     * REG
+     * Valida que una fecha proporcionada cumpla con el formato esperado.
      *
-     * @param mixed $fecha La fecha que se necesita validar. Debe ser una cadena de texto.
-     * @param string $tipo_val El tipo de validación que se realizará. Debe ser una de las fechas válidas predefinidas.
+     * Este método se encarga de verificar que el valor de entrada `$fecha` sea una cadena de texto no vacía
+     * y que cumpla con el patrón definido para el tipo de fecha especificado en `$tipo_val`.
      *
-     * @return array|bool Retorna true si la fecha es válida.
-     * Si la fecha no es válida, retorna un array que contiene un mensaje de error y parte de datos proporcionados.
+     * La validación se realiza en varios pasos:
      *
-     * @throws errores Si la fecha no es una cadena de texto o si el tipo de validación no es válido.
-     * @version 3.29.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.valida_fecha.5.29.0
+     * 1. **Tipo de dato de la fecha:**
+     *    Se comprueba que `$fecha` sea una cadena. Si no lo es, se retorna un error indicando que la fecha debe ser un texto.
+     *
+     * 2. **Contenido de la fecha:**
+     *    Se elimina cualquier espacio en blanco adicional mediante `trim()`. Si el resultado es una cadena vacía, se retorna un error.
+     *
+     * 3. **Tipo de validación (`$tipo_val`):**
+     *    - Se limpia el valor de `$tipo_val` con `trim()` y se verifica que no esté vacío.
+     *    - Se comprueba que `$tipo_val` se encuentre entre los valores permitidos definidos en el arreglo interno `$this->regex_fecha`.
+     *      Si no es así, se retorna un error indicando que el tipo de fecha no pertenece a las opciones válidas.
+     *
+     * 4. **Validación con patrón:**
+     *    Se utiliza el método `valida_pattern()` para validar que el valor de `$fecha` cumpla con el patrón asociado a la clave `$tipo_val`.
+     *    Si la validación falla, se retorna un error indicando que la fecha es inválida.
+     *
+     * Si todas las comprobaciones son correctas, el método retorna `true`.
+     *
+     * ## Parámetros:
+     *
+     * @param mixed $fecha
+     *        La fecha a validar. Se espera que sea una cadena de texto que represente una fecha en el formato adecuado,
+     *        por ejemplo, "2023-05-20".
+     *        **Nota:** Si se pasa un valor que no es una cadena, se considerará inválido.
+     *
+     * @param string $tipo_val
+     *        Especifica el formato de la fecha que se desea validar. Este parámetro debe coincidir con una de las claves
+     *        definidas en el arreglo interno `$this->regex_fecha`. Por defecto, su valor es `'fecha'`.
+     *        Ejemplos de posibles valores:
+     *         - `"fecha"` para fechas en formato `yyyy-mm-dd`
+     *         - `"fecha_hora_min_sec_esp"` para fechas en formato `yyyy-mm-dd hh:mm:ss`
+     *         - `"fecha_hora_min_sec_t"` para fechas en formato `yyyy-mm-ddThh:mm:ss`
+     *
+     * ## Valor de retorno:
+     *
+     * @return true|array
+     *         - Retorna `true` si la fecha es válida y cumple con el patrón especificado.
+     *         - Retorna un array con la información del error (utilizando `$this->error->error()`) si alguna de las validaciones falla.
+     *
+     * ## Casos de Uso Exitosos:
+     *
+     * **Ejemplo 1: Fecha Válida en Formato "fecha" (yyyy-mm-dd)**
+     * ```php
+     * $fecha = "2023-05-20";
+     * $tipo_val = "fecha"; // Valor por defecto
+     * $resultado = $this->valida_fecha($fecha);
+     * // $resultado es true, ya que "2023-05-20" cumple con el patrón de fecha (yyyy-mm-dd)
+     * ```
+     *
+     * **Ejemplo 2: Fecha Válida con Espacios Extra**
+     * ```php
+     * $fecha = " 2023-12-31 "; // Con espacios antes y después
+     * $tipo_val = "fecha";
+     * $resultado = $this->valida_fecha($fecha);
+     * // $resultado es true, ya que tras aplicar trim() la fecha es "2023-12-31" y es válida
+     * ```
+     *
+     * ## Casos de Error:
+     *
+     * **Ejemplo 3: Fecha No Es una Cadena**
+     * ```php
+     * $fecha = 20230520; // Valor numérico en lugar de cadena
+     * $resultado = $this->valida_fecha($fecha);
+     * // $resultado será un array de error, indicando "Error la fecha debe ser un texto"
+     * ```
+     *
+     * **Ejemplo 4: Fecha Vacía**
+     * ```php
+     * $fecha = "   "; // Cadena vacía tras aplicar trim()
+     * $resultado = $this->valida_fecha($fecha);
+     * // $resultado será un array de error, indicando "Error la fecha esta vacia"
+     * ```
+     *
+     * **Ejemplo 5: Tipo de Validación Inválido**
+     * ```php
+     * $fecha = "2023-05-20";
+     * $tipo_val = "fecha_incorrecta"; // No existe en $this->regex_fecha
+     * $resultado = $this->valida_fecha($fecha, $tipo_val);
+     * // $resultado será un array de error, indicando "Error el tipo val no pertenece a fechas validas"
+     * ```
+     *
+     * **Ejemplo 6: Fecha que No Cumple el Patrón**
+     * ```php
+     * $fecha = "20-05-2023"; // Formato incorrecto, se espera "yyyy-mm-dd"
+     * $resultado = $this->valida_fecha($fecha);
+     * // $resultado será un array de error, indicando "Error fecha invalida"
+     * ```
+     *
+     * ## Notas:
+     *
+     * - Es importante que el parámetro `$tipo_val` coincida exactamente con uno de los valores permitidos en el arreglo `$this->regex_fecha`.
+     *   Esto garantiza que se utilice el patrón correcto para validar el formato de la fecha.
+     * - El método utiliza `valida_pattern()` para comparar la fecha contra el patrón, retornando `true` si la validación es exitosa.
+     *
+     * @see valida_pattern()
+     * @see $this->regex_fecha
+     * @see errores::error()
      */
     final public function valida_fecha(mixed $fecha, string $tipo_val = 'fecha'): array|true
     {
-        if(!is_string($fecha)){
-            return $this->error->error(mensaje: 'Error la fecha debe ser un texto', data: $fecha, es_final: true);
+        if (!is_string($fecha)) {
+            return $this->error->error(
+                mensaje: 'Error la fecha debe ser un texto',
+                data: $fecha,
+                es_final: true
+            );
         }
         $fecha = trim($fecha);
-        if($fecha === ''){
-            return $this->error->error(mensaje: 'Error la fecha esta vacia', data: $fecha, es_final: true);
+        if ($fecha === '') {
+            return $this->error->error(
+                mensaje: 'Error la fecha esta vacia',
+                data: $fecha,
+                es_final: true
+            );
         }
         $tipo_val = trim($tipo_val);
-        if($tipo_val === ''){
-            return $this->error->error(mensaje: 'Error tipo_val no puede venir vacio', data: $tipo_val, es_final: true);
+        if ($tipo_val === '') {
+            return $this->error->error(
+                mensaje: 'Error tipo_val no puede venir vacio',
+                data: $tipo_val,
+                es_final: true
+            );
         }
 
-        if(!in_array($tipo_val, $this->regex_fecha, true)){
-            return $this->error->error(mensaje: 'Error el tipo val no pertenece a fechas validas',
-                data: $this->regex_fecha, es_final: true);
+        if (!in_array($tipo_val, $this->regex_fecha, true)) {
+            return $this->error->error(
+                mensaje: 'Error el tipo val no pertenece a fechas validas',
+                data: $this->regex_fecha,
+                es_final: true
+            );
         }
 
-        if(! $this->valida_pattern(key: $tipo_val,txt: $fecha)){
-            return $this->error->error(mensaje: 'Error fecha invalida', data: $fecha);
+        if (! $this->valida_pattern(key: $tipo_val, txt: $fecha)) {
+            return $this->error->error(
+                mensaje: 'Error fecha invalida',
+                data: $fecha
+            );
         }
         return true;
     }
+
 
     /**
      *
