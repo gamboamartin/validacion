@@ -2783,48 +2783,143 @@ class validacion {
     }
 
     /**
-     * Valida que un estilo css sea valido
-     * @param mixed $style Valor a revisar
-     * @return array|bool
-     * @version 0.40.1
+     * REG
+     * Valida si el valor proporcionado es un estilo CSS válido.
+     *
+     * Esta función toma un estilo CSS (en forma de texto) y verifica que sea una cadena no vacía,
+     * que no sea numérica y que esté presente en un conjunto predefinido de estilos CSS válidos.
+     * Si el valor no cumple con estos requisitos, se devuelve un error. Si todo es válido, se devuelve `true`.
+     *
+     * @param mixed $style El valor que se va a validar como estilo CSS.
+     *
+     * El parámetro `$style` debe ser una cadena de texto que represente un estilo CSS. El valor será validado de las siguientes maneras:
+     * - Debe ser un string.
+     * - No puede estar vacío.
+     * - No puede ser un número.
+     * - Debe pertenecer a un conjunto de estilos predefinidos disponibles en la propiedad `$this->styles_css`.
+     *
+     * @return array|bool Devuelve `true` si el estilo es válido, o un array con el mensaje de error si no lo es.
+     *
+     * @throws errores Si el estilo no cumple con los requisitos de validación, se genera un error.
+     *
+     * @example Ejemplo de uso:
+     * ```php
+     * $validacion = new validacion();
+     * $resultado = $validacion->valida_estilo_css('info');
+     * if ($resultado === true) {
+     *     echo "El estilo es válido.";
+     * } else {
+     *     echo "Error: " . $resultado['mensaje'];  // Se mostrará el mensaje de error si no es válido
+     * }
+     * ```
+     *
+     * En este ejemplo, si 'info' es un estilo válido según `$this->styles_css`, se imprimirá "El estilo es válido."
+     * Si no es válido, se imprimirá el mensaje de error correspondiente.
+     *
+     * @version 1.0.0
      */
-    final public function valida_estilo_css(mixed $style):array|bool{
-        if(!is_string($style)){
-            return $this->error->error(mensaje: 'Error style debe ser un texto ',data: $style);
+    final public function valida_estilo_css(mixed $style): array|bool {
+        // Verifica si $style es un string
+        if (!is_string($style)) {
+            return $this->error->error(mensaje: 'Error style debe ser un texto ', data: $style);
         }
+
+        // Elimina espacios en blanco al inicio y al final de la cadena
         $style = trim($style);
-        if($style === ''){
-            return $this->error->error(mensaje: 'Error style esta vacio ',data: $style);
+
+        // Verifica si la cadena está vacía
+        if ($style === '') {
+            return $this->error->error(mensaje: 'Error style esta vacio ', data: $style);
         }
 
-        if(is_numeric($style)){
-            return $this->error->error(mensaje: 'Error style debe ser un texto ',data: $style);
+        // Verifica si el valor es numérico
+        if (is_numeric($style)) {
+            return $this->error->error(mensaje: 'Error style debe ser un texto ', data: $style);
         }
 
-        if(!in_array($style, $this->styles_css)){
-            return $this->error->error(mensaje: 'Error style invalido '.$style,data: $this->styles_css);
+        // Verifica si el estilo está en la lista de estilos válidos
+        if (!in_array($style, $this->styles_css)) {
+            return $this->error->error(mensaje: 'Error style invalido '.$style, data: $this->styles_css);
         }
 
-        return  true;
+        // Si todas las validaciones son exitosas, devuelve true
+        return true;
     }
 
+
+    /**
+     * REG
+     * Valida los estilos CSS en un conjunto de claves dentro de un registro.
+     *
+     * Esta función toma un conjunto de claves y un registro (ya sea un array o un objeto),
+     * y valida que cada estilo correspondiente en esas claves sea válido. La función se
+     * asegura de que cada clave esté presente en el registro y de que el valor de cada estilo
+     * sea uno de los estilos permitidos.
+     *
+     * Si alguna clave no existe o algún estilo es inválido, se devuelve un mensaje de error.
+     * Si todos los estilos son válidos, la función retorna `true`.
+     *
+     * @param array $keys Un array con las claves de los estilos que se van a validar.
+     *                    Las claves deben corresponder a los nombres de los campos en el registro.
+     *                    Ejemplo: `['color', 'background', 'border']`
+     * @param array|stdClass $row El registro que contiene los estilos a validar. Puede ser un array
+     *                            o un objeto que contenga los valores correspondientes a las claves.
+     *                            Ejemplo:
+     *                            ```php
+     *                            $row = ['color' => 'red', 'background' => 'blue', 'border' => 'solid'];
+     *                            ```
+     *
+     * @return bool|array Retorna `true` si todos los estilos son válidos. Si ocurre un error,
+     *                    devuelve un array con el mensaje de error.
+     *
+     * @throws array Si algún estilo es inválido o alguna clave no existe en el registro,
+     *                   la función devolverá un mensaje de error con detalles de la falla.
+     *
+     * @example
+     * ```php
+     * $validacion = new validacion();
+     * $keys = ['color', 'background'];
+     * $row = ['color' => 'info', 'background' => 'warning'];
+     * $resultado = $validacion->valida_estilos_css($keys, $row);
+     * // $resultado será true, ya que ambos estilos son válidos.
+     * ```
+     *
+     * @example
+     * ```php
+     * $keys = ['color', 'background'];
+     * $row = ['color' => 'info', 'background' => 'invalid_style']; // Estilo no válido
+     * $resultado = $validacion->valida_estilos_css($keys, $row);
+     * // $resultado será un array con el mensaje de error.
+     * // Ejemplo: ['mensaje' => '<b><span style="color:red">Error al validar registro[background]</span></b>']
+     * ```
+     *
+     * @version 1.0.0
+     */
     final public function valida_estilos_css(array $keys, array|stdClass $row): bool|array
     {
+        // Convertir a array si el registro es un objeto
         if(is_object($row)){
             $row = (array)$row;
         }
-        $valida_existe = $this->valida_existencia_keys(keys: $keys,registro: $row);
+
+        // Validar que las claves existan en el registro
+        $valida_existe = $this->valida_existencia_keys(keys: $keys, registro: $row);
         if(errores::$error){
             return $this->error->error(mensaje: 'Error al validar registro', data: $valida_existe);
         }
+
+        // Iterar sobre cada clave y validar el estilo correspondiente
         foreach ($keys as $key){
             $valida = $this->valida_estilo_css(style: $row[$key]);
             if(errores::$error){
                 return $this->error->error(mensaje: 'Error al validar registro['.$key.']', data: $valida);
             }
         }
+
+        // Si todo es válido, retornar true
         return true;
     }
+
 
     /**
      *

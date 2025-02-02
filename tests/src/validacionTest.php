@@ -1463,6 +1463,69 @@ class validacionTest extends test {
         errores::$error = false;
     }
 
+    public function test_valida_estilos_css(): void
+    {
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+
+        // Escenario 1: Todos los estilos son válidos
+        $keys = ['color', 'background'];
+        $row = [
+            'color' => 'info',
+            'background' => 'warning'
+        ];
+        errores::$error = false;
+        $resultado = $val->valida_estilos_css($keys, $row);
+        $this->assertTrue($resultado);  // Esperamos que devuelva true si todo es válido
+
+        // Escenario 2: Estilo inválido en uno de los elementos
+        $keys = ['color', 'background'];
+        $row = [
+            'color' => 'info',
+            'background' => 'invalid_style'  // Estilo no válido
+        ];
+        errores::$error = false;
+        $resultado = $val->valida_estilos_css($keys, $row);
+        $this->assertIsArray($resultado);  // Esperamos que devuelva un array con error
+        $this->assertEquals('<b><span style="color:red">Error al validar registro[background]</span></b>', $resultado['mensaje']);  // Verificamos el mensaje de error
+
+        // Escenario 3: La clave no existe en el registro
+        $keys = ['non_existing_key'];
+        $row = [
+            'color' => 'info',
+            'background' => 'warning'
+        ];
+        errores::$error = false;
+        $resultado = $val->valida_estilos_css($keys, $row);
+        $this->assertIsArray($resultado);  // Esperamos que devuelva un array con error
+        $this->assertEquals('<b><span style="color:red">Error al validar registro</span></b>', $resultado['mensaje']);  // Verificamos el mensaje de error
+
+        // Escenario 4: El registro es un objeto en lugar de un array
+        $keys = ['color', 'background'];
+        $row = (object) [
+            'color' => 'info',
+            'background' => 'warning'
+        ];
+        errores::$error = false;
+        $resultado = $val->valida_estilos_css($keys, $row);
+        $this->assertTrue($resultado);  // Esperamos que devuelva true si todo es válido
+
+        // Escenario 5: Clave vacía
+        $keys = [''];
+        $row = [
+            'color' => 'info',
+            'background' => 'warning'
+        ];
+        errores::$error = false;
+        $resultado = $val->valida_estilos_css($keys, $row);
+        $this->assertIsArray($resultado);  // Esperamos que devuelva un array con error
+        $this->assertEquals('<b><span style="color:red">Error al validar registro</span></b>', $resultado['mensaje']);  // Verificamos el mensaje de error
+
+        errores::$error = false;
+    }
+
     public function test_valida_estructura_input_base(){
         errores::$error = false;
         $val = new validacion();
