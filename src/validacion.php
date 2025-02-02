@@ -3925,30 +3925,102 @@ class validacion {
     }
 
     /**
+     * REG
+     * Valida los estados de un conjunto de claves en el registro proporcionado.
      *
-     * Funcion que valida que un campo de status sea valido
-     * @param array $keys keys del registro a validar campos
-     * @param array|stdClass $registro registro a validar campos
-     * @return array|bool resultado de la validacion
-     * @example
-     *       $valida = $this->validaciones->valida_statuses($entrada_producto,array('producto_es_inventariable'));
-     * @internal $this->valida_existencia_keys($registro,$keys);
+     * Esta función valida que las claves especificadas existan en el `$registro` (que puede ser un arreglo u objeto)
+     * y que sus valores sean válidos (es decir, que sean `'activo'` o `'inactivo'`).
+     * Si alguna clave no existe o su valor no es válido, se devuelve un error con el mensaje correspondiente.
+     *
+     * - Si `$registro` es un objeto, se convierte a un arreglo para facilitar el acceso a los valores.
+     * - La función recorre cada clave en `$keys` y valida que su valor sea `'activo'` o `'inactivo'`.
+     *
+     * Si alguna de las validaciones falla, se devuelve un arreglo con el mensaje de error. Si todas las validaciones
+     * son correctas, la función devuelve `true`.
+     *
+     * @param array $keys Un arreglo con las claves que deben ser validadas. Estas claves deben tener valores de estado
+     *                     válidos (`'activo'` o `'inactivo'`).
+     * @param array|stdClass $registro El registro (puede ser un arreglo o un objeto) donde se almacenan las claves y sus
+     *                                 valores correspondientes.
+     *
+     * @return bool|array Devuelve `true` si todas las claves existen y sus valores son válidos. Si alguna validación falla,
+     *                    devuelve un arreglo con el mensaje de error correspondiente.
+     *
+     * @throws errores Si ocurre algún error durante la validación, se genera un error que se captura y se devuelve como
+     *                 un mensaje.
+     *
+     * @example Ejemplo 1: Validar un registro con estados válidos
+     * ```php
+     * $keys = ['status', 'active_status'];
+     * $registro = [
+     *     'status' => 'activo',
+     *     'active_status' => 'inactivo'
+     * ];
+     *
+     * $resultado = $this->valida_statuses($keys, $registro);
+     * // Retorna true, ya que ambos estados son válidos.
+     * ```
+     *
+     * @example Ejemplo 2: Validar un registro con un estado inválido
+     * ```php
+     * $keys = ['status'];
+     * $registro = [
+     *     'status' => 'desconocido'  // Valor inválido
+     * ];
+     *
+     * $resultado = $this->valida_statuses($keys, $registro);
+     * // Retorna un arreglo de error: 'Error status debe ser activo o inactivo'.
+     * ```
+     *
+     * @example Ejemplo 3: Validar un registro con una clave faltante
+     * ```php
+     * $keys = ['status', 'active_status'];
+     * $registro = [
+     *     'status' => 'activo'
+     *     // Faltando 'active_status'
+     * ];
+     *
+     * $resultado = $this->valida_statuses($keys, $registro);
+     * // Retorna un arreglo de error indicando que 'active_status' no existe en el registro.
+     * ```
+     *
+     * @example Ejemplo 4: Validar un registro cuando el parámetro es un objeto en lugar de un arreglo
+     * ```php
+     * $keys = ['status', 'active_status'];
+     * $registro = (object) [
+     *     'status' => 'activo',
+     *     'active_status' => 'inactivo'
+     * ];
+     *
+     * $resultado = $this->valida_statuses($keys, $registro);
+     * // Retorna true, ya que el objeto se convierte en un arreglo y ambos estados son válidos.
+     * ```
+     *
+     * @version 1.0.0
      */
-    final public function valida_statuses(array $keys, array|stdClass $registro):array|bool{
-        if(is_object($registro)){
+    final public function valida_statuses(array $keys, array|stdClass $registro): array|bool
+    {
+        // Convertir el objeto a un arreglo si es necesario
+        if (is_object($registro)) {
             $registro = (array)$registro;
         }
+
+        // Validar la existencia de las claves en el registro
         $valida_existencias = $this->valida_existencia_keys(keys: $keys, registro: $registro);
-        if(errores::$error){
-            return $this->error->error(mensaje: 'Error status invalido',data: $valida_existencias);
+        if (errores::$error) {
+            return $this->error->error(mensaje: 'Error status invalido', data: $valida_existencias);
         }
-        foreach ($keys as $key){
-            if($registro[$key] !== 'activo' && $registro[$key]!=='inactivo'){
-                return $this->error->error(mensaje: 'Error '.$key.' debe ser activo o inactivo',data: $registro);
+
+        // Recorrer cada clave y validar que su valor sea 'activo' o 'inactivo'
+        foreach ($keys as $key) {
+            if ($registro[$key] !== 'activo' && $registro[$key] !== 'inactivo') {
+                return $this->error->error(mensaje: 'Error ' . $key . ' debe ser activo o inactivo', data: $registro);
             }
         }
+
         return true;
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI ES FINAL REV
