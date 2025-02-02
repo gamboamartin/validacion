@@ -951,22 +951,88 @@ class validacion {
 
 
     /**
-     * TOTAL
+     * REG
      * Valida el valor del ID proporcionado.
      *
-     * Este método invoca a la función 'valida_pattern' con un patrón predefinido 'id'.
-     * Está diseñado para validar si el valor de entrada cumple con los criterios de un ID válido,
-     * que en este caso son números enteros positivos no nulos.
+     * Este método está diseñado para validar si un valor dado (`$txt`) es un ID válido según una expresión regular predefinida.
+     * Utiliza la función `valida_pattern()`, que valida la entrada contra el patrón definido para la clave 'id' en el arreglo `$this->patterns`.
+     * El ID válido se espera que sea un número entero positivo o una cadena que represente dicho número.
      *
-     * @param int|string|null $txt El ID que se validará. Puede ser un entero, una cadena o null.
+     * **Pasos realizados en este método:**
+     * 1. Se pasa la entrada `$txt` a la función `valida_pattern()` con la clave del patrón 'id'.
+     * 2. Si `$txt` coincide con el patrón para un ID válido (número entero positivo), devuelve `true`.
+     * 3. Si el valor no coincide con el patrón o es inválido (por ejemplo, un número negativo o una cadena no numérica), devuelve `false`.
      *
-     * @return bool Devuelve true si $txt es un ID válido, false en caso contrario.
-     * @version 3.16.0
-     * @url https://github.com/gamboamartin/validacion/wiki/src.validacion.id.5.28.0
+     * **Nota:** Este método espera que el patrón para los ID esté definido en el arreglo `$this->patterns` bajo la clave 'id'. El patrón generalmente es una expresión regular diseñada para coincidir con valores enteros positivos.
+     *
+     * @param int|string|null $txt El ID a validar. Puede ser:
+     * - Un entero (por ejemplo, `10`),
+     * - Una cadena (por ejemplo, `'123'`),
+     * - O `null` (lo que no será considerado un ID válido).
+     *
+     * @return bool Devuelve `true` si la entrada `$txt` es un ID válido, es decir, si coincide con el patrón esperado para un entero positivo.
+     * En caso contrario, devuelve `false`.
+     *
+     * @example
+     *  Ejemplo 1: Validación de un ID entero
+     *  ----------------------------------------------------------------------------
+     *  $id = 123;
+     *  $esValido = $this->id($id);
+     *  if ($esValido) {
+     *      echo "El ID es válido.";
+     *  } else {
+     *      echo "ID inválido.";
+     *  }
+     *  // Salida: El ID es válido.
+     *
+     *  Ejemplo 2: Validación de una cadena que representa un ID válido
+     *  ----------------------------------------------------------------------------
+     *  $id = '456';
+     *  $esValido = $this->id($id);
+     *  if ($esValido) {
+     *      echo "El ID es válido.";
+     *  } else {
+     *      echo "ID inválido.";
+     *  }
+     *  // Salida: El ID es válido.
+     *
+     *  Ejemplo 3: Validación de un ID inválido (número negativo)
+     *  ----------------------------------------------------------------------------
+     *  $id = -123;
+     *  $esValido = $this->id($id);
+     *  if ($esValido) {
+     *      echo "El ID es válido.";
+     *  } else {
+     *      echo "ID inválido.";
+     *  }
+     *  // Salida: ID inválido.
+     *
+     *  Ejemplo 4: Validación de una cadena que no representa un ID válido
+     *  ----------------------------------------------------------------------------
+     *  $id = 'abc';
+     *  $esValido = $this->id($id);
+     *  if ($esValido) {
+     *      echo "El ID es válido.";
+     *  } else {
+     *      echo "ID inválido.";
+     *  }
+     *  // Salida: ID inválido.
+     *
+     *  Ejemplo 5: Validación de un ID nulo
+     *  ----------------------------------------------------------------------------
+     *  $id = null;
+     *  $esValido = $this->id($id);
+     *  if ($esValido) {
+     *      echo "El ID es válido.";
+     *  } else {
+     *      echo "ID inválido.";
+     *  }
+     *  // Salida: ID inválido.
      */
-    final public function id(int|string|null $txt):bool{
-        return $this->valida_pattern(key:'id', txt:$txt);
+    final public function id(int|string|null $txt): bool {
+        return $this->valida_pattern(key: 'id', txt: $txt);
     }
+
 
     /**
      * POR DOCUMENTAR EN WIKI FINAL REV
