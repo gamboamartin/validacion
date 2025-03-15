@@ -1159,6 +1159,24 @@ class validacionTest extends test {
 
     }
 
+    public function test_valida_codigos_int_0_n_numbers(): void{
+        errores::$error = false;
+        $val = new validacion();
+        //$val = new liberator($val);
+
+
+        $keys = array();
+        $longitud = 2;
+        $registro = array();
+        $keys[] = 'a';
+        $registro['a'] = '01';
+        $resultado = $val->valida_codigos_int_0_n_numbers($keys,$longitud,$registro);
+        $this->assertIsArray( $resultado);
+        $this->assertNotTrue(errores::$error);
+        errores::$error = false;
+
+    }
+
     public function test_valida_cols_css(): void{
         errores::$error = false;
         $val = new validacion();

@@ -714,12 +714,71 @@ class validacion {
 
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Valida un regex con 0 inicial minimo
-     * @param int $longitud Longitud de cadena con ceros
-     * @param int|string|null $txt Texto a verificar
-     * @return bool|array
-     * @version 2.49.0
+     * REG
+     * Valida que un texto sea un número entero de longitud exacta.
+     *
+     * Esta función verifica si un texto es un número compuesto exclusivamente por dígitos (`0-9`)
+     * y si su longitud coincide con la cantidad de caracteres especificada en `$longitud`.
+     *
+     * ### Funcionamiento:
+     * 1. **Valida que `$longitud` sea mayor a `0`.**
+     * 2. **Elimina espacios en blanco en `$txt` y verifica que no esté vacío.**
+     * 3. **Genera un patrón de validación basado en la longitud requerida.**
+     * 4. **Valida el `$txt` utilizando el patrón generado.**
+     * 5. **Devuelve `true` si el texto cumple el formato, o un error si no es válido.**
+     *
+     * @param int $longitud Número de caracteres que debe tener el número entero.
+     * @param int|string|null $txt Texto a validar, que debe contener únicamente dígitos (`0-9`).
+     *
+     * @return bool|array `true` si el texto cumple el formato esperado o un **array de error** si hay problemas.
+     *
+     * @example **Ejemplo de uso:**
+     * ```php
+     * $validacion = new validacion();
+     * $longitud = 6;
+     * $txt = "123456";
+     *
+     * $resultado = $validacion->cod_int_0_n_numbers(longitud: $longitud, txt: $txt);
+     * print_r($resultado);
+     * ```
+     *
+     * ### **Posibles salidas:**
+     * **Caso 1: Éxito (el texto cumple con el formato)**
+     * ```php
+     * true
+     * ```
+     *
+     * **Caso 2: Error (`longitud` menor o igual a `0`)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error longitud debe ser mayor a 0"
+     *     [data] => 0
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * **Caso 3: Error (`txt` vacío o `null`)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error txt está vacío"
+     *     [data] => ""
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * **Caso 4: Error (`txt` no es un número con la longitud exacta requerida)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error txt no cumple con el patrón definido"
+     *     [data] => "12345"
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * @throws errores Si `$longitud` es menor o igual a `0`, si `$txt` está vacío o si no cumple con el formato requerido.
      */
     final public function cod_int_0_n_numbers(int $longitud, int|string|null $txt): bool|array
     {
@@ -1498,30 +1557,137 @@ class validacion {
     }
 
     /**
-     * Funcion que valida los campos obligatorios para una transaccion
-     * @version 0.13.1
-     * @param array $campos_obligatorios
-     * @param array $registro
-     * @param string $tabla
-     * @return array $this->campos_obligatorios
-     * @example
-     *     $valida_campo_obligatorio = $this->valida_campo_obligatorio();
+     * REG
+     * Valida que los campos obligatorios existan en un registro y que no estén vacíos.
+     *
+     * Esta función revisa que cada campo en `$campos_obligatorios` esté presente en `$registro`,
+     * que no sea un array y que no esté vacío. Si alguna validación falla, retorna un error.
+     *
+     * ### Funcionamiento:
+     * 1. **Recorre cada campo en `$campos_obligatorios`.**
+     * 2. **Verifica que el campo exista en `$registro`.**
+     * 3. **Asegura que el campo no sea un array.**
+     * 4. **Valida que el campo no esté vacío.**
+     * 5. **Devuelve `$campos_obligatorios` si todas las validaciones pasan.**
+     *
+     * @param array $campos_obligatorios Lista de nombres de campos que deben existir y tener valor en `$registro`.
+     * @param array $registro Datos a validar.
+     * @param string $tabla Nombre de la tabla asociada a los datos (usado en los mensajes de error).
+     *
+     * @return array `$campos_obligatorios` si los datos son válidos o un **array de error** si alguna validación falla.
+     *
+     * @example **Ejemplo de uso:**
+     * ```php
+     * $validacion = new validacion();
+     * $campos = ['nombre', 'email'];
+     * $registro = ['nombre' => 'Juan Pérez', 'email' => 'juan@example.com'];
+     * $tabla = "usuarios";
+     *
+     * $resultado = $validacion->valida_campo_obligatorio(
+     *     campos_obligatorios: $campos,
+     *     registro: $registro,
+     *     tabla: $tabla
+     * );
+     * print_r($resultado);
+     * ```
+     *
+     * ### **Posibles salidas:**
+     * **Caso 1: Éxito (todos los campos existen y tienen valor)**
+     * ```php
+     * Array
+     * (
+     *     [0] => "nombre"
+     *     [1] => "email"
+     * )
+     * ```
+     *
+     * **Caso 2: Error (campo faltante en `$registro`)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error el campo 'email' debe existir en el registro de usuarios"
+     *     [data] => Array
+     *         (
+     *             [registro] => Array
+     *                 (
+     *                     [nombre] => "Juan Pérez"
+     *                 )
+     *             [campos_obligatorios] => Array
+     *                 (
+     *                     [0] => "nombre"
+     *                     [1] => "email"
+     *                 )
+     *         )
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * **Caso 3: Error (campo es un array en lugar de un string)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error el campo 'nombre' no puede ser un array"
+     *     [data] => Array
+     *         (
+     *             [registro] => Array
+     *                 (
+     *                     [nombre] => Array
+     *                         (
+     *                             [0] => "Juan"
+     *                             [1] => "Pérez"
+     *                         )
+     *                     [email] => "juan@example.com"
+     *                 )
+     *             [campos_obligatorios] => Array
+     *                 (
+     *                     [0] => "nombre"
+     *                     [1] => "email"
+     *                 )
+     *         )
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * **Caso 4: Error (campo está vacío)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error el campo 'email' no puede venir vacío"
+     *     [data] => Array
+     *         (
+     *             [registro] => Array
+     *                 (
+     *                     [nombre] => "Juan Pérez"
+     *                     [email] => ""
+     *                 )
+     *             [campos_obligatorios] => Array
+     *                 (
+     *                     [0] => "nombre"
+     *                     [1] => "email"
+     *                 )
+     *         )
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * @throws errores Si algún campo no existe en `$registro`, si es un array en lugar de un string o si está vacío.
      */
     final public function valida_campo_obligatorio(array $campos_obligatorios, array $registro, string $tabla):array{
         foreach($campos_obligatorios as $campo_obligatorio){
             $campo_obligatorio = trim($campo_obligatorio);
             if(!array_key_exists($campo_obligatorio,$registro)){
-                return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' debe existir en el registro de '.$tabla,
-                    data: array($registro,$campos_obligatorios));
+                return $this->error->error(
+                    mensaje: 'Error el campo '.$campo_obligatorio.' debe existir en el registro de '.$tabla,
+                    data: array($registro,$campos_obligatorios), es_final: true);
 
             }
             if(is_array($registro[$campo_obligatorio])){
                 return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' no puede ser un array',
-                    data: array($registro,$campos_obligatorios));
+                    data: array($registro,$campos_obligatorios), es_final: true);
             }
             if((string)$registro[$campo_obligatorio] === ''){
                 return $this->error->error(mensaje: 'Error el campo '.$campo_obligatorio.' no puede venir vacio',
-                    data: array($registro,$campos_obligatorios));
+                    data: array($registro,$campos_obligatorios), es_final: true);
             }
         }
 
@@ -2161,13 +2327,67 @@ class validacion {
 
 
     /**
-     * POR DOCUMENTAR EN WIKI FINAL REV
-     * Se integra validacion cd 0 to n number con prefijos 0
-     * @param string $key Key a validar
-     * @param int $longitud Longitud
-     * @param array|stdClass $registro Registro
-     * @return bool|array
-     * @version 5.18.0
+     * REG
+     * Valida que un campo en un registro sea un número entero con la longitud exacta especificada.
+     *
+     * Esta función verifica si el campo identificado por `$key` en `$registro` es un número entero
+     * compuesto exclusivamente por dígitos (`0-9`) y si su longitud coincide con `$longitud`.
+     *
+     * ### Funcionamiento:
+     * 1. **Valida que el campo `$key` exista en `$registro` llamando a `valida_base`.**
+     * 2. **Verifica que el valor del campo cumpla con el formato numérico requerido llamando a `cod_int_0_n_numbers`.**
+     * 3. **Si todas las validaciones pasan, retorna `true`.**
+     * 4. **Si alguna validación falla, devuelve un array de error detallado.**
+     *
+     * @param string $key Nombre del campo dentro de `$registro` que debe validarse.
+     * @param int $longitud Número de caracteres que debe tener el número entero.
+     * @param array|stdClass $registro Datos a validar, donde se espera que `$key` esté presente.
+     *
+     * @return bool|array `true` si el campo es válido o un **array de error** si hay problemas.
+     *
+     * @example **Ejemplo de uso:**
+     * ```php
+     * $validacion = new validacion();
+     * $registro = ['codigo' => 123456];
+     * $longitud = 6;
+     *
+     * $resultado = $validacion->valida_cod_int_0_n_numbers(
+     *     key: 'codigo',
+     *     longitud: $longitud,
+     *     registro: $registro
+     * );
+     * print_r($resultado);
+     * ```
+     *
+     * ### **Posibles salidas:**
+     * **Caso 1: Éxito (el campo cumple con el formato esperado)**
+     * ```php
+     * true
+     * ```
+     *
+     * **Caso 2: Error (`key` no existe en `$registro`)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error al validar codigo"
+     *     [data] => false
+     * )
+     * ```
+     *
+     * **Caso 3: Error (`codigo` no es un número con la longitud exacta requerida)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error el codigo es inválido"
+     *     [data] => Array
+     *         (
+     *             [codigo] => "12345"
+     *         )
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * @throws errores Si `$key` no existe en `$registro`, si el valor no es un número válido o si no cumple con la longitud especificada.
      */
     final public function valida_cod_int_0_n_numbers(string $key, int $longitud, array|stdClass $registro): bool|array{
 
@@ -2547,6 +2767,112 @@ class validacion {
     }
 
 
+    /**
+     * REG
+     * Valida que múltiples campos en un registro sean números enteros con la longitud exacta especificada.
+     *
+     * Esta función verifica si cada campo dentro de `$keys` en `$registro` es un número entero
+     * compuesto exclusivamente por dígitos (`0-9`) y si su longitud coincide con `$longitud`.
+     *
+     * ### Funcionamiento:
+     * 1. **Verifica que `$keys` no esté vacío.**
+     * 2. **Convierte `$registro` en un array si es un objeto.**
+     * 3. **Recorre cada clave en `$keys` y valida:**
+     *    - Que el nombre de la clave no esté vacío.
+     *    - Que la clave exista en `$registro`.
+     *    - Que el valor cumpla con el formato numérico requerido (`valida_cod_int_0_n_numbers`).
+     * 4. **Si todas las validaciones pasan, retorna un array indicando éxito.**
+     * 5. **Si alguna validación falla, devuelve un array de error detallado.**
+     *
+     * @param array $keys Lista de nombres de campos que deben validarse en `$registro`.
+     * @param int $longitud Número de caracteres que deben tener los números enteros.
+     * @param array|object $registro Datos a validar, donde se espera que los `$keys` estén presentes.
+     *
+     * @return array Un array indicando éxito o un **array de error** si alguna validación falla.
+     *
+     * @example **Ejemplo de uso:**
+     * ```php
+     * $validacion = new validacion();
+     * $keys = ['codigo1', 'codigo2'];
+     * $registro = ['codigo1' => 123456, 'codigo2' => 987654];
+     * $longitud = 6;
+     *
+     * $resultado = $validacion->valida_codigos_int_0_n_numbers(
+     *     keys: $keys,
+     *     longitud: $longitud,
+     *     registro: $registro
+     * );
+     * print_r($resultado);
+     * ```
+     *
+     * ### **Posibles salidas:**
+     * **Caso 1: Éxito (todos los campos cumplen con el formato esperado)**
+     * ```php
+     * Array
+     * (
+     *     [mensaje] => "ids validos"
+     *     [registro] => Array
+     *         (
+     *             [codigo1] => 123456
+     *             [codigo2] => 987654
+     *         )
+     *     [keys] => Array
+     *         (
+     *             [0] => "codigo1"
+     *             [1] => "codigo2"
+     *         )
+     * )
+     * ```
+     *
+     * **Caso 2: Error (`keys` está vacío)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error keys vacíos"
+     *     [data] => Array()
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * **Caso 3: Error (campo en `$keys` está vacío)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error  Invalido"
+     *     [data] => Array
+     *         (
+     *             [codigo1] => "123456"
+     *             [codigo2] => "987654"
+     *         )
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * **Caso 4: Error (campo no existe en `$registro`)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error no existe codigo2"
+     *     [data] => Array
+     *         (
+     *             [codigo1] => "123456"
+     *         )
+     *     [es_final] => true
+     * )
+     * ```
+     *
+     * **Caso 5: Error (campo no cumple con el formato numérico requerido)**
+     * ```php
+     * Array
+     * (
+     *     [error] => "Error codigo2 Invalido"
+     *     [data] => false
+     * )
+     * ```
+     *
+     * @throws errores Si `$keys` está vacío, si alguna clave en `$keys` no existe en `$registro`,
+     * si el valor de alguna clave está vacío o si no cumple con el formato requerido.
+     */
     final public function valida_codigos_int_0_n_numbers(array $keys, int $longitud, array|object $registro):array{
         if(count($keys) === 0){
             return $this->error->error(mensaje: "Error keys vacios",data: $keys, es_final: true);
