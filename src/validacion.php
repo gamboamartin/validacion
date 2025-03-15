@@ -798,11 +798,87 @@ class validacion {
     }
 
     /**
+     * REG
+     * Depura y ajusta el nombre de una clase de modelo, asegurando que no esté vacía.
      *
-     * Valida que una clase de tipo modelo sea correcta y la inicializa como models\\tabla
+     * Esta función elimina el prefijo `'models\\'` si está presente y vuelve a agregarlo,
+     * garantizando un formato consistente para los nombres de las clases de modelo.
+     *
+     * ---
+     *
+     * ### **Parámetros:**
+     *
+     * @param string $tabla Nombre de la tabla a procesar.
+     *                      - **Ejemplo válido:** `'models\\clientes'`
+     *                      - **Ejemplo válido:** `'clientes'`
+     *                      - **Ejemplo inválido:** `''` (cadena vacía)
+     *
+     * ---
+     *
+     * ### **Retorno:**
+     *
+     * - **`string`**: Devuelve el nombre de la clase de modelo con el prefijo `'models\\'` correctamente ajustado.
+     * - **`array`**: Si ocurre un error, devuelve un arreglo con detalles del error.
+     *
+     * ---
+     *
+     * ### **Ejemplo de Uso:**
+     *
+     * ```php
+     * $validacion = new validacion();
+     * $resultado = $validacion->class_depurada('models\\productos');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * 'models\\productos'
+     * ```
+     *
+     * ---
+     *
+     * ### **Ejemplo sin prefijo `'models\\'`:**
+     *
+     * ```php
+     * $resultado = $validacion->class_depurada('usuarios');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * 'models\\usuarios'
+     * ```
+     *
+     * ---
+     *
+     * ### **Ejemplo con error (tabla vacía):**
+     *
+     * ```php
+     * $resultado = $validacion->class_depurada('');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * [
+     *     'error' => true,
+     *     'mensaje' => 'Error la tabla no puede venir vacia',
+     *     'data' => ''
+     * ]
+     * ```
+     *
+     * ---
+     *
+     * ### **Manejo de Errores:**
+     *
+     * - Si `$tabla` es una cadena vacía (`''`), devuelve un error con el mensaje `'Error la tabla no puede venir vacia'`.
+     * - Se valida dos veces para evitar valores vacíos después de la limpieza.
+     * - Se utiliza `$this->error->error()` para manejar los errores de manera estructurada.
+     *
+     * ---
+     *
+     * @return string|array Retorna la tabla con el prefijo `'models\\'` o un `array` con error si la validación falla.
      * @version 1.0.0
-     * @param string $tabla Tabla o estructura de la base de datos y modelo
-     * @return string|array clase depurada con models integrado
      */
     private function class_depurada(string $tabla): string|array
     {
@@ -1735,20 +1811,103 @@ class validacion {
     }
 
     /**
-     * Valida si una clase de tipo modelo es valida
+     * REG
+     * Valida que los parámetros `$class` y `$tabla` no estén vacíos.
+     *
+     * Esta función verifica que los valores de `$class` y `$tabla` no sean cadenas vacías,
+     * asegurando que se proporcionen nombres válidos antes de usarlos en procesos posteriores.
+     *
+     * ---
+     *
+     * ### **Parámetros:**
+     *
+     * @param string $class Nombre de la clase a validar.
+     *                      - **Ejemplo válido:** `'models\\Cliente'`
+     *                      - **Ejemplo inválido:** `''` (cadena vacía)
+     *
+     * @param string $tabla Nombre de la tabla asociada a la clase.
+     *                      - **Ejemplo válido:** `'clientes'`
+     *                      - **Ejemplo inválido:** `''` (cadena vacía)
+     *
+     * ---
+     *
+     * ### **Retorno:**
+     *
+     * - **`true`**: Si ambos parámetros son válidos.
+     * - **`array`**: Si alguno de los parámetros está vacío, devuelve un array con un mensaje de error.
+     *
+     * ---
+     *
+     * ### **Ejemplo de Uso:**
+     *
+     * ```php
+     * $validacion = new validacion();
+     * $resultado = $validacion->valida_class('models\\Cliente', 'clientes');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * true
+     * ```
+     *
+     * ---
+     *
+     * ### **Ejemplo con `$class` vacío:**
+     *
+     * ```php
+     * $resultado = $validacion->valida_class('', 'clientes');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * [
+     *     'error' => true,
+     *     'mensaje' => 'Error $class no puede venir vacia',
+     *     'data' => ''
+     * ]
+     * ```
+     *
+     * ---
+     *
+     * ### **Ejemplo con `$tabla` vacía:**
+     *
+     * ```php
+     * $resultado = $validacion->valida_class('models\\Cliente', '');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * [
+     *     'error' => true,
+     *     'mensaje' => 'Error tabla no puede venir vacia',
+     *     'data' => ''
+     * ]
+     * ```
+     *
+     * ---
+     *
+     * ### **Manejo de Errores:**
+     *
+     * - Si `$tabla` es una cadena vacía (`''`), devuelve un error con el mensaje `'Error tabla no puede venir vacia'`.
+     * - Si `$class` es una cadena vacía (`''`), devuelve un error con el mensaje `'Error $class no puede venir vacia'`.
+     * - Se utiliza `$this->error->error()` para manejar los errores de manera estructurada.
+     *
+     * ---
+     *
+     * @return bool|array Retorna `true` si ambos parámetros son válidos, o un `array` con un mensaje de error si falla la validación.
      * @version 1.0.0
-     * @param string $tabla Tabla o estructura de la bd
-     * @param string $class Class o estructura de una bd regularmente la misma que tabla
-     * @return bool|array verdadero si las entradas son validas
      */
     private function valida_class(string $class, string $tabla): bool|array
     {
 
         if($tabla === ''){
-            return $this->error->error(mensaje: 'Error tabla no puede venir vacia',data: $tabla);
+            return $this->error->error(mensaje: 'Error tabla no puede venir vacia',data: $tabla, es_final: true);
         }
         if($class === ''){
-            return $this->error->error(mensaje:'Error $class no puede venir vacia',data: $class);
+            return $this->error->error(mensaje:'Error $class no puede venir vacia',data: $class, es_final: true);
         }
 
         return true;
@@ -3987,10 +4146,75 @@ class validacion {
     }
 
     /**
-     * Se valida que la tabla sea un modelo valido
+     * REG
+     * Valida que la tabla tenga un modelo válido asociado.
+     *
+     * Esta función ajusta el nombre de la clase asociada a la tabla y verifica que sea un valor válido.
+     * Si la validación falla en algún punto, retorna un mensaje de error con los parámetros involucrados.
+     *
+     * ---
+     *
+     * ### **Parámetros:**
+     *
+     * @param string $tabla Nombre de la tabla a validar.
+     *                      - **Ejemplo válido:** `'clientes'`
+     *                      - **Ejemplo inválido:** `''` (cadena vacía)
+     *
+     * ---
+     *
+     * ### **Retorno:**
+     *
+     * - **`true`**: Si el modelo asociado a la tabla es válido.
+     * - **`array`**: Si hay un error en la validación, devuelve un array con el mensaje de error y los parámetros involucrados.
+     *
+     * ---
+     *
+     * ### **Ejemplo de Uso:**
+     *
+     * ```php
+     * $validacion = new validacion();
+     * $resultado = $validacion->valida_modelo('clientes');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * true
+     * ```
+     *
+     * ---
+     *
+     * ### **Ejemplo con `$tabla` vacía:**
+     *
+     * ```php
+     * $resultado = $validacion->valida_modelo('');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * [
+     *     'error' => true,
+     *     'mensaje' => 'Error al ajustar class',
+     *     'data' => '',
+     *     'params' => [
+     *         'tabla' => ''
+     *     ]
+     * ]
+     * ```
+     *
+     * ---
+     *
+     * ### **Manejo de Errores:**
+     *
+     * - Si `$tabla` es una cadena vacía (`''`), la función devolverá un error con el mensaje `'Error al ajustar class'`.
+     * - Si la clase generada no es válida, devolverá un error con el mensaje `'Error al validar <tabla>'`, incluyendo los parámetros de entrada.
+     * - Se usa `$this->error->error()` para estructurar los errores y agregar `params` para facilitar la depuración.
+     *
+     * ---
+     *
+     * @return bool|array Retorna `true` si el modelo es válido, o un `array` con el mensaje de error y los parámetros involucrados.
      * @version 1.0.0
-     * @param string $tabla Tabla o estructura de la base de datos y modelo
-     * @return bool|array verdadero si es correcta la entrada
      */
     final public function valida_modelo(string $tabla): bool|array
     {
@@ -4006,17 +4230,79 @@ class validacion {
     }
 
     /**
-     * Valida que de un modelo exista tu clase
-     * @version 0.5.0
-     * @param string $tabla
-     * @return bool|array
+     * REG
+     * Valida que el nombre de una clase (tabla) no esté vacío.
+     *
+     * Esta función se asegura de que la variable `$tabla` contenga un nombre válido y no sea una cadena vacía.
+     * Si la validación falla, devuelve un error estructurado con un mensaje descriptivo.
+     *
+     * ---
+     *
+     * ### **Parámetros:**
+     *
+     * @param string $tabla Nombre de la tabla a validar.
+     *                      - **Ejemplo válido:** `'clientes'`
+     *                      - **Ejemplo inválido:** `''` (cadena vacía)
+     *
+     * ---
+     *
+     * ### **Retorno:**
+     *
+     * - `true` si la tabla tiene un nombre válido.
+     * - `array` con un mensaje de error si la validación falla.
+     *
+     * ---
+     *
+     * ### **Ejemplo de Uso:**
+     *
+     * ```php
+     * $validacion = new validacion();
+     * $resultado = $validacion->valida_name_clase('productos');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * true
+     * ```
+     *
+     * ---
+     *
+     * ### **Ejemplo con error (tabla vacía):**
+     *
+     * ```php
+     * $validacion = new validacion();
+     * $resultado = $validacion->valida_name_clase('');
+     * print_r($resultado);
+     * ```
+     *
+     * **Salida esperada:**
+     * ```php
+     * [
+     *     'error' => true,
+     *     'mensaje' => 'Error tabla no puede venir vacio',
+     *     'data' => ''
+     * ]
+     * ```
+     *
+     * ---
+     *
+     * ### **Manejo de Errores:**
+     *
+     * - Si `$tabla` es una cadena vacía (`''`), se lanza un error con el mensaje `'Error tabla no puede venir vacio'`.
+     * - El error se maneja a través del sistema de errores definido en la clase.
+     *
+     * ---
+     *
+     * @return bool|array `true` si la tabla es válida, o un `array` con mensaje de error si la validación falla.
+     * @version 1.0.0
      */
     final public function valida_name_clase(string $tabla): bool|array
     {
         $tabla = trim($tabla);
 
         if($tabla === ''){
-            return $this->error->error(mensaje: 'Error tabla no puede venir vacio',data: $tabla);
+            return $this->error->error(mensaje: 'Error tabla no puede venir vacio',data: $tabla, es_final: true);
         }
 
         return true;
